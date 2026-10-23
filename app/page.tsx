@@ -1117,7 +1117,7 @@ export default function Page() {
                 {!query && !searchFocused && (
                   <span
                     aria-hidden="true"
-                    className="pointer-events-none absolute inset-y-0 left-0 flex items-center gap-1 overflow-hidden text-[15px] whitespace-nowrap text-mute/80"
+                    className="pointer-events-none absolute inset-y-0 right-0 left-0 flex items-center gap-1 overflow-hidden text-[15px] whitespace-nowrap text-mute/80 max-[560px]:text-[14px]"
                   >
                     Search
                     <b className="font-semibold text-brand">
@@ -1129,9 +1129,15 @@ export default function Page() {
                 {!query && searchFocused && (
                   <span
                     aria-hidden="true"
-                    className="pointer-events-none absolute inset-y-0 left-0 flex items-center text-[15px] whitespace-nowrap text-mute/60"
+                    className="pointer-events-none absolute inset-y-0 right-0 left-0 flex items-center overflow-hidden text-[15px] text-mute/60 max-[560px]:text-[14px]"
                   >
-                    Type a service, e.g. GST, trademark, FSSAI...
+                    <span className="truncate">
+                      Type a service, e.g. GST
+                      <span className="max-[560px]:hidden">
+                        , trademark, FSSAI
+                      </span>
+                      ...
+                    </span>
                   </span>
                 )}
               </div>
@@ -1206,7 +1212,7 @@ export default function Page() {
             Not sure where to start?
             <a
               href="#contact"
-              className="inline-flex items-center gap-1 font-bold text-brand hover:underline"
+              className="inline-flex items-center gap-1 py-2 font-bold text-brand hover:underline"
             >
               Talk to an expert <ArrowRight size={14} />
             </a>
@@ -1336,7 +1342,7 @@ export default function Page() {
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center gap-1.5 text-[14px] font-bold text-brand hover:underline"
+              className="inline-flex items-center gap-1.5 py-2 text-[14px] font-bold text-brand hover:underline"
             >
               Talk to an expert <ArrowRight size={15} />
             </a>
@@ -1410,7 +1416,7 @@ export default function Page() {
                       </p>
                       <a
                         href="#explorer"
-                        className="mt-[18px] inline-flex items-center gap-[7px] text-[13px] font-extrabold"
+                        className="mt-3 -mb-2 inline-flex items-center gap-[7px] py-2 text-[13px] font-extrabold"
                       >
                         Explore service{" "}
                         <ArrowRight
@@ -1769,7 +1775,7 @@ export default function Page() {
             </button>
             <a
               href="#contact"
-              className="inline-flex items-center gap-1.5 text-[14px] font-bold text-brand hover:underline"
+              className="inline-flex items-center gap-1.5 py-2 text-[14px] font-bold text-brand hover:underline"
             >
               Talk to an expert <ArrowRight size={15} />
             </a>
