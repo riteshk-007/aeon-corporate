@@ -1,0 +1,119 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-border: var(--border);
+  --color-ring: var(--ring);
+}
+
+@theme {
+  --font-sans:
+    var(--font-jakarta), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    sans-serif;
+
+  --color-brand: #1459f2;
+  --color-sun: #f9fa70;
+  --color-ink: #030329;
+  --color-mute: #65708b;
+  --color-pale: #f4f7ff;
+  --color-line: #dce5f5;
+
+  --animate-drift: drift 18s linear infinite;
+  --animate-blob: blob 16s ease-in-out infinite alternate;
+  --animate-progress: progress 4s linear forwards;
+  --animate-blink: blink 1s steps(1) infinite;
+  --animate-marquee-reverse: marquee-reverse 34s linear infinite;
+  --animate-marquee: marquee 28s linear infinite;
+  --animate-modal-in: modal-in 0.22s ease-out both;
+  --animate-card-in: card-in 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+
+  @keyframes drift {
+    from {
+      background-position:
+        0 0,
+        42px 33px;
+    }
+    to {
+      background-position:
+        42px 21px,
+        0 75px;
+    }
+  }
+  @keyframes blob {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(40px, -30px) scale(1.12);
+    }
+    100% {
+      transform: translate(-30px, 35px) scale(0.92);
+    }
+  }
+  @keyframes progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  @keyframes marquee-reverse {
+    from {
+      transform: translateX(-50%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes modal-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes card-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scale(0.96);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+}
+
+:root {
+  color-scheme: light;
+  --background: #fff;
+  --foreground: #030329;
+  --border: #dce5f5;
+}
+
+@layer base {
+  button {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 3px solid var(--color-sun);
+    outline-offset: 3px;
+  }
+}
