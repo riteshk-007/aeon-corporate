@@ -16,14 +16,19 @@
     var(--font-jakarta), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     sans-serif;
 
-  --color-brand: #1459f2;
-  --color-sun: #f9fa70;
-  --color-ink: #030329;
-  --color-mute: #65708b;
-  --color-pale: #f4f7ff;
-  --color-line: #dce5f5;
+  --color-brand: #1b5fd9;
+  --color-sun: #ffd93d;
+  --color-ink: #0b1b4d;
+  --color-mute: #5b6b8c;
+  --color-sky: #cfe5ff;
+  --color-royal: #0a44b8;
+  --color-pale: #eaf3ff;
+  --color-line: #d3e3f7;
 
   --animate-drift: drift 18s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float-slow 9s ease-in-out infinite;
+  --animate-glow: glow 3.6s ease-in-out infinite;
   --animate-blob: blob 16s ease-in-out infinite alternate;
   --animate-progress: progress 4s linear forwards;
   --animate-blink: blink 1s steps(1) infinite;
@@ -42,6 +47,39 @@
       background-position:
         42px 21px,
         0 75px;
+    }
+  }
+  @keyframes float {
+    0%,
+    100% {
+      translate: 0 0;
+    }
+    50% {
+      translate: 0 -10px;
+    }
+  }
+  @keyframes float-slow {
+    0%,
+    100% {
+      scale: 1;
+      translate: 0 0;
+    }
+    50% {
+      scale: 1.025;
+      translate: 0 -5px;
+    }
+  }
+  @keyframes glow {
+    0%,
+    100% {
+      text-shadow:
+        0 0 10px rgba(150, 205, 255, 0.3),
+        0 5px 12px rgba(6, 30, 100, 0.35);
+    }
+    50% {
+      text-shadow:
+        0 0 18px rgba(190, 228, 255, 0.65),
+        0 5px 12px rgba(6, 30, 100, 0.35);
     }
   }
   @keyframes blob {
@@ -104,7 +142,7 @@
 :root {
   color-scheme: light;
   --background: #fff;
-  --foreground: #030329;
+  --foreground: #0b1b4d;
   --border: #dce5f5;
 }
 

@@ -5,35 +5,21 @@ import {
   ArrowRight,
   ArrowUp,
   ArrowUpRight,
-  BadgeCheck,
   BarChart3,
-  Briefcase,
   Check,
   ChevronDown,
   ChevronRight,
-  ClipboardCheck,
-  Cpu,
   Factory,
-  FileCheck2,
-  Globe2,
-  HeartPulse,
-  Landmark,
-  Leaf,
   Mail,
   MapPin,
   Menu,
-  Network,
-  Package,
   Phone,
   Play,
   Quote,
   Search,
-  ShoppingBag,
-  ShieldCheck,
   Sparkles,
   Star,
   X,
-  Zap,
 } from "lucide-react"
 import {
   AnimatePresence,
@@ -203,22 +189,22 @@ const quickServices = [
 ]
 
 const tones = {
-  blue: { card: "bg-brand text-white", icon: "bg-white/[.17]" },
-  navy: { card: "bg-ink text-white", icon: "bg-white/[.17]" },
-  white: { card: "bg-white", icon: "bg-[#d6e3ff] text-brand" },
-  pale: { card: "bg-[#e7efff]", icon: "bg-[#d6e3ff] text-brand" },
-  yellow: { card: "bg-sun", icon: "bg-white/55 text-ink" },
+  blue: { card: "bg-brand text-white", icon: "bg-white" },
+  navy: { card: "bg-ink text-white", icon: "bg-white" },
+  white: { card: "bg-white", icon: "bg-[#eaf3ff]" },
+  pale: { card: "bg-[#dcebff]", icon: "bg-white" },
+  yellow: { card: "bg-sun", icon: "bg-white" },
 } as const
 
 const serviceCards: {
-  icon: typeof Sparkles
+  icon: string
   title: string
   description: string
   tone: keyof typeof tones
   className: string
 }[] = [
   {
-    icon: Sparkles,
+    icon: "rocket",
     title: "Startup Registration",
     description:
       "Company incorporation, LLP setup, startup recognition, and more.",
@@ -226,7 +212,7 @@ const serviceCards: {
     className: "col-span-2 min-[901px]:row-span-2",
   },
   {
-    icon: BarChart3,
+    icon: "tax",
     title: "Tax and Auditing",
     description:
       "GST, income tax, accounting, and recurring compliance support.",
@@ -234,7 +220,7 @@ const serviceCards: {
     className: "",
   },
   {
-    icon: Leaf,
+    icon: "eco",
     title: "Environmental Consultancy",
     description:
       "Practical guidance for permits, waste, and sustainability obligations.",
@@ -242,7 +228,7 @@ const serviceCards: {
     className: "",
   },
   {
-    icon: Network,
+    icon: "advisory",
     title: "Advisory and Consultancy",
     description:
       "Clear advice for contracts, documentation, and business decisions.",
@@ -250,21 +236,21 @@ const serviceCards: {
     className: "col-span-2",
   },
   {
-    icon: ShieldCheck,
+    icon: "shield",
     title: "Regulatory Compliance",
     description: "BIS, CDSCO, ISO, and industry-specific regulatory support.",
     tone: "white",
     className: "",
   },
   {
-    icon: ClipboardCheck,
+    icon: "license",
     title: "Licensing",
     description: "FSSAI, PSARA, trade, factory, and other business licenses.",
     tone: "pale",
     className: "",
   },
   {
-    icon: FileCheck2,
+    icon: "accountant",
     title: "On-Demand CA/CS Services",
     description:
       "Flexible access to accounting and company secretarial expertise.",
@@ -272,7 +258,7 @@ const serviceCards: {
     className: "",
   },
   {
-    icon: Globe2,
+    icon: "templates",
     title: "Business Resources and Templates",
     description: "Templates, guides, and helpful compliance resources.",
     tone: "yellow",
@@ -285,23 +271,20 @@ const articles = [
     title: "How businesses can prepare for their next stage of growth",
     description:
       "Practical considerations for building structured business operations.",
-    image:
-      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=1200&q=85",
+    image: "/illustrations/insight-startup.jpg",
   },
   {
     category: "COMPLIANCE & REGULATION",
     title: "Understanding the importance of proactive compliance",
     description: "How organized processes help businesses stay prepared.",
-    image:
-      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=900&q=85",
+    image: "/illustrations/insight-compliance.jpg",
   },
   {
     category: "SUSTAINABILITY",
     title: "Building environmental responsibility into business strategy",
     description:
       "The role of environmental thinking in modern business planning.",
-    image:
-      "https://images.unsplash.com/photo-1497435334941-8c899ee9e8e9?auto=format&fit=crop&w=900&q=85",
+    image: "/illustrations/insight-sustainability.jpg",
   },
 ]
 const testimonials = [
@@ -328,12 +311,12 @@ const testimonials = [
   },
 ]
 const industries = [
-  { label: "Technology", icon: Cpu },
-  { label: "Manufacturing", icon: Factory },
-  { label: "Retail", icon: ShoppingBag },
-  { label: "Healthcare", icon: HeartPulse },
-  { label: "Professional Services", icon: Briefcase },
-  { label: "Consumer Brands", icon: Package },
+  { label: "Technology", icon: "laptop" },
+  { label: "Manufacturing", icon: "factory" },
+  { label: "Retail", icon: "store" },
+  { label: "Healthcare", icon: "health" },
+  { label: "Professional Services", icon: "briefcase" },
+  { label: "Consumer Brands", icon: "bag" },
 ]
 const processSteps = [
   [
@@ -353,49 +336,49 @@ const processSteps = [
   ],
   ["04", "Get Confirmation on Mail", "Stay informed through every milestone."],
 ]
-const featureIcons = [Zap, Cpu, BadgeCheck, ShieldCheck, Globe2]
+const featureIcons = ["bolt", "chip", "approved", "expert", "network"]
 const featureTones = [
   {
     card: "border-line bg-white",
-    icon: "bg-[#e7efff] text-brand",
+    icon: "bg-white shadow-[0_8px_20px_rgba(11,27,77,.16)]",
     number: "text-brand/[.07]",
     text: "text-mute",
   },
   {
     card: "border-brand bg-brand text-white",
-    icon: "bg-white/20 text-white",
+    icon: "bg-white shadow-[0_8px_20px_rgba(11,27,77,.16)]",
     number: "text-white/10",
     text: "text-white/75",
   },
   {
-    card: "border-line bg-[#e7efff]",
-    icon: "bg-white text-brand",
+    card: "border-line bg-[#dcebff]",
+    icon: "bg-white shadow-[0_8px_20px_rgba(11,27,77,.16)]",
     number: "text-brand/10",
     text: "text-mute",
   },
   {
     card: "border-sun bg-sun",
-    icon: "bg-white/60 text-ink",
+    icon: "bg-white shadow-[0_8px_20px_rgba(11,27,77,.16)]",
     number: "text-ink/10",
     text: "text-ink/70",
   },
   {
     card: "border-ink bg-ink text-white",
-    icon: "bg-white/15 text-sun",
+    icon: "bg-white shadow-[0_8px_20px_rgba(11,27,77,.16)]",
     number: "text-white/10",
     text: "text-white/65",
   },
 ]
 const categoryIcons = [
-  Sparkles,
-  FileCheck2,
-  ClipboardCheck,
-  Landmark,
-  Leaf,
-  BarChart3,
-  ShieldCheck,
+  "company",
+  "government",
+  "license",
+  "bank",
+  "eco",
+  "tax",
+  "trademark",
 ]
-const processIcons = [ClipboardCheck, FileCheck2, ShieldCheck, Mail]
+const processIcons = ["form", "folder", "workflow", "mail"]
 const features = [
   [
     "Quick Responses",
@@ -473,31 +456,31 @@ const navMenus = [
   {
     label: "Startup",
     blurb: "Company, LLP, licences and more",
-    icon: Sparkles,
+    icon: "rocket",
     links: footerColumns[0].slice(1),
   },
   {
     label: "IP & Trademark",
     blurb: "Protect your brand and ideas",
-    icon: ShieldCheck,
+    icon: "trademark",
     links: categoryServices["Intellectual Property"].map((i) => i.title),
   },
   {
     label: "Compliance",
     blurb: "Stay filing-ready all year",
-    icon: ClipboardCheck,
+    icon: "checklist",
     links: footerColumns[1].slice(1),
   },
   {
     label: "Regulatory",
     blurb: "Sector approvals and registrations",
-    icon: FileCheck2,
+    icon: "government",
     links: footerColumns[2].slice(1),
   },
   {
     label: "Environmental",
     blurb: "Permits, waste and sustainability",
-    icon: Leaf,
+    icon: "eco",
     links: footerColumns[3].slice(1),
   },
 ]
@@ -510,70 +493,68 @@ const wrap =
   "mx-auto w-[min(1160px,calc(100%_-_48px))] max-[560px]:w-[min(calc(100%_-_32px),500px)]"
 const btn =
   "inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-[14px] font-bold transition duration-200 hover:-translate-y-0.5 motion-reduce:transition-none"
-const btnBlueFlat = `${btn} bg-brand text-white hover:bg-[#0d46ca]`
-const btnBlue = `${btnBlueFlat} shadow-[0_10px_23px_rgba(20,89,242,.22)]`
+const btnBlueFlat = `${btn} bg-brand text-white hover:bg-[#1450bd]`
+const btnBlue = `${btnBlueFlat} shadow-[0_10px_23px_rgba(27,95,217,.22)]`
 const btnYellow = `${btn} bg-sun text-ink`
 const btnWhite = `${btn} bg-white text-ink`
 const btnOutline = `${btn} border border-[#bfcbe0] bg-white/70 text-ink`
 const floatCard =
-  "absolute flex items-center gap-2.5 rounded-[13px] border border-[rgba(220,229,245,.9)] bg-white/90 px-[15px] py-[13px] shadow-[0_15px_35px_rgba(3,3,41,.14)] backdrop-blur-[12px] max-[560px]:p-[9px]"
-const chipTones = ["bg-[#e7efff]", "bg-sun/70", "bg-[#eef0f6]", "bg-[#d6e3ff]"]
+  "absolute animate-float motion-reduce:animate-none flex items-center gap-2.5 rounded-[13px] border border-[rgba(220,229,245,.9)] bg-white/90 px-[15px] py-[13px] shadow-[0_15px_35px_rgba(11,27,77,.14)] backdrop-blur-[12px] max-[560px]:p-[9px]"
+const chipTones = ["bg-[#dcebff]", "bg-sun/70", "bg-[#eef0f6]", "bg-[#c9defc]"]
 const scrollbarThin =
-  "[scrollbar-width:thin] [scrollbar-color:rgba(20,89,242,.5)_transparent]"
+  "[scrollbar-width:thin] [scrollbar-color:rgba(27,95,217,.5)_transparent]"
 const index = "text-[13px] font-black text-brand"
 
-function Logo({ light = false }: { light?: boolean }) {
+function ColorIcon({
+  name,
+  size = 28,
+  className,
+}: {
+  name: string
+  size?: number
+  className?: string
+}) {
+  return (
+    <img
+      src={`/icons/${name}.svg`}
+      alt=""
+      aria-hidden="true"
+      width={size}
+      height={size}
+      loading="lazy"
+      decoding="async"
+      style={{ width: size, height: size }}
+      className={cn("shrink-0 object-contain", className)}
+    />
+  )
+}
+function Logo({
+  light = false,
+  compact = false,
+}: {
+  light?: boolean
+  compact?: boolean
+}) {
   return (
     <a
       href="#top"
-      className="group inline-flex shrink-0 items-center gap-2.5"
+      className={cn("group inline-flex shrink-0 items-center")}
       aria-label="Aeon Corporate home"
     >
-      <svg
-        viewBox="0 0 40 40"
-        className="size-10 shrink-0 transition-transform duration-300 group-hover:-rotate-6"
-        aria-hidden="true"
-      >
-        <rect width="40" height="40" rx="12" fill="#1459F2" />
-        <path
-          d="M0 14C0 6.3 6.3 0 14 0h12c7.7 0 14 6.3 14 14v2C28 16 14 8 0 22z"
-          fill="#fff"
-          opacity=".12"
-        />
-        <path
-          d="M11.5 29.5 20 10.5l8.5 19"
-          fill="none"
-          stroke="#fff"
-          strokeWidth="3.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M15.4 23.5h9.2"
-          stroke="#F9FA70"
-          strokeWidth="3"
-          strokeLinecap="round"
-        />
-        <circle cx="30.5" cy="10" r="2.6" fill="#F9FA70" />
-      </svg>
-      <span className="flex flex-col leading-none">
-        <span
-          className={cn(
-            "text-[22px] font-black tracking-[-0.03em]",
-            light ? "text-white" : "text-ink",
-          )}
-        >
-          aeon<span className="text-[#4d84ff]">.</span>
-        </span>
-        <span
-          className={cn(
-            "mt-1 text-[13px] font-bold tracking-[.34em] uppercase",
-            light ? "text-white/60" : "text-mute",
-          )}
-        >
-          Corporate
-        </span>
-      </span>
+      <img
+        src="/brand/aeon-logo.png"
+        alt="Aeon — Corporate & Business Advisors"
+        width={600}
+        height={200}
+        className={cn(
+          "w-auto object-contain transition-[height,transform] duration-300 group-hover:scale-[1.03]",
+          light
+            ? "h-14 brightness-0 invert max-[560px]:h-12"
+            : compact
+              ? "h-[38px] max-[560px]:h-[36px]"
+              : "h-[50px] max-[560px]:h-[40px]",
+        )}
+      />
     </a>
   )
 }
@@ -609,7 +590,7 @@ function SectionHeading({
 }) {
   return (
     <div>
-      <Eyebrow>{eyebrow}</Eyebrow>
+      <Eyebrow className={light ? "text-sun" : undefined}>{eyebrow}</Eyebrow>
       <h2
         className={cn(
           "max-w-[680px] text-[clamp(34px,4.5vw,58px)] leading-none font-bold tracking-[-0.04em] max-[560px]:text-[37px]",
@@ -793,20 +774,20 @@ export default function Page() {
         <div
           className={cn(
             wrap,
-            "relative flex items-center justify-between rounded-2xl border border-white/70 bg-white/80 px-3.5 backdrop-blur-xl transition-all duration-300",
+            "relative flex items-center justify-between rounded-2xl border border-white/70 bg-white/80 px-4 backdrop-blur-xl max-[560px]:px-3 transition-all duration-300",
             scrolled
-              ? "h-[58px] shadow-[0_18px_50px_rgba(3,3,41,.14)]"
-              : "h-[70px] shadow-[0_14px_45px_rgba(3,3,41,.08)]",
+              ? "h-[58px] shadow-[0_18px_50px_rgba(11,27,77,.14)]"
+              : "h-[70px] shadow-[0_14px_45px_rgba(11,27,77,.08)]",
             "max-[560px]:h-[56px]",
           )}
         >
-          <Logo />
+          <Logo compact={scrolled} />
           <nav
             aria-label="Main"
             className="mr-3 ml-auto flex items-center gap-0 max-[1024px]:hidden"
             onMouseLeave={() => setHoverNav(null)}
           >
-            {navMenus.map(({ label, blurb, icon: MenuIcon, links }, i) => (
+            {navMenus.map(({ label, blurb, icon, links }, i) => (
               <div
                 key={label}
                 className="group relative"
@@ -820,7 +801,7 @@ export default function Page() {
                   {hoverNav === label && (
                     <motion.span
                       layoutId="nav-pill"
-                      className="absolute inset-0 rounded-lg bg-[#e7efff]"
+                      className="absolute inset-0 rounded-lg bg-[#dcebff]"
                       transition={{
                         type: "spring",
                         stiffness: 380,
@@ -844,10 +825,10 @@ export default function Page() {
                         : "left-1/2 -translate-x-1/2",
                   )}
                 >
-                  <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-[0_28px_70px_rgba(3,3,41,.18)]">
-                    <div className="flex items-center gap-3 border-b border-line bg-[#f8faff] p-4">
-                      <span className="grid size-11 place-items-center rounded-xl bg-brand text-white">
-                        <MenuIcon size={20} />
+                  <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-[0_28px_70px_rgba(11,27,77,.18)]">
+                    <div className="flex items-center gap-3 border-b border-line bg-[#f2f8ff] p-4">
+                      <span className="grid size-14 place-items-center rounded-xl bg-white shadow-[0_6px_16px_rgba(11,27,77,.14)] ring-1 ring-line">
+                        <ColorIcon name={icon} size={38} />
                       </span>
                       <div>
                         <b className="block text-[15px]">{label}</b>
@@ -886,7 +867,7 @@ export default function Page() {
             <a
               href="tel:+910000000000"
               aria-label="Call Aeon Corporate"
-              className="grid size-10 shrink-0 place-items-center rounded-xl border border-line bg-white text-brand transition-colors hover:border-brand hover:bg-[#e7efff] max-[1024px]:hidden"
+              className="grid size-10 shrink-0 place-items-center rounded-xl border border-line bg-white text-brand transition-colors hover:border-brand hover:bg-[#dcebff] max-[1024px]:hidden"
             >
               <Phone size={17} />
             </a>
@@ -912,7 +893,7 @@ export default function Page() {
             aria-hidden="true"
             style={{ scaleX: scrollProgress }}
             className={cn(
-              "absolute inset-x-5 bottom-0 h-[3px] origin-left rounded-full bg-[linear-gradient(90deg,#1459f2,#f9fa70)] transition-opacity duration-300",
+              "absolute inset-x-5 bottom-0 h-[3px] origin-left rounded-full bg-[linear-gradient(90deg,#1b5fd9,#ffd93d)] transition-opacity duration-300",
               scrolled ? "opacity-100" : "opacity-0",
             )}
           />
@@ -933,17 +914,17 @@ export default function Page() {
               <motion.nav
                 key="sheet"
                 aria-label="Mobile"
-                className="mx-auto mt-2 flex max-h-[calc(100dvh-90px)] w-[min(560px,calc(100%_-_32px))] flex-col overflow-y-auto rounded-3xl border border-line bg-white p-3 shadow-[0_28px_70px_rgba(3,3,41,.25)] min-[1025px]:hidden"
+                className="mx-auto mt-2 flex max-h-[calc(100dvh-90px)] w-[min(560px,calc(100%_-_32px))] flex-col overflow-y-auto rounded-3xl border border-line bg-white p-3 shadow-[0_28px_70px_rgba(11,27,77,.25)] min-[1025px]:hidden"
                 initial={{ opacity: 0, y: -14, scale: 0.97 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -10, scale: 0.98 }}
                 transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
               >
-                {navMenus.map(({ label, blurb, icon: MenuIcon, links }) => (
+                {navMenus.map(({ label, blurb, icon, links }) => (
                   <details key={label} className="group border-b border-line">
                     <summary className="flex cursor-pointer list-none items-center gap-3 px-2 py-3.5 [&::-webkit-details-marker]:hidden">
-                      <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-[#e7efff] text-brand transition-colors group-open:bg-brand group-open:text-white">
-                        <MenuIcon size={19} />
+                      <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-white shadow-[0_4px_12px_rgba(11,27,77,.12)] ring-1 ring-line">
+                        <ColorIcon name={icon} size={36} />
                       </span>
                       <span className="min-w-0 flex-1">
                         <b className="block text-[15px]">{label}</b>
@@ -997,12 +978,12 @@ export default function Page() {
         </AnimatePresence>
       </header>
 
-      <section className="relative min-h-[760px] bg-[linear-gradient(120deg,#fff_0%,#f8faff_55%,#edf4ff_100%)] pt-[184px] pb-[100px] max-[900px]:pt-[142px] max-[560px]:min-h-0 max-[560px]:pt-[130px] max-[560px]:pb-[70px]">
-        <div className="absolute inset-0 animate-drift bg-[radial-gradient(circle,rgba(20,89,242,.27)_1px,transparent_1.5px),radial-gradient(circle,rgba(249,250,112,.65)_1px,transparent_1.5px)] [background-position:0_0,42px_33px] [background-size:21px_21px,83px_83px] opacity-65 [mask-image:radial-gradient(ellipse_55%_75%_at_68%_45%,black_0%,transparent_75%)] after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_72%_43%,rgba(20,89,242,.18),transparent_34%)] after:content-[''] motion-reduce:animate-none" />
+      <section className="relative flex min-h-[calc(100svh+50px)] items-center bg-[linear-gradient(135deg,#3b8cf5_0%,#1b5fd9_48%,#0a44b8_100%)] pt-[150px] pb-[150px] max-[900px]:block max-[900px]:min-h-0 max-[900px]:pt-[142px] max-[900px]:pb-[100px] max-[560px]:pt-[130px] max-[560px]:pb-[70px]">
+        <div className="absolute inset-0 animate-drift bg-[radial-gradient(circle,rgba(255,255,255,.42)_1px,transparent_1.5px),radial-gradient(circle,rgba(255,217,61,.75)_1px,transparent_1.5px)] [background-position:0_0,42px_33px] [background-size:21px_21px,83px_83px] opacity-65 [mask-image:radial-gradient(ellipse_55%_75%_at_68%_45%,black_0%,transparent_75%)] after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_72%_43%,rgba(255,255,255,.16),transparent_36%)] after:content-[''] motion-reduce:animate-none" />
         <HeroBackdrop />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-b from-transparent to-white" />
-        <div className="pointer-events-none absolute top-[245px] -right-[100px] h-[280px] w-[600px] -rotate-[20deg] rounded-full border border-brand/[.18]" />
-        <div className="pointer-events-none absolute top-[280px] right-10 h-[190px] w-[450px] rotate-[28deg] rounded-full border border-[rgba(249,180,20,.24)]" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-sky" />
+        <div className="pointer-events-none absolute top-[245px] -right-[100px] h-[280px] w-[600px] -rotate-[20deg] rounded-full border border-white/25" />
+        <div className="pointer-events-none absolute top-[280px] right-10 h-[190px] w-[450px] rotate-[28deg] rounded-full border border-sun/40" />
         <div
           className={cn(
             wrap,
@@ -1010,37 +991,43 @@ export default function Page() {
           )}
         >
           <div>
-            <Eyebrow>CORPORATE SERVICES, REIMAGINED</Eyebrow>
-            <h1 className="max-w-[640px] text-[clamp(44px,5.4vw,78px)] leading-[1.02] font-black tracking-[-0.04em] max-[900px]:text-[clamp(46px,10vw,72px)] max-[560px]:text-[clamp(42px,13vw,60px)]">
+            <Eyebrow className="text-sun">
+              CORPORATE SERVICES, REIMAGINED
+            </Eyebrow>
+            <h1 className="max-w-[640px] text-[clamp(44px,5.4vw,78px)] leading-[1.02] font-black tracking-[-0.04em] text-white animate-glow [paint-order:stroke_fill] [-webkit-text-stroke:0.07em_rgba(6,36,128,.95)] motion-reduce:animate-none max-[900px]:text-[clamp(46px,10vw,72px)] max-[560px]:text-[clamp(42px,13vw,60px)]">
               Your Business.
               <br />
-              <span className="text-brand">Without the</span>{" "}
+              <span className="text-[#e3f0ff]">Without the</span>{" "}
               <HandDrawnFrame
                 inline
                 d={circlePath}
                 strokeWidth={2.5}
                 duration={4}
-                strokeClassName="text-[#e6bd00]"
+                strokeClassName="text-sun"
                 className="inline-block px-4"
                 svgClassName="-inset-x-5 -inset-y-4 h-[calc(100%+2rem)] w-[calc(100%+2.5rem)]"
               >
-                <span className="text-ink">Complexity.</span>
+                <span className="text-white">Complexity.</span>
               </HandDrawnFrame>
             </h1>
           </div>
-          <div className="relative min-h-[465px] max-[900px]:min-h-[390px] max-[560px]:min-h-[310px]">
-            <div className="absolute top-5 right-0 bottom-0 left-[43px] rotate-2 overflow-hidden rounded-[33px] border-[9px] border-white shadow-[0_25px_60px_rgba(3,3,41,.17)] max-[900px]:top-2.5 max-[900px]:right-[18px] max-[900px]:bottom-[15px] max-[900px]:left-0 max-[560px]:rounded-[22px] max-[560px]:border-[5px]">
+          <div className="relative flex items-center justify-center py-6 max-[900px]:py-4">
+            {/* Whole illustration is shown (no cropping); cards sit on the frame edges, never on the subject. */}
+            <div className="relative aspect-[4/3] h-[clamp(300px,52svh,460px)] max-w-full overflow-hidden rounded-[28px] border-[8px] border-white bg-white shadow-[0_30px_70px_rgba(11,27,77,.28)] max-[900px]:h-auto max-[900px]:w-full max-[900px]:max-w-[560px] max-[560px]:rounded-[20px] max-[560px]:border-[5px]">
               <img
-                src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1400&q=85"
-                alt="Professionals collaborating in a modern office"
-                className="size-full object-cover"
+                src="/illustrations/hero.jpg"
+                alt="Illustration of a consultant presenting a compliance dashboard with a shield, calendar and documents"
+                width={1400}
+                height={1031}
+                fetchPriority="high"
+                className="size-full object-contain"
               />
-              <div className="absolute inset-0 bg-[linear-gradient(145deg,rgba(20,89,242,.08),transparent_55%,rgba(3,3,41,.38))]" />
             </div>
+
             <div
               className={cn(
                 floatCard,
-                "top-[39px] -right-2 max-[560px]:top-4 max-[560px]:right-0",
+                "top-0 right-3 max-[560px]:right-0 max-[560px]:-top-1",
               )}
             >
               <span className="size-[9px] shrink-0 rounded-full bg-brand" />
@@ -1048,16 +1035,16 @@ export default function Page() {
                 <small className="block text-[11px] text-mute">
                   Compliance Overview
                 </small>
-                <strong className="mt-1 block text-xs max-[560px]:text-xs">
-                  In Progress
-                </strong>
+                <strong className="mt-1 block text-xs">In Progress</strong>
               </div>
               <BarChart3 size={18} className="ml-2.5 text-brand" />
             </div>
+
             <div
+              style={{ animationDelay: "-2s" }}
               className={cn(
                 floatCard,
-                "bottom-10 left-[5px] max-[560px]:bottom-[18px] max-[560px]:left-0",
+                "bottom-0 left-2 max-[560px]:left-0 max-[560px]:-bottom-1",
               )}
             >
               <span className="size-[9px] shrink-0 rounded-full bg-[#e6bd00]" />
@@ -1065,16 +1052,18 @@ export default function Page() {
                 <small className="block text-[11px] text-mute">
                   Registration
                 </small>
-                <strong className="mt-1 block text-xs max-[560px]:text-xs">
+                <strong className="mt-1 block text-xs">
                   Documents reviewed
                 </strong>
               </div>
               <Check size={18} className="ml-2.5 text-brand" />
             </div>
+
             <div
+              style={{ animationDelay: "-4s" }}
               className={cn(
                 floatCard,
-                "right-[22px] -bottom-[7px] block px-[18px] py-[13px] max-[560px]:right-2 max-[560px]:-bottom-[9px] max-[560px]:p-2.5",
+                "top-[7%] -left-20 block px-[18px] py-[13px] max-[1100px]:-left-8 max-[900px]:hidden",
               )}
             >
               <small className="block text-[11px] text-mute">
@@ -1088,8 +1077,8 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="relative z-[2] -mt-[60px] pb-[100px] max-[560px]:-mt-[40px] max-[560px]:pb-[70px]">
-        <div className="mx-auto w-[min(1080px,calc(100%_-_48px))] rounded-[28px] border border-line bg-white p-8 shadow-[0_30px_80px_rgba(3,3,41,.12)] max-[560px]:w-[calc(100%_-_32px)] max-[560px]:rounded-[22px] max-[560px]:p-5">
+      <section className="relative z-[2] -mt-[60px] bg-[linear-gradient(to_bottom,transparent_60px,#cfe5ff_60px)] pb-[100px] max-[560px]:-mt-[40px] max-[560px]:bg-[linear-gradient(to_bottom,transparent_40px,#cfe5ff_40px)] max-[560px]:pb-[70px]">
+        <div className="mx-auto w-[min(1080px,calc(100%_-_48px))] rounded-[28px] border border-line bg-white p-8 shadow-[0_30px_80px_rgba(11,27,77,.12)] max-[560px]:w-[calc(100%_-_32px)] max-[560px]:rounded-[22px] max-[560px]:p-5">
           <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
             <div>
               <Eyebrow className="mb-2.5">FIND YOUR NEXT STEP</Eyebrow>
@@ -1102,7 +1091,7 @@ export default function Page() {
             </p>
           </div>
 
-          <div className="mt-6 flex items-center gap-2 rounded-2xl border border-line bg-[#f8faff] p-2 transition focus-within:border-brand focus-within:bg-white focus-within:shadow-[0_0_0_4px_rgba(20,89,242,.12)] max-[560px]:flex-col max-[560px]:items-stretch">
+          <div className="mt-6 flex items-center gap-2 rounded-2xl border border-line bg-[#f2f8ff] p-2 transition focus-within:border-brand focus-within:bg-white focus-within:shadow-[0_0_0_4px_rgba(27,95,217,.12)] max-[560px]:flex-col max-[560px]:items-stretch">
             <div className="flex h-12 flex-1 items-center gap-3 px-3.5 text-mute">
               <Search size={20} className="shrink-0" />
               <div className="relative min-w-0 flex-1">
@@ -1177,7 +1166,7 @@ export default function Page() {
                 key={item}
                 onClick={() => setQuery(item)}
                 className={cn(
-                  "rounded-xl px-4 py-2.5 text-[13px] font-semibold text-ink transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(3,3,41,.1)] motion-reduce:transition-none",
+                  "rounded-xl px-4 py-2.5 text-[13px] font-semibold text-ink transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(11,27,77,.1)] motion-reduce:transition-none",
                   chipTones[i % chipTones.length],
                 )}
               >
@@ -1224,34 +1213,35 @@ export default function Page() {
         id="about"
         className={cn(
           wrap,
-          "grid grid-cols-[1fr_1.05fr] items-center gap-[72px] pb-[120px] max-[1024px]:gap-12 max-[900px]:grid-cols-1 max-[560px]:pb-20",
+          "grid grid-cols-[1fr_1.05fr] items-center gap-[72px] py-[110px] max-[1024px]:gap-12 max-[900px]:grid-cols-1 max-[560px]:py-16",
         )}
       >
         <div className="relative mx-auto min-h-[560px] w-full max-w-[560px] max-[900px]:min-h-[480px] max-[560px]:min-h-[380px]">
           <div
             aria-hidden="true"
-            className="absolute -top-5 -left-5 size-44 bg-[radial-gradient(circle,rgba(20,89,242,.45)_1.6px,transparent_2.2px)] [background-size:16px_16px] max-[560px]:size-28"
+            className="absolute -top-5 -left-5 size-44 bg-[radial-gradient(circle,rgba(27,95,217,.45)_1.6px,transparent_2.2px)] [background-size:16px_16px] max-[560px]:size-28"
           />
           <div
             aria-hidden="true"
             className="absolute -bottom-6 left-6 size-40 rounded-full border border-brand/25 max-[560px]:size-24"
           />
-          <div className="absolute top-0 right-10 bottom-14 left-0 overflow-hidden rounded-[32px_32px_32px_110px] shadow-[0_30px_70px_rgba(3,3,41,.16)] max-[560px]:right-6 max-[560px]:bottom-10 max-[560px]:rounded-[24px_24px_24px_70px]">
+          <div className="absolute top-0 right-10 bottom-14 left-0 overflow-hidden rounded-[32px_32px_32px_110px] shadow-[0_30px_70px_rgba(11,27,77,.16)] max-[560px]:right-6 max-[560px]:bottom-10 max-[560px]:rounded-[24px_24px_24px_70px]">
             <img
-              src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=85"
-              alt="Consultants in a modern office meeting"
-              className="size-full object-cover"
-            />
-            <div className="absolute inset-0 bg-[linear-gradient(160deg,transparent_55%,rgba(3,3,41,.35))]" />
-          </div>
-          <div className="absolute right-0 bottom-0 h-[210px] w-[44%] overflow-hidden rounded-[22px] border-[6px] border-white shadow-[0_24px_50px_rgba(3,3,41,.2)] max-[560px]:h-[130px] max-[560px]:border-4">
-            <img
-              src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=700&q=85"
-              alt="Business documentation on a desk"
+              src="/illustrations/about-team.jpg"
+              alt="Illustration of three consultants collaborating over documents and a compliance checklist"
+              loading="lazy"
               className="size-full object-cover"
             />
           </div>
-          <div className="absolute top-8 -left-4 flex items-center gap-3 rounded-2xl bg-sun px-4 py-3 shadow-[0_18px_36px_rgba(3,3,41,.14)] max-[560px]:top-4 max-[560px]:-left-1 max-[560px]:px-3 max-[560px]:py-2.5">
+          <div className="absolute right-0 bottom-0 h-[210px] w-[44%] overflow-hidden rounded-[22px] border-[6px] border-white shadow-[0_24px_50px_rgba(11,27,77,.2)] max-[560px]:h-[130px] max-[560px]:border-4">
+            <img
+              src="/illustrations/about-documents.jpg"
+              alt="Illustration of a signed document with a seal, pen and magnifying glass"
+              loading="lazy"
+              className="size-full animate-float object-cover"
+            />
+          </div>
+          <div className="absolute top-8 -left-4 flex items-center gap-3 rounded-2xl bg-sun px-4 py-3 shadow-[0_18px_36px_rgba(11,27,77,.14)] max-[560px]:top-4 max-[560px]:-left-1 max-[560px]:px-3 max-[560px]:py-2.5">
             <strong className="text-[32px] leading-none font-extrabold max-[560px]:text-2xl">
               7
             </strong>
@@ -1261,7 +1251,7 @@ export default function Page() {
               under one roof
             </span>
           </div>
-          <div className="absolute bottom-24 -left-3 hidden items-center gap-2.5 rounded-2xl border border-line bg-white/95 px-3.5 py-3 shadow-[0_18px_36px_rgba(3,3,41,.14)] backdrop-blur min-[561px]:flex">
+          <div className="absolute bottom-24 -left-3 hidden items-center gap-2.5 rounded-2xl border border-line bg-white/95 px-3.5 py-3 shadow-[0_18px_36px_rgba(11,27,77,.14)] backdrop-blur min-[561px]:flex">
             <span className="grid size-8 place-items-center rounded-full bg-brand text-white">
               <Check size={16} />
             </span>
@@ -1278,7 +1268,7 @@ export default function Page() {
           <Eyebrow>ABOUT AEON CORPORATE</Eyebrow>
           <h2 className="max-w-[560px] text-[clamp(30px,3.7vw,48px)] leading-[1.06] font-extrabold tracking-[-0.035em]">
             More Than Compliance. A{" "}
-            <span className="bg-[linear-gradient(transparent_62%,#f9fa70_62%)] px-1">
+            <span className="bg-[linear-gradient(transparent_62%,#ffd93d_62%)] px-1">
               Partner
             </span>{" "}
             in Your Growth.
@@ -1297,29 +1287,28 @@ export default function Page() {
           <div className="mt-7 grid gap-3">
             {[
               [
-                ClipboardCheck,
+                "target",
                 "Business-Focused Solutions",
                 "Guidance shaped around your stage, industry, and goals.",
               ],
               [
-                ShieldCheck,
+                "expert",
                 "Expert-Led Guidance",
                 "Experienced professionals who explain every requirement clearly.",
               ],
               [
-                Network,
+                "steps",
                 "Simplified Processes",
                 "Organized documentation and clear next steps, start to finish.",
               ],
             ].map(([Icon, title, description]) => {
-              const FeatureIcon = Icon as typeof Sparkles
               return (
                 <div
                   key={title as string}
-                  className="group flex items-center gap-4 rounded-2xl border border-line bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_14px_30px_rgba(20,89,242,.1)] motion-reduce:transition-none"
+                  className="group flex items-center gap-4 rounded-2xl border border-line bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_14px_30px_rgba(27,95,217,.1)] motion-reduce:transition-none"
                 >
-                  <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-[#e7efff] text-brand transition-colors group-hover:bg-brand group-hover:text-white">
-                    <FeatureIcon size={22} />
+                  <span className="grid size-14 shrink-0 place-items-center rounded-xl bg-[#eaf3ff] transition-transform duration-200 group-hover:scale-105">
+                    <ColorIcon name={Icon as string} size={44} />
                   </span>
                   <div className="min-w-0">
                     <b className="block text-[15px]">{title as string}</b>
@@ -1350,7 +1339,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="services" className="bg-pale py-28 max-[560px]:py-20">
+      <section id="services" className="bg-sky py-28 max-[560px]:py-20">
         <div className={wrap}>
           <SectionHeading
             eyebrow="OUR SERVICES"
@@ -1359,13 +1348,13 @@ export default function Page() {
           />
           <div className="mt-12 grid auto-rows-[minmax(200px,auto)] grid-cols-4 gap-4 max-[900px]:grid-cols-2 max-[560px]:mt-8 max-[560px]:flex max-[560px]:flex-col">
             {serviceCards.map(
-              ({ icon: Icon, title, description, tone, className }, index) => {
+              ({ icon, title, description, tone, className }, index) => {
                 const featured = index === 0
                 return (
                   <article
                     key={title}
                     className={cn(
-                      "group relative flex min-h-[200px] flex-col justify-between overflow-hidden rounded-[22px] border border-line p-[26px] transition duration-[250ms] hover:-translate-y-[5px] hover:shadow-[0_18px_35px_rgba(20,89,242,.12)] motion-reduce:transition-none max-[560px]:min-h-[185px]",
+                      "group relative flex min-h-[200px] flex-col justify-between overflow-hidden rounded-[22px] border border-line p-[26px] transition duration-[250ms] hover:-translate-y-[5px] hover:shadow-[0_18px_35px_rgba(27,95,217,.12)] motion-reduce:transition-none max-[560px]:min-h-[185px]",
                       tones[tone].card,
                       className,
                     )}
@@ -1389,11 +1378,12 @@ export default function Page() {
                     <div
                       className={cn(
                         "relative grid place-items-center rounded-xl",
-                        featured ? "size-14" : "size-[44px]",
+                        featured ? "size-[92px] rounded-3xl" : "size-[64px]",
+                        "shadow-[0_8px_20px_rgba(11,27,77,.16)]",
                         tones[tone].icon,
                       )}
                     >
-                      <Icon size={featured ? 26 : 21} />
+                      <ColorIcon name={icon} size={featured ? 66 : 48} />
                     </div>
                     <div className="relative">
                       <h3
@@ -1433,7 +1423,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="bg-ink [background:radial-gradient(circle_at_78%_45%,rgba(20,89,242,.35),transparent_35%),#030329] py-14 text-white max-[560px]:py-16">
+      <section className="bg-royal [background:radial-gradient(circle_at_78%_45%,rgba(255,217,61,.16),transparent_36%),linear-gradient(135deg,#0a44b8,#0b3590)] py-14 text-white max-[560px]:py-16">
         <div
           className={cn(
             wrap,
@@ -1464,7 +1454,7 @@ export default function Page() {
       >
         <div
           aria-hidden="true"
-          className="absolute -top-10 -right-10 size-80 bg-[radial-gradient(circle,rgba(20,89,242,.3)_1.6px,transparent_2.2px)] [background-size:18px_18px] [mask-image:radial-gradient(circle,black,transparent_70%)]"
+          className="absolute -top-10 -right-10 size-80 bg-[radial-gradient(circle,rgba(27,95,217,.3)_1.6px,transparent_2.2px)] [background-size:18px_18px] [mask-image:radial-gradient(circle,black,transparent_70%)]"
         />
         <div className={cn(wrap, "relative")}>
           <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
@@ -1485,14 +1475,14 @@ export default function Page() {
             />
             <motion.div
               aria-hidden="true"
-              className="absolute top-[27px] right-[27px] left-[27px] h-0.5 origin-left rounded-full bg-[linear-gradient(90deg,#1459f2,#f9fa70)] max-[900px]:hidden"
+              className="absolute top-[27px] right-[27px] left-[27px] h-0.5 origin-left rounded-full bg-[linear-gradient(90deg,#1b5fd9,#ffd93d)] max-[900px]:hidden"
               initial={reduceMotion ? false : { scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true, amount: 0.6 }}
               transition={{ duration: 1.8, ease: "easeInOut" }}
             />
             {processSteps.map(([num, title, description], i) => {
-              const StepIcon = processIcons[i]
+              const stepIcon = processIcons[i]
               return (
                 <motion.li
                   key={num}
@@ -1504,13 +1494,13 @@ export default function Page() {
                 >
                   <span
                     className={cn(
-                      "relative z-10 grid size-14 place-items-center rounded-full border-4 border-pale shadow-[0_10px_24px_rgba(20,89,242,.22)]",
-                      i % 2 === 1 ? "bg-sun text-ink" : "bg-brand text-white",
+                      "relative z-10 grid size-16 place-items-center rounded-full border-4 bg-white shadow-[0_10px_24px_rgba(27,95,217,.22)]",
+                      i % 2 === 1 ? "border-sun" : "border-brand",
                     )}
                   >
-                    <StepIcon size={22} />
+                    <ColorIcon name={stepIcon} size={42} />
                   </span>
-                  <div className="group relative mt-5 overflow-hidden rounded-[24px] border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(20,89,242,.12)] motion-reduce:transition-none">
+                  <div className="group relative mt-5 overflow-hidden rounded-[24px] border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(27,95,217,.12)] motion-reduce:transition-none">
                     <span
                       aria-hidden="true"
                       className="absolute -top-3 right-3 text-[84px] leading-none font-black tracking-[-0.06em] text-brand/[.07] transition-colors duration-300 group-hover:text-brand/[.14]"
@@ -1528,7 +1518,7 @@ export default function Page() {
                     </p>
                     <span
                       aria-hidden="true"
-                      className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-[linear-gradient(90deg,#1459f2,#f9fa70)] transition-transform duration-300 group-hover:scale-x-100"
+                      className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-[linear-gradient(90deg,#1b5fd9,#ffd93d)] transition-transform duration-300 group-hover:scale-x-100"
                     />
                   </div>
                 </motion.li>
@@ -1541,7 +1531,7 @@ export default function Page() {
       <section
         id="explorer"
         ref={explorerRef}
-        className="relative overflow-hidden bg-ink [background:radial-gradient(circle_at_80%_20%,rgba(20,89,242,.3),transparent_32%),radial-gradient(circle_at_8%_90%,rgba(249,250,112,.08),transparent_30%),#030329] py-[110px] text-white max-[560px]:py-16"
+        className="relative overflow-hidden bg-ink [background:radial-gradient(circle_at_80%_20%,rgba(27,95,217,.3),transparent_32%),radial-gradient(circle_at_8%_90%,rgba(255,217,61,.08),transparent_30%),#0b1b4d] py-[110px] text-white max-[560px]:py-16"
       >
         <div
           aria-hidden="true"
@@ -1579,7 +1569,7 @@ export default function Page() {
             >
               {categories.map((category, i) => {
                 const active = activeCategory === category
-                const CategoryIcon = categoryIcons[i]
+                const categoryIcon = categoryIcons[i]
                 return (
                   <button
                     key={category}
@@ -1596,7 +1586,7 @@ export default function Page() {
                     {active && (
                       <motion.span
                         layoutId="explorer-active"
-                        className="absolute inset-0 rounded-[inherit] bg-brand shadow-[0_14px_30px_rgba(20,89,242,.4)]"
+                        className="absolute inset-0 rounded-[inherit] bg-brand shadow-[0_14px_30px_rgba(27,95,217,.4)]"
                         transition={{
                           type: "spring",
                           stiffness: 340,
@@ -1606,11 +1596,11 @@ export default function Page() {
                     )}
                     <span
                       className={cn(
-                        "relative grid size-9 shrink-0 place-items-center rounded-xl transition-colors duration-300 max-[900px]:hidden",
-                        active ? "bg-white/20 text-sun" : "bg-white/[.07]",
+                        "relative grid size-10 shrink-0 place-items-center rounded-xl transition-colors duration-300 max-[900px]:hidden",
+                        "bg-white shadow-[0_4px_12px_rgba(0,0,0,.18)]",
                       )}
                     >
-                      <CategoryIcon size={18} />
+                      <ColorIcon name={categoryIcon} size={34} />
                     </span>
                     <span className="relative flex-1">{category}</span>
                     <ChevronRight
@@ -1689,7 +1679,7 @@ export default function Page() {
                           duration: 0.4,
                           ease: [0.22, 1, 0.36, 1],
                         }}
-                        className="group relative flex min-h-[150px] flex-col justify-between overflow-hidden rounded-[20px] border border-white/[.12] bg-white/[.06] p-5 transition duration-300 hover:-translate-y-1 hover:border-brand hover:bg-white/10 hover:shadow-[0_20px_40px_rgba(20,89,242,.25)] motion-reduce:transition-none max-[560px]:min-h-0 max-[560px]:gap-3"
+                        className="group relative flex min-h-[150px] flex-col justify-between overflow-hidden rounded-[20px] border border-white/[.12] bg-white/[.06] p-5 transition duration-300 hover:-translate-y-1 hover:border-brand hover:bg-white/10 hover:shadow-[0_20px_40px_rgba(27,95,217,.25)] motion-reduce:transition-none max-[560px]:min-h-0 max-[560px]:gap-3"
                       >
                         <div className="flex items-start justify-between gap-3">
                           <span className="grid size-10 place-items-center rounded-xl bg-brand text-[13px] font-extrabold text-white">
@@ -1728,7 +1718,7 @@ export default function Page() {
           <Eyebrow>WHO WE ARE</Eyebrow>
           <h2 className="text-[clamp(30px,3.9vw,50px)] leading-[1.06] font-extrabold tracking-[-0.035em]">
             Clarity in Complexity.{" "}
-            <span className="bg-[linear-gradient(transparent_62%,#f9fa70_62%)] px-1">
+            <span className="bg-[linear-gradient(transparent_62%,#ffd93d_62%)] px-1">
               Confidence
             </span>{" "}
             in Every Decision.
@@ -1756,7 +1746,7 @@ export default function Page() {
               ],
             ].map(([title, description]) => (
               <li key={title} className="flex items-start gap-3.5">
-                <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-brand text-white shadow-[0_6px_14px_rgba(20,89,242,.3)]">
+                <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-brand text-white shadow-[0_6px_14px_rgba(27,95,217,.3)]">
                   <Check size={15} />
                 </span>
                 <span>
@@ -1785,19 +1775,20 @@ export default function Page() {
         <div className="relative max-[900px]:order-1">
           <div
             aria-hidden="true"
-            className="absolute -top-5 -right-5 size-40 bg-[radial-gradient(circle,rgba(20,89,242,.45)_1.6px,transparent_2.2px)] [background-size:16px_16px] max-[560px]:size-24"
+            className="absolute -top-5 -right-5 size-40 bg-[radial-gradient(circle,rgba(27,95,217,.45)_1.6px,transparent_2.2px)] [background-size:16px_16px] max-[560px]:size-24"
           />
           <div
             aria-hidden="true"
             className="absolute -bottom-5 -left-5 size-44 rounded-[32px] bg-sun max-[560px]:size-28 max-[560px]:rounded-3xl"
           />
-          <div className="relative min-h-[460px] overflow-hidden rounded-[32px] shadow-[0_30px_70px_rgba(3,3,41,.2)] max-[900px]:min-h-[380px] max-[560px]:min-h-[300px] max-[560px]:rounded-[24px]">
+          <div className="relative min-h-[460px] overflow-hidden rounded-[32px] shadow-[0_30px_70px_rgba(11,27,77,.2)] max-[900px]:min-h-[380px] max-[560px]:min-h-[300px] max-[560px]:rounded-[24px]">
             <img
-              src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1800&q=85"
-              alt="Professionals collaborating in a bright workplace"
+              src="/illustrations/story-process.jpg"
+              alt="Illustration of a team presenting a step-by-step process on a board"
+              loading="lazy"
               className="absolute inset-0 size-full object-cover"
             />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,3,41,.15),rgba(3,3,41,.55))]" />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_55%,rgba(11,27,77,.35))]" />
             <button
               onClick={() => setVideoOpen(true)}
               aria-label="Open brand story"
@@ -1830,7 +1821,7 @@ export default function Page() {
           <Eyebrow>THE AEON DIFFERENCE</Eyebrow>
           <h2 className="text-[clamp(30px,3.7vw,48px)] leading-[1.06] font-extrabold tracking-[-0.035em]">
             Better Clarity. Better Decisions.{" "}
-            <span className="bg-[linear-gradient(transparent_62%,#f9fa70_62%)] px-1">
+            <span className="bg-[linear-gradient(transparent_62%,#ffd93d_62%)] px-1">
               Better Business.
             </span>
           </h2>
@@ -1847,13 +1838,13 @@ export default function Page() {
 
         <div className="grid grid-cols-2 gap-4 max-[560px]:grid-cols-1">
           {features.map(([title, description], i) => {
-            const FeatureIcon = featureIcons[i]
+            const featureIcon = featureIcons[i]
             const tone = featureTones[i]
             return (
               <motion.article
                 key={title}
                 className={cn(
-                  "group relative flex min-h-[210px] flex-col justify-between overflow-hidden rounded-[24px] border p-6 transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_22px_44px_rgba(3,3,41,.14)] motion-reduce:transition-none",
+                  "group relative flex min-h-[210px] flex-col justify-between overflow-hidden rounded-[24px] border p-6 transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_22px_44px_rgba(11,27,77,.14)] motion-reduce:transition-none",
                   tone.card,
                   i === features.length - 1 &&
                     "col-span-2 max-[560px]:col-span-1",
@@ -1874,11 +1865,11 @@ export default function Page() {
                 </span>
                 <span
                   className={cn(
-                    "relative grid size-12 place-items-center rounded-2xl",
+                    "relative grid size-16 place-items-center rounded-2xl",
                     tone.icon,
                   )}
                 >
-                  <FeatureIcon size={22} />
+                  <ColorIcon name={featureIcon} size={46} />
                 </span>
                 <div className="relative mt-8">
                   <h3 className="text-[19px] leading-[1.2] font-bold tracking-[-0.02em]">
@@ -1899,10 +1890,10 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="relative overflow-hidden border-y border-line bg-[linear-gradient(180deg,#f7faff,#ffffff_55%,#f7faff)] py-16 max-[560px]:py-12">
+      <section className="relative overflow-hidden border-y border-line bg-[linear-gradient(180deg,#f2f8ff,#ffffff_55%,#f2f8ff)] py-16 max-[560px]:py-12">
         <div
           aria-hidden="true"
-          className="absolute top-0 left-1/2 h-px w-2/3 -translate-x-1/2 bg-[linear-gradient(90deg,transparent,#1459f2,transparent)] opacity-40"
+          className="absolute top-0 left-1/2 h-px w-2/3 -translate-x-1/2 bg-[linear-gradient(90deg,transparent,#1b5fd9,transparent)] opacity-40"
         />
         <div className={cn(wrap, "text-center")}>
           <Eyebrow className="mb-3 justify-center">
@@ -1910,7 +1901,7 @@ export default function Page() {
           </Eyebrow>
           <h2 className="mx-auto max-w-[620px] text-[clamp(24px,3vw,34px)] leading-[1.15] font-extrabold tracking-[-0.03em]">
             Support for businesses across a{" "}
-            <span className="bg-[linear-gradient(transparent_62%,#f9fa70_62%)] px-1">
+            <span className="bg-[linear-gradient(transparent_62%,#ffd93d_62%)] px-1">
               range of industries
             </span>
             .
@@ -1932,10 +1923,10 @@ export default function Page() {
                       <span
                         key={`${copy}-${label}`}
                         aria-hidden={copy === 1}
-                        className="inline-flex shrink-0 items-center gap-3 rounded-full border border-line bg-white py-2.5 pr-6 pl-2.5 text-[15px] font-bold whitespace-nowrap text-ink shadow-[0_8px_20px_rgba(3,3,41,.05)] transition duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_12px_26px_rgba(20,89,242,.14)] max-[560px]:text-[13px]"
+                        className="inline-flex shrink-0 items-center gap-3 rounded-full border border-line bg-white py-2.5 pr-6 pl-2.5 text-[15px] font-bold whitespace-nowrap text-ink shadow-[0_8px_20px_rgba(11,27,77,.05)] transition duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_12px_26px_rgba(27,95,217,.14)] max-[560px]:text-[13px]"
                       >
-                        <span className="grid size-9 place-items-center rounded-full bg-[#e7efff] text-brand max-[560px]:size-8">
-                          <IndustryIcon size={17} />
+                        <span className="grid size-11 place-items-center rounded-full bg-[#eaf3ff] max-[560px]:size-9">
+                          <ColorIcon name={IndustryIcon} size={34} />
                         </span>
                         {label}
                       </span>
@@ -1958,7 +1949,7 @@ export default function Page() {
             title="Trust Built Through Better Experiences."
             description="Sample reviews shown for presentation until verified customer feedback is supplied."
           />
-          <span className="inline-flex items-center gap-2 rounded-full border border-line bg-[#f8faff] px-4 py-2 text-xs font-bold text-mute">
+          <span className="inline-flex items-center gap-2 rounded-full border border-line bg-[#f2f8ff] px-4 py-2 text-xs font-bold text-mute">
             <i className="size-2 rounded-full bg-sun ring-2 ring-[#e6bd00]/40" />
             Sample content for presentation
           </span>
@@ -2057,7 +2048,7 @@ export default function Page() {
                   className={cn(
                     "relative overflow-hidden rounded-[20px] border p-5 text-left transition duration-300 motion-reduce:transition-none",
                     active
-                      ? "border-brand bg-white shadow-[0_18px_40px_rgba(20,89,242,.14)]"
+                      ? "border-brand bg-white shadow-[0_18px_40px_rgba(27,95,217,.14)]"
                       : "border-line bg-white/60 hover:border-brand/40 hover:bg-white",
                   )}
                 >
@@ -2067,7 +2058,7 @@ export default function Page() {
                         "grid size-11 shrink-0 place-items-center rounded-full text-xs font-black transition-colors duration-300",
                         active
                           ? "bg-brand text-white"
-                          : "bg-[#e7efff] text-brand",
+                          : "bg-[#dcebff] text-brand",
                       )}
                     >
                       {item.initials}
@@ -2093,7 +2084,7 @@ export default function Page() {
                             ? "paused"
                             : "running",
                       }}
-                      className="absolute inset-x-0 bottom-0 h-1 origin-left animate-progress bg-[linear-gradient(90deg,#1459f2,#f9fa70)] motion-reduce:animate-none"
+                      className="absolute inset-x-0 bottom-0 h-1 origin-left animate-progress bg-[linear-gradient(90deg,#1b5fd9,#ffd93d)] motion-reduce:animate-none"
                     />
                   )}
                 </button>
@@ -2103,7 +2094,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="bg-pale py-[110px] max-[560px]:py-20">
+      <section className="bg-sky py-[110px] max-[560px]:py-20">
         <div className={wrap}>
           <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
             <SectionHeading
@@ -2127,7 +2118,7 @@ export default function Page() {
                   key={article.title}
                   href="#contact"
                   className={cn(
-                    "group relative overflow-hidden rounded-[26px] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_26px_54px_rgba(3,3,41,.16)] motion-reduce:transition-none max-[560px]:rounded-[20px]",
+                    "group relative overflow-hidden rounded-[26px] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_26px_54px_rgba(11,27,77,.16)] motion-reduce:transition-none max-[560px]:rounded-[20px]",
                     featured
                       ? "row-span-2 flex min-h-[520px] flex-col justify-end max-[900px]:row-span-1 max-[900px]:min-h-[440px]"
                       : "flex min-h-[250px] border border-line bg-white max-[560px]:flex-col",
@@ -2145,7 +2136,7 @@ export default function Page() {
                         loading="lazy"
                         className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none"
                       />
-                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(3,3,41,.05)_30%,rgba(3,3,41,.88)_100%)]" />
+                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,27,77,.05)_30%,rgba(11,27,77,.88)_100%)]" />
                       <div className="relative p-8 text-white max-[560px]:p-5">
                         <span className="inline-block rounded-full bg-sun px-3 py-1.5 text-[11px] font-black tracking-[.12em] text-ink">
                           {article.category}
@@ -2176,7 +2167,7 @@ export default function Page() {
                       </div>
                       <div className="flex flex-1 flex-col justify-between p-6 max-[560px]:p-5">
                         <div>
-                          <span className="inline-block rounded-full bg-[#e7efff] px-3 py-1.5 text-[11px] font-black tracking-[.1em] text-brand">
+                          <span className="inline-block rounded-full bg-[#dcebff] px-3 py-1.5 text-[11px] font-black tracking-[.1em] text-brand">
                             {article.category}
                           </span>
                           <h3 className="mt-3.5 text-[18px] leading-[1.25] font-bold tracking-[-0.02em]">
@@ -2188,7 +2179,7 @@ export default function Page() {
                         </div>
                         <span className="mt-5 inline-flex items-center gap-2.5 text-[13px] font-bold text-brand">
                           Read article
-                          <span className="grid size-8 place-items-center rounded-full bg-[#e7efff] transition group-hover:bg-brand group-hover:text-white">
+                          <span className="grid size-8 place-items-center rounded-full bg-[#dcebff] transition group-hover:bg-brand group-hover:text-white">
                             <ArrowUpRight size={15} />
                           </span>
                         </span>
@@ -2204,7 +2195,7 @@ export default function Page() {
 
       <section
         id="contact"
-        className="relative overflow-hidden bg-brand py-[87px] text-white"
+        className="relative overflow-hidden bg-[linear-gradient(135deg,#1b5fd9,#0a44b8)] py-[87px] text-white"
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle,white_1px,transparent_1.5px)] [background-size:21px_21px] opacity-[.33] [mask-image:linear-gradient(90deg,transparent,black,transparent)]" />
         <div
@@ -2268,7 +2259,7 @@ export default function Page() {
               </div>
               <div>
                 <form
-                  className="flex gap-2 rounded-2xl bg-white p-2 shadow-[0_14px_34px_rgba(3,3,41,.14)] max-[560px]:flex-col"
+                  className="flex gap-2 rounded-2xl bg-white p-2 shadow-[0_14px_34px_rgba(11,27,77,.14)] max-[560px]:flex-col"
                   onSubmit={(e) => {
                     e.preventDefault()
                     const form = e.currentTarget
@@ -2429,7 +2420,7 @@ export default function Page() {
       </footer>
 
       <a
-        className="fixed right-[22px] bottom-[22px] z-30 grid size-[43px] place-items-center rounded-full bg-[#27b95a] text-white shadow-[0_8px_18px_rgba(3,3,41,.2)] max-[560px]:right-3.5 max-[560px]:bottom-3.5"
+        className="fixed right-[22px] bottom-[22px] z-30 grid size-[43px] place-items-center rounded-full bg-[#27b95a] text-white shadow-[0_8px_18px_rgba(11,27,77,.2)] max-[560px]:right-3.5 max-[560px]:bottom-3.5"
         href="mailto:hello@aeoncorporate.com"
         aria-label="Email Aeon Corporate"
       >
@@ -2476,7 +2467,7 @@ export default function Page() {
             >
               <X />
             </button>
-            <div className="relative mx-auto mb-[25px] grid size-[68px] place-items-center rounded-full bg-white text-brand shadow-[0_0_0_11px_rgba(20,89,242,.12)]">
+            <div className="relative mx-auto mb-[25px] grid size-[68px] place-items-center rounded-full bg-white text-brand shadow-[0_0_0_11px_rgba(27,95,217,.12)]">
               <Play fill="currentColor" size={19} />
             </div>
             <Eyebrow className="justify-center">THE AEON APPROACH</Eyebrow>

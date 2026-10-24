@@ -92,7 +92,7 @@ export function ComplianceCalendar() {
             rotateZ: 1,
             transformStyle: "preserve-3d",
           }}
-          className="relative rounded-[22px] border border-white/[.16] bg-white/[.09] p-5 shadow-[14px_14px_0_rgba(249,250,112,.12)] backdrop-blur-[12px] max-[560px]:rounded-[18px] max-[560px]:p-4 max-[560px]:shadow-[8px_8px_0_rgba(249,250,112,.12)]"
+          className="relative rounded-[22px] border border-white/[.16] bg-white/[.09] p-5 shadow-[14px_14px_0_rgba(255,217,61,.12)] backdrop-blur-[12px] max-[560px]:rounded-[18px] max-[560px]:p-4 max-[560px]:shadow-[8px_8px_0_rgba(255,217,61,.12)]"
         >
           <motion.div
             aria-hidden="true"
@@ -109,7 +109,7 @@ export function ComplianceCalendar() {
                 October 2026
               </b>
             </div>
-            <span className="rounded-md bg-brand px-2.5 py-1.5 text-xs font-bold">
+            <span className="rounded-md bg-sun px-2.5 py-1.5 text-xs font-extrabold text-ink">
               {tasks.length} tasks
             </span>
           </div>
@@ -144,7 +144,7 @@ export function ComplianceCalendar() {
                       ? "cursor-pointer bg-sun font-black text-ink"
                       : "bg-white/[.06] text-white/80 hover:bg-white/15",
                     isActive &&
-                      "z-10 scale-[1.14] shadow-[0_0_0_3px_rgba(249,250,112,.35),0_10px_28px_rgba(249,250,112,.45)]",
+                      "z-10 scale-[1.14] shadow-[0_0_0_3px_rgba(255,217,61,.35),0_10px_28px_rgba(255,217,61,.45)]",
                   )}
                   onMouseEnter={() => {
                     const index = taskDays.indexOf(day)
@@ -192,7 +192,7 @@ export function ComplianceCalendar() {
                   <i
                     className={cn(
                       "size-2 shrink-0 rounded-full transition-colors duration-300",
-                      isActive ? "bg-sun" : "bg-brand",
+                      isActive ? "bg-sun" : "bg-white/50",
                     )}
                   />
                   <span className="min-w-0 flex-1 truncate">{task.label}</span>
