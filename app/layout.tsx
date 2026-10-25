@@ -2,6 +2,15 @@ import type { Metadata, Viewport } from "next"
 import { Plus_Jakarta_Sans } from "next/font/google"
 import "./globals.css"
 import { ScrollToTop } from "@/components/ui/scroll-to-top"
+import { SiteHeader } from "@/components/site/site-header"
+import { SiteFooter } from "@/components/site/site-footer"
+import {
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_URL,
+  organizationLd,
+  websiteLd,
+} from "@/lib/seo"
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -10,17 +19,42 @@ const jakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "Aeon Corporate — Simplify the Complex",
-  description:
-    "Technology-enabled business registration, compliance, regulatory, tax, IP, and environmental guidance for ambitious companies.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — Simplify the Complex`,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    locale: "en_IN",
+    title: `${SITE_NAME} — Simplify the Complex`,
+    description: SITE_DESCRIPTION,
+    url: "/",
+    images: [
+      {
+        url: "/illustrations/hero.jpg",
+        width: 1400,
+        height: 1032,
+        alt: `${SITE_NAME} — business registration and compliance`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — Simplify the Complex`,
+    description: SITE_DESCRIPTION,
+    images: ["/illustrations/hero.jpg"],
+  },
+  robots: { index: true, follow: true },
 }
 
 export const viewport: Viewport = {
-  colorScheme: "light dark",
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "white" },
-    { media: "(prefers-color-scheme: dark)", color: "black" },
-  ],
+  colorScheme: "light",
+  themeColor: "#1b5fd9",
 }
 
 export default function RootLayout({
@@ -34,8 +68,16 @@ export default function RootLayout({
       className={`scroll-smooth motion-reduce:scroll-auto ${jakarta.variable}`}
     >
       <body className="bg-white font-sans text-ink antialiased selection:bg-sun selection:text-ink">
+        <SiteHeader />
         {children}
+        <SiteFooter />
         <ScrollToTop />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([organizationLd, websiteLd]),
+          }}
+        />
       </body>
     </html>
   )

@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  typescript: {
-    ignoreBuildErrors: true,
-  },
+  // Lets a verification build run in its own folder without touching `pnpm dev`'s cache.
+  distDir: process.env.NEXT_DIST_DIR || ".next",
+  poweredByHeader: false,
   images: {
-    unoptimized: true,
+    formats: ["image/avif", "image/webp"],
   },
 }
 

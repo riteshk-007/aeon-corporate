@@ -1,19 +1,14 @@
 "use client"
 
+import Image from "next/image"
 import { useEffect, useMemo, useRef, useState } from "react"
 import {
   ArrowRight,
-  ArrowUp,
   ArrowUpRight,
   BarChart3,
   Check,
-  ChevronDown,
   ChevronRight,
-  Factory,
   Mail,
-  MapPin,
-  Menu,
-  Phone,
   Play,
   Quote,
   Search,
@@ -21,14 +16,18 @@ import {
   Star,
   X,
 } from "lucide-react"
-import {
-  AnimatePresence,
-  motion,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-} from "framer-motion"
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
 import { cn } from "@/lib/utils"
+import {
+  ColorIcon,
+  Eyebrow,
+  SectionHeading,
+  btnBlue,
+  btnYellow,
+  btnWhite,
+  wrap,
+} from "@/components/site/ui"
+import { categoryServices } from "@/lib/site-data"
 import { ComplianceCalendar } from "@/components/ui/compliance-calendar"
 import { HeroBackdrop } from "@/components/ui/hero-backdrop"
 import { HandDrawnFrame } from "@/components/ui/hand-writing-text"
@@ -42,138 +41,6 @@ const categories = [
   "Tax Filing",
   "Intellectual Property",
 ]
-const categoryServices: Record<
-  string,
-  { title: string; description: string }[]
-> = {
-  "Business Registration": [
-    {
-      title: "Private Limited Company",
-      description:
-        "Build a structured foundation for your next stage of growth.",
-    },
-    {
-      title: "LLP Registration",
-      description: "A flexible, protected structure for modern partnerships.",
-    },
-    {
-      title: "Partnership Firm",
-      description: "Set up your partnership with clear documentation.",
-    },
-    {
-      title: "One Person Company",
-      description: "Turn an independent venture into a formal business.",
-    },
-  ],
-  "Government Registration": [
-    {
-      title: "MSME / Udyam Registration",
-      description: "Unlock a clearer path to government schemes and support.",
-    },
-    {
-      title: "IEC Registration",
-      description: "Prepare your business for international trade.",
-    },
-    {
-      title: "Drone Registration",
-      description: "Organize the documentation for your drone operations.",
-    },
-    {
-      title: "EPF Registration",
-      description: "Create the right foundation for your growing team.",
-    },
-  ],
-  "Government Licenses": [
-    {
-      title: "FSSAI License",
-      description: "Support your food business with the right application.",
-    },
-    {
-      title: "PSARA License",
-      description: "Guidance for private security agency licensing.",
-    },
-    {
-      title: "Trade License",
-      description: "Navigate local business licensing requirements.",
-    },
-    {
-      title: "Factory License",
-      description: "Structure manufacturing permissions with confidence.",
-    },
-  ],
-  "RBI Regulatory": [
-    {
-      title: "RBI Compliance Advisory",
-      description: "Make regulatory requirements easier to understand.",
-    },
-    {
-      title: "NBFC Guidance",
-      description: "Practical support for financial services businesses.",
-    },
-    {
-      title: "FEMA Compliance",
-      description: "Bring clarity to cross-border business obligations.",
-    },
-    {
-      title: "Financial Documentation",
-      description: "Keep critical regulatory paperwork organized.",
-    },
-  ],
-  "Environment Laws": [
-    {
-      title: "Pollution Control Permissions",
-      description: "Prepare the right documents for your operations.",
-    },
-    {
-      title: "E-Waste Management",
-      description: "Build responsible systems for electronic waste.",
-    },
-    {
-      title: "Plastic Waste Management",
-      description: "Move sustainability requirements into action.",
-    },
-    {
-      title: "Environmental Licensing",
-      description: "Understand the permissions relevant to your site.",
-    },
-  ],
-  "Tax Filing": [
-    {
-      title: "GST Registration",
-      description: "Get your tax setup ready for business activity.",
-    },
-    {
-      title: "GST Return Assistance",
-      description: "Keep recurring filing processes structured.",
-    },
-    {
-      title: "Income Tax Support",
-      description: "Prepare and manage key tax responsibilities.",
-    },
-    {
-      title: "TDS Compliance",
-      description: "Make withholding obligations more manageable.",
-    },
-  ],
-  "Intellectual Property": [
-    {
-      title: "Trademark Registration",
-      description: "Protect the identity your business is building.",
-    },
-    {
-      title: "Copyright Registration",
-      description: "Create clearer ownership around original work.",
-    },
-    {
-      title: "Patent Filing Assistance",
-      description: "Organize the journey from idea to application.",
-    },
-    {
-      title: "Design Registration",
-      description: "Support distinctive product and brand design.",
-    },
-  ],
-}
 const quickServices = [
   "Company Registration",
   "GST Registration",
@@ -398,106 +265,10 @@ const features = [
     "One connected partner across your business journey.",
   ],
 ]
-const footerColumns = [
-  [
-    "Startup",
-    "Business Registration",
-    "NGO / Trust Registration",
-    "Global Incorporation",
-    "Industry Setup",
-    "Government Licenses",
-    "Government Registration",
-    "ISO Certifications",
-    "FSSAI and Related Licensing",
-  ],
-  [
-    "Compliance",
-    "Secretarial Services",
-    "Tax Filing / Compliance",
-    "Accounting and CFO",
-    "Contracts and Agreements",
-    "Legal Services",
-    "Business Advisory",
-  ],
-  [
-    "Regulatory",
-    "RBI",
-    "SEBI",
-    "IRDAI",
-    "CDSCO",
-    "BIS",
-    "FEMA",
-    "Legal Metrology",
-    "Telecom",
-  ],
-  [
-    "Environmental",
-    "Pollution Control Permissions",
-    "E-Waste Management",
-    "Plastic Waste Management",
-    "Hazardous Waste Management",
-    "Battery Waste Management",
-    "Environmental Licensing",
-    "Environmental Advisory",
-    "Environmental Compliance",
-  ],
-]
-const footerLinks = [
-  "About Us",
-  "Learning & Resources",
-  "Privacy Policy",
-  "Refund Policy",
-  "Terms & Conditions",
-  "Sitemap",
-  "Contact Us",
-]
-
-const navMenus = [
-  {
-    label: "Startup",
-    blurb: "Company, LLP, licences and more",
-    icon: "rocket",
-    links: footerColumns[0].slice(1),
-  },
-  {
-    label: "IP & Trademark",
-    blurb: "Protect your brand and ideas",
-    icon: "trademark",
-    links: categoryServices["Intellectual Property"].map((i) => i.title),
-  },
-  {
-    label: "Compliance",
-    blurb: "Stay filing-ready all year",
-    icon: "checklist",
-    links: footerColumns[1].slice(1),
-  },
-  {
-    label: "Regulatory",
-    blurb: "Sector approvals and registrations",
-    icon: "government",
-    links: footerColumns[2].slice(1),
-  },
-  {
-    label: "Environmental",
-    blurb: "Permits, waste and sustainability",
-    icon: "eco",
-    links: footerColumns[3].slice(1),
-  },
-]
-
 /* Shared style tokens (Tailwind utilities) */
 const circlePath =
   "M 1090 110 C 1190 330, 950 565, 560 565 C 190 565, 25 430, 45 290 C 65 130, 320 35, 620 35 C 920 35, 1150 150, 1135 300"
 
-const wrap =
-  "mx-auto w-[min(1160px,calc(100%_-_48px))] max-[560px]:w-[min(calc(100%_-_32px),500px)]"
-const btn =
-  "inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-[14px] font-bold transition duration-200 hover:-translate-y-0.5 motion-reduce:transition-none"
-const btnBlueFlat = `${btn} bg-brand text-white hover:bg-[#1450bd]`
-const btnBlue = `${btnBlueFlat} shadow-[0_10px_23px_rgba(27,95,217,.22)]`
-const btnYellow = `${btn} bg-sun text-ink`
-const btnWhite = `${btn} bg-white text-ink`
-const btnOutline = `${btn} border border-[#bfcbe0] bg-white/70 text-ink`
 const floatCard =
   "absolute animate-float motion-reduce:animate-none flex items-center gap-2.5 rounded-[13px] border border-[rgba(220,229,245,.9)] bg-white/90 px-[15px] py-[13px] shadow-[0_15px_35px_rgba(11,27,77,.14)] backdrop-blur-[12px] max-[560px]:p-[9px]"
 const chipTones = ["bg-[#dcebff]", "bg-sun/70", "bg-[#eef0f6]", "bg-[#c9defc]"]
@@ -505,124 +276,8 @@ const scrollbarThin =
   "[scrollbar-width:thin] [scrollbar-color:rgba(27,95,217,.5)_transparent]"
 const index = "text-[13px] font-black text-brand"
 
-function ColorIcon({
-  name,
-  size = 28,
-  className,
-}: {
-  name: string
-  size?: number
-  className?: string
-}) {
-  return (
-    <img
-      src={`/icons/${name}.svg`}
-      alt=""
-      aria-hidden="true"
-      width={size}
-      height={size}
-      loading="lazy"
-      decoding="async"
-      style={{ width: size, height: size }}
-      className={cn("shrink-0 object-contain", className)}
-    />
-  )
-}
-function Logo({
-  light = false,
-  compact = false,
-}: {
-  light?: boolean
-  compact?: boolean
-}) {
-  return (
-    <a
-      href="#top"
-      className={cn("group inline-flex shrink-0 items-center")}
-      aria-label="Aeon Corporate home"
-    >
-      <img
-        src="/brand/aeon-logo.png"
-        alt="Aeon — Corporate & Business Advisors"
-        width={600}
-        height={200}
-        className={cn(
-          "w-auto object-contain transition-[height,transform] duration-300 group-hover:scale-[1.03]",
-          light
-            ? "h-14 brightness-0 invert max-[560px]:h-12"
-            : compact
-              ? "h-[38px] max-[560px]:h-[36px]"
-              : "h-[50px] max-[560px]:h-[40px]",
-        )}
-      />
-    </a>
-  )
-}
-function Eyebrow({
-  children,
-  className,
-}: {
-  children: React.ReactNode
-  className?: string
-}) {
-  return (
-    <p
-      className={cn(
-        "mb-[17px] flex items-center gap-2 text-xs font-black tracking-[0.18em] text-brand",
-        className,
-      )}
-    >
-      <i className="inline-block size-[7px] rounded-full bg-sun" />
-      {children}
-    </p>
-  )
-}
-function SectionHeading({
-  eyebrow,
-  title,
-  description,
-  light = false,
-}: {
-  eyebrow: string
-  title: string
-  description?: string
-  light?: boolean
-}) {
-  return (
-    <div>
-      <Eyebrow className={light ? "text-sun" : undefined}>{eyebrow}</Eyebrow>
-      <h2
-        className={cn(
-          "max-w-[680px] text-[clamp(34px,4.5vw,58px)] leading-none font-bold tracking-[-0.04em] max-[560px]:text-[37px]",
-          light && "text-white",
-        )}
-      >
-        {title}
-      </h2>
-      {description && (
-        <p
-          className={cn(
-            "mt-[19px] max-w-[570px] text-sm leading-[1.75] max-[560px]:text-[15px] max-[560px]:leading-[1.65]",
-            light ? "text-white/60" : "text-mute",
-          )}
-        >
-          {description}
-        </p>
-      )}
-    </div>
-  )
-}
-
 export default function Page() {
   const reduceMotion = useReducedMotion()
-  const { scrollYProgress } = useScroll()
-  const scrollProgress = useSpring(scrollYProgress, {
-    stiffness: 120,
-    damping: 30,
-  })
-  const [hoverNav, setHoverNav] = useState<string | null>(null)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
   const [query, setQuery] = useState("")
   const [activeCategory, setActiveCategory] = useState(categories[0])
   const [testimonial, setTestimonial] = useState(0)
@@ -634,7 +289,6 @@ export default function Page() {
   const [notice, setNotice] = useState("")
   const [searchFocused, setSearchFocused] = useState(false)
   const [typedPlaceholder, setTypedPlaceholder] = useState("")
-  const [newsletterNotice, setNewsletterNotice] = useState("")
   const filteredServices = useMemo(
     () =>
       quickServices.filter((item) =>
@@ -655,7 +309,6 @@ export default function Page() {
       if (event.key === "Escape") {
         setCalendarOpen(false)
         setVideoOpen(false)
-        setMenuOpen(false)
       }
     }
     document.addEventListener("keydown", onKeyDown)
@@ -722,13 +375,6 @@ export default function Page() {
   }, [activeCategory])
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
-    onScroll()
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
-
-  useEffect(() => {
     document.body.style.overflow = calendarOpen || videoOpen ? "hidden" : ""
     return () => {
       document.body.style.overflow = ""
@@ -737,247 +383,6 @@ export default function Page() {
 
   return (
     <main id="top" className="overflow-hidden">
-      <div
-        className={cn(
-          "fixed inset-x-0 top-0 z-40 flex h-9 items-center border-b border-white/10 bg-ink text-xs text-white/75 transition-transform duration-300 max-[1024px]:hidden",
-          scrolled && "-translate-y-full",
-        )}
-      >
-        <div className={cn(wrap, "flex items-center justify-between")}>
-          <span className="flex items-center gap-2">
-            <i className="size-1.5 rounded-full bg-sun" />
-            Technology-enabled corporate guidance for ambitious businesses
-          </span>
-          <span className="flex items-center gap-5">
-            <a
-              href="tel:+910000000000"
-              className="inline-flex items-center gap-1.5 hover:text-sun"
-            >
-              <Phone size={13} /> +91 00000 00000
-            </a>
-            <a
-              href="mailto:hello@aeoncorporate.com"
-              className="inline-flex items-center gap-1.5 hover:text-sun"
-            >
-              <Mail size={13} /> hello@aeoncorporate.com
-            </a>
-          </span>
-        </div>
-      </div>
-
-      <header
-        className={cn(
-          "fixed inset-x-0 z-50 transition-[top] duration-300 max-[1024px]:top-4 max-[560px]:top-2.5",
-          scrolled ? "top-4" : "top-[52px]",
-        )}
-      >
-        <div
-          className={cn(
-            wrap,
-            "relative flex items-center justify-between rounded-2xl border border-white/70 bg-white/80 px-4 backdrop-blur-xl max-[560px]:px-3 transition-all duration-300",
-            scrolled
-              ? "h-[58px] shadow-[0_18px_50px_rgba(11,27,77,.14)]"
-              : "h-[70px] shadow-[0_14px_45px_rgba(11,27,77,.08)]",
-            "max-[560px]:h-[56px]",
-          )}
-        >
-          <Logo compact={scrolled} />
-          <nav
-            aria-label="Main"
-            className="mr-3 ml-auto flex items-center gap-0 max-[1024px]:hidden"
-            onMouseLeave={() => setHoverNav(null)}
-          >
-            {navMenus.map(({ label, blurb, icon, links }, i) => (
-              <div
-                key={label}
-                className="group relative"
-                onMouseEnter={() => setHoverNav(label)}
-                onFocus={() => setHoverNav(label)}
-              >
-                <a
-                  href="#services"
-                  className="relative inline-flex items-center gap-1 rounded-lg px-3 py-2 text-[13px] whitespace-nowrap font-bold text-mute transition-colors duration-200 group-focus-within:text-brand hover:text-brand"
-                >
-                  {hoverNav === label && (
-                    <motion.span
-                      layoutId="nav-pill"
-                      className="absolute inset-0 rounded-lg bg-[#dcebff]"
-                      transition={{
-                        type: "spring",
-                        stiffness: 380,
-                        damping: 32,
-                      }}
-                    />
-                  )}
-                  <span className="relative">{label}</span>
-                  <ChevronDown
-                    size={14}
-                    className="relative transition-transform duration-200 group-focus-within:rotate-180 group-hover:rotate-180"
-                  />
-                </a>
-                <div
-                  className={cn(
-                    "invisible absolute top-full w-[440px] translate-y-2 pt-3 opacity-0 transition duration-200 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100",
-                    i <= 1
-                      ? "left-0"
-                      : i >= 3
-                        ? "right-0"
-                        : "left-1/2 -translate-x-1/2",
-                  )}
-                >
-                  <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-[0_28px_70px_rgba(11,27,77,.18)]">
-                    <div className="flex items-center gap-3 border-b border-line bg-[#f2f8ff] p-4">
-                      <span className="grid size-14 place-items-center rounded-xl bg-white shadow-[0_6px_16px_rgba(11,27,77,.14)] ring-1 ring-line">
-                        <ColorIcon name={icon} size={38} />
-                      </span>
-                      <div>
-                        <b className="block text-[15px]">{label}</b>
-                        <small className="block text-[12px] text-mute">
-                          {blurb}
-                        </small>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-x-1 p-2.5">
-                      {links.map((link) => (
-                        <a
-                          key={link}
-                          href="#explorer"
-                          className="group/link flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[13px] font-semibold text-ink hover:bg-pale hover:text-brand"
-                        >
-                          <span className="truncate">{link}</span>
-                          <ArrowUpRight
-                            size={13}
-                            className="shrink-0 -translate-x-1 text-brand opacity-0 transition group-hover/link:translate-x-0 group-hover/link:opacity-100"
-                          />
-                        </a>
-                      ))}
-                    </div>
-                    <a
-                      href="#services"
-                      className="flex items-center justify-between bg-ink px-5 py-3 text-[13px] font-bold text-white transition hover:bg-brand"
-                    >
-                      View all services <ArrowRight size={15} />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </nav>
-          <div className="flex items-center gap-2">
-            <a
-              href="tel:+910000000000"
-              aria-label="Call Aeon Corporate"
-              className="grid size-10 shrink-0 place-items-center rounded-xl border border-line bg-white text-brand transition-colors hover:border-brand hover:bg-[#dcebff] max-[1024px]:hidden"
-            >
-              <Phone size={17} />
-            </a>
-            <a
-              className={cn(
-                btnBlue,
-                "h-10 shrink-0 px-5 whitespace-nowrap max-[1024px]:hidden",
-              )}
-              href="#contact"
-            >
-              Get consultation <ArrowRight size={14} />
-            </a>
-            <button
-              className="hidden size-10 items-center justify-center rounded-xl border border-line bg-white max-[1024px]:flex"
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label={menuOpen ? "Close menu" : "Open menu"}
-              aria-expanded={menuOpen}
-            >
-              {menuOpen ? <X size={20} /> : <Menu size={20} />}
-            </button>
-          </div>
-          <motion.div
-            aria-hidden="true"
-            style={{ scaleX: scrollProgress }}
-            className={cn(
-              "absolute inset-x-5 bottom-0 h-[3px] origin-left rounded-full bg-[linear-gradient(90deg,#1b5fd9,#ffd93d)] transition-opacity duration-300",
-              scrolled ? "opacity-100" : "opacity-0",
-            )}
-          />
-        </div>
-
-        <AnimatePresence>
-          {menuOpen && (
-            <>
-              <motion.div
-                key="backdrop"
-                aria-hidden="true"
-                className="fixed inset-0 -z-10 bg-ink/40 backdrop-blur-sm min-[1025px]:hidden"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setMenuOpen(false)}
-              />
-              <motion.nav
-                key="sheet"
-                aria-label="Mobile"
-                className="mx-auto mt-2 flex max-h-[calc(100dvh-90px)] w-[min(560px,calc(100%_-_32px))] flex-col overflow-y-auto rounded-3xl border border-line bg-white p-3 shadow-[0_28px_70px_rgba(11,27,77,.25)] min-[1025px]:hidden"
-                initial={{ opacity: 0, y: -14, scale: 0.97 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-              >
-                {navMenus.map(({ label, blurb, icon, links }) => (
-                  <details key={label} className="group border-b border-line">
-                    <summary className="flex cursor-pointer list-none items-center gap-3 px-2 py-3.5 [&::-webkit-details-marker]:hidden">
-                      <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-white shadow-[0_4px_12px_rgba(11,27,77,.12)] ring-1 ring-line">
-                        <ColorIcon name={icon} size={36} />
-                      </span>
-                      <span className="min-w-0 flex-1">
-                        <b className="block text-[15px]">{label}</b>
-                        <small className="block truncate text-[12px] text-mute">
-                          {blurb}
-                        </small>
-                      </span>
-                      <ChevronDown
-                        size={18}
-                        className="shrink-0 text-mute transition-transform duration-200 group-open:rotate-180"
-                      />
-                    </summary>
-                    <div className="grid grid-cols-2 gap-x-3 pb-3 pl-[52px] max-[420px]:grid-cols-1">
-                      {links.map((link) => (
-                        <a
-                          key={link}
-                          href="#explorer"
-                          onClick={() => setMenuOpen(false)}
-                          className="rounded-lg px-2 py-2 text-[13px] text-mute hover:bg-pale hover:text-brand"
-                        >
-                          {link}
-                        </a>
-                      ))}
-                    </div>
-                  </details>
-                ))}
-                <div className="mt-3 grid grid-cols-2 gap-2">
-                  <a
-                    href="tel:+910000000000"
-                    className={cn(btnOutline, "gap-2")}
-                  >
-                    <Phone size={15} /> Call us
-                  </a>
-                  <a
-                    href="mailto:hello@aeoncorporate.com"
-                    className={cn(btnOutline, "gap-2")}
-                  >
-                    <Mail size={15} /> Email
-                  </a>
-                </div>
-                <a
-                  className={cn(btnBlue, "mt-2")}
-                  href="#contact"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  Get consultation <ArrowRight size={15} />
-                </a>
-              </motion.nav>
-            </>
-          )}
-        </AnimatePresence>
-      </header>
-
       <section className="relative flex min-h-[calc(100svh+50px)] items-center bg-[linear-gradient(135deg,#3b8cf5_0%,#1b5fd9_48%,#0a44b8_100%)] pt-[150px] pb-[150px] max-[900px]:block max-[900px]:min-h-0 max-[900px]:pt-[142px] max-[900px]:pb-[100px] max-[560px]:pt-[130px] max-[560px]:pb-[70px]">
         <div className="absolute inset-0 animate-drift bg-[radial-gradient(circle,rgba(255,255,255,.42)_1px,transparent_1.5px),radial-gradient(circle,rgba(255,217,61,.75)_1px,transparent_1.5px)] [background-position:0_0,42px_33px] [background-size:21px_21px,83px_83px] opacity-65 [mask-image:radial-gradient(ellipse_55%_75%_at_68%_45%,black_0%,transparent_75%)] after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_72%_43%,rgba(255,255,255,.16),transparent_36%)] after:content-[''] motion-reduce:animate-none" />
         <HeroBackdrop />
@@ -1014,13 +419,15 @@ export default function Page() {
           <div className="relative flex items-center justify-center py-6 max-[900px]:py-4">
             {/* Whole illustration is shown (no cropping); cards sit on the frame edges, never on the subject. */}
             <div className="relative aspect-[4/3] h-[clamp(300px,52svh,460px)] max-w-full overflow-hidden rounded-[28px] border-[8px] border-white bg-white shadow-[0_30px_70px_rgba(11,27,77,.28)] max-[900px]:h-auto max-[900px]:w-full max-[900px]:max-w-[560px] max-[560px]:rounded-[20px] max-[560px]:border-[5px]">
-              <img
+              <Image
                 src="/illustrations/hero.jpg"
                 alt="Illustration of a consultant presenting a compliance dashboard with a shield, calendar and documents"
-                width={1400}
-                height={1031}
-                fetchPriority="high"
+
                 className="size-full object-contain"
+                width={1400}
+                height={1032}
+                sizes="(max-width: 900px) 100vw, 560px"
+                priority
               />
             </div>
 
@@ -1226,19 +633,25 @@ export default function Page() {
             className="absolute -bottom-6 left-6 size-40 rounded-full border border-brand/25 max-[560px]:size-24"
           />
           <div className="absolute top-0 right-10 bottom-14 left-0 overflow-hidden rounded-[32px_32px_32px_110px] shadow-[0_30px_70px_rgba(11,27,77,.16)] max-[560px]:right-6 max-[560px]:bottom-10 max-[560px]:rounded-[24px_24px_24px_70px]">
-            <img
+            <Image
               src="/illustrations/about-team.jpg"
               alt="Illustration of three consultants collaborating over documents and a compliance checklist"
-              loading="lazy"
+
               className="size-full object-cover"
+              width={900}
+              height={900}
+              sizes="(max-width: 900px) 100vw, 640px"
             />
           </div>
           <div className="absolute right-0 bottom-0 h-[210px] w-[44%] overflow-hidden rounded-[22px] border-[6px] border-white shadow-[0_24px_50px_rgba(11,27,77,.2)] max-[560px]:h-[130px] max-[560px]:border-4">
-            <img
+            <Image
               src="/illustrations/about-documents.jpg"
               alt="Illustration of a signed document with a seal, pen and magnifying glass"
-              loading="lazy"
+
               className="size-full animate-float object-cover"
+              width={700}
+              height={516}
+              sizes="(max-width: 900px) 100vw, 640px"
             />
           </div>
           <div className="absolute top-8 -left-4 flex items-center gap-3 rounded-2xl bg-sun px-4 py-3 shadow-[0_18px_36px_rgba(11,27,77,.14)] max-[560px]:top-4 max-[560px]:-left-1 max-[560px]:px-3 max-[560px]:py-2.5">
@@ -1782,11 +1195,14 @@ export default function Page() {
             className="absolute -bottom-5 -left-5 size-44 rounded-[32px] bg-sun max-[560px]:size-28 max-[560px]:rounded-3xl"
           />
           <div className="relative min-h-[460px] overflow-hidden rounded-[32px] shadow-[0_30px_70px_rgba(11,27,77,.2)] max-[900px]:min-h-[380px] max-[560px]:min-h-[300px] max-[560px]:rounded-[24px]">
-            <img
+            <Image
               src="/illustrations/story-process.jpg"
               alt="Illustration of a team presenting a step-by-step process on a board"
-              loading="lazy"
+
               className="absolute inset-0 size-full object-cover"
+              width={1400}
+              height={910}
+              sizes="(max-width: 900px) 100vw, 640px"
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_55%,rgba(11,27,77,.35))]" />
             <button
@@ -1940,6 +1356,7 @@ export default function Page() {
       </section>
 
       <section
+        id="testimonials"
         ref={testimonialRef}
         className={cn(wrap, "py-[110px] max-[560px]:py-20")}
       >
@@ -2094,7 +1511,7 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="bg-sky py-[110px] max-[560px]:py-20">
+      <section id="insights" className="bg-sky py-[110px] max-[560px]:py-20">
         <div className={wrap}>
           <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
             <SectionHeading
@@ -2130,11 +1547,14 @@ export default function Page() {
                 >
                   {featured ? (
                     <>
-                      <img
+                      <Image
                         src={article.image}
                         alt={article.title}
-                        loading="lazy"
+
                         className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none"
+                        width={1000}
+                        height={650}
+                        sizes="(max-width: 900px) 100vw, 640px"
                       />
                       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,27,77,.05)_30%,rgba(11,27,77,.88)_100%)]" />
                       <div className="relative p-8 text-white max-[560px]:p-5">
@@ -2158,11 +1578,14 @@ export default function Page() {
                   ) : (
                     <>
                       <div className="relative w-[42%] shrink-0 overflow-hidden max-[560px]:h-[190px] max-[560px]:w-full">
-                        <img
+                        <Image
                           src={article.image}
                           alt={article.title}
-                          loading="lazy"
+
                           className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-110 motion-reduce:transition-none"
+                          width={1000}
+                          height={650}
+                          sizes="(max-width: 900px) 100vw, 640px"
                         />
                       </div>
                       <div className="flex flex-1 flex-col justify-between p-6 max-[560px]:p-5">
@@ -2227,205 +1650,6 @@ export default function Page() {
         </div>
       </section>
 
-      <footer className="relative overflow-hidden bg-ink pt-16 pb-6 text-white max-[560px]:pt-12">
-        <div
-          aria-hidden="true"
-          className="absolute -top-32 left-1/2 size-[520px] -translate-x-1/2 rounded-full bg-brand/25 blur-[120px]"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,.07)_1px,transparent_1.5px)] [background-size:22px_22px] [mask-image:linear-gradient(to_bottom,black,transparent_60%)]"
-        />
-        <div className={cn(wrap, "relative")}>
-          <div className="relative overflow-hidden rounded-[28px] bg-sun p-9 text-ink max-[560px]:rounded-[22px] max-[560px]:p-6">
-            <div
-              aria-hidden="true"
-              className="absolute -top-24 -right-16 size-72 rounded-full border border-ink/10"
-            />
-            <div
-              aria-hidden="true"
-              className="absolute -top-10 -right-2 size-44 rounded-full border border-ink/10"
-            />
-            <div className="relative grid grid-cols-[1.1fr_1fr] items-center gap-8 max-[900px]:grid-cols-1 max-[900px]:gap-6">
-              <div>
-                <Eyebrow className="text-ink">THE AEON BRIEF</Eyebrow>
-                <h2 className="max-w-[520px] text-[clamp(24px,2.8vw,32px)] leading-[1.15] font-extrabold tracking-[-0.03em]">
-                  Useful thinking for ambitious businesses.
-                </h2>
-                <p className="mt-3 max-w-[480px] text-[14px] leading-[1.6] text-ink/75">
-                  Compliance updates and practical business insights, delivered
-                  to your inbox.
-                </p>
-              </div>
-              <div>
-                <form
-                  className="flex gap-2 rounded-2xl bg-white p-2 shadow-[0_14px_34px_rgba(11,27,77,.14)] max-[560px]:flex-col"
-                  onSubmit={(e) => {
-                    e.preventDefault()
-                    const form = e.currentTarget
-                    if (!form.checkValidity()) {
-                      form.reportValidity()
-                      return
-                    }
-                    setNewsletterNotice(
-                      "Demo mode: no subscription was saved because a newsletter backend isn't connected yet.",
-                    )
-                    form.reset()
-                  }}
-                >
-                  <div className="flex h-12 min-w-0 flex-1 items-center gap-2.5 px-3">
-                    <Mail size={18} className="shrink-0 text-mute" />
-                    <input
-                      type="email"
-                      required
-                      placeholder="Your email address"
-                      aria-label="Email address"
-                      className="w-full min-w-0 bg-transparent text-[15px] outline-none placeholder:text-mute/80"
-                    />
-                  </div>
-                  <button
-                    className={cn(btnBlueFlat, "h-12 px-6 max-[560px]:w-full")}
-                    type="submit"
-                  >
-                    Subscribe <ArrowRight size={15} />
-                  </button>
-                </form>
-                {newsletterNotice && (
-                  <p
-                    className="mt-3 text-[13px] font-semibold text-ink"
-                    role="status"
-                  >
-                    {newsletterNotice}
-                  </p>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-[1.5fr_repeat(4,1fr)] gap-x-8 gap-y-12 pt-16 pb-12 max-[1100px]:grid-cols-[1.2fr_repeat(4,1fr)] max-[900px]:grid-cols-2 max-[900px]:pt-12 max-[560px]:gap-x-5 max-[560px]:pt-10">
-            <div className="max-[900px]:col-span-2">
-              <Logo light />
-              <p className="mt-5 max-w-[300px] text-[14px] leading-[1.7] text-white/70">
-                Technology-enabled guidance for businesses navigating
-                complexity.
-              </p>
-              <div className="mt-5 flex gap-2">
-                {["in", "x", "ig"].map((label) => (
-                  <a
-                    key={label}
-                    href="#contact"
-                    aria-label={`Aeon Corporate on ${label}`}
-                    className="grid size-10 place-items-center rounded-full border border-white/20 text-[13px] font-bold transition hover:-translate-y-0.5 hover:border-sun hover:bg-sun hover:text-ink"
-                  >
-                    {label}
-                  </a>
-                ))}
-              </div>
-              <address className="mt-6 grid gap-3 not-italic max-[900px]:grid-cols-3 max-[900px]:gap-4 max-[640px]:grid-cols-1">
-                {[
-                  [
-                    Mail,
-                    "hello@aeoncorporate.com",
-                    "mailto:hello@aeoncorporate.com",
-                  ],
-                  [Phone, "+91 00000 00000", "tel:+910000000000"],
-                  [MapPin, "Office address placeholder, India", undefined],
-                ].map(([Icon, text, href]) => {
-                  const ContactIcon = Icon as typeof Mail
-                  const content = (
-                    <>
-                      <span className="grid size-9 shrink-0 place-items-center rounded-full bg-white/10 text-sun">
-                        <ContactIcon size={16} />
-                      </span>
-                      <span className="text-[14px] leading-snug text-white/85">
-                        {text as string}
-                      </span>
-                    </>
-                  )
-                  return href ? (
-                    <a
-                      key={text as string}
-                      href={href as string}
-                      className="flex items-center gap-3 hover:text-sun"
-                    >
-                      {content}
-                    </a>
-                  ) : (
-                    <div
-                      key={text as string}
-                      className="flex items-center gap-3"
-                    >
-                      {content}
-                    </div>
-                  )
-                })}
-              </address>
-            </div>
-            {footerColumns.map(([title, ...links]) => (
-              <div key={title}>
-                <h3 className="mb-5 inline-block border-b-2 border-sun pb-2 text-[12px] font-extrabold tracking-[.14em] text-white uppercase">
-                  {title}
-                </h3>
-                <ul className="grid gap-3">
-                  {links.map((link) => (
-                    <li key={link}>
-                      <a
-                        href="#services"
-                        className="group inline-flex items-start gap-1.5 text-[14px] leading-snug text-white/70 transition-colors hover:text-sun"
-                      >
-                        <ChevronRight
-                          size={14}
-                          className="mt-[3px] -ml-3.5 shrink-0 opacity-0 transition-all duration-200 group-hover:ml-0 group-hover:opacity-100"
-                        />
-                        {link}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-
-          <nav
-            aria-label="Company and legal"
-            className="flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-white/15 py-6"
-          >
-            {footerLinks.map((link) => (
-              <a
-                key={link}
-                href="#contact"
-                className="text-[13px] font-semibold text-white/85 transition-colors hover:text-sun"
-              >
-                {link}
-              </a>
-            ))}
-          </nav>
-          <p className="rounded-2xl border border-white/10 bg-white/[.04] p-4 text-[12px] leading-[1.7] text-white/60">
-            <b className="text-white/80">Disclaimer:</b> Aeon Corporate is a
-            private advisory and facilitation service. It is not affiliated with
-            any government body, and information on this site is general
-            guidance, not legal advice. Outcomes depend on the relevant
-            authorities.
-          </p>
-          <div className="mt-6 flex flex-wrap items-center justify-between gap-4 text-[13px] text-white/60">
-            <span>© 2026 Aeon Corporate. All rights reserved.</span>
-            <a
-              href="#top"
-              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2 font-semibold text-white/85 transition hover:border-sun hover:bg-sun hover:text-ink"
-            >
-              Back to top <ArrowUp size={14} />
-            </a>
-          </div>
-        </div>
-      </footer>
-
-      <a
-        className="fixed right-[22px] bottom-[22px] z-30 grid size-[43px] place-items-center rounded-full bg-[#27b95a] text-white shadow-[0_8px_18px_rgba(11,27,77,.2)] max-[560px]:right-3.5 max-[560px]:bottom-3.5"
-        href="mailto:hello@aeoncorporate.com"
-        aria-label="Email Aeon Corporate"
-      >
-        <Mail size={19} />
-      </a>
       {calendarOpen && (
         <div className={modalBackdrop} onClick={() => setCalendarOpen(false)}>
           <div className={modalCard} onClick={(e) => e.stopPropagation()}>
