@@ -9,7 +9,6 @@ import {
   ArrowUpRight,
   Check,
   Mail,
-  MessageCircle,
   Phone,
   Play,
   Globe,
@@ -376,12 +375,6 @@ export function AboutContent() {
                     label: "Phone",
                     value: "+91 00000 00000",
                     href: "tel:+910000000000",
-                  },
-                  {
-                    icon: MessageCircle,
-                    label: "WhatsApp",
-                    value: "+91 00000 00000",
-                    href: "https://wa.me/910000000000",
                   },
                   {
                     icon: Globe,

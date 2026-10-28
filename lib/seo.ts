@@ -12,7 +12,7 @@ type PageMeta = {
   description: string
   path: string
   /** Illustration used for social sharing (path inside /public) */
-  image?: string
+  image?: string | null
   keywords?: string[]
 }
 
@@ -35,14 +35,14 @@ export function pageMetadata({
       title: `${title} | ${SITE_NAME}`,
       description,
       url: path,
-      images: [{ url: image, width: 1400, height: 1032, alt: title }],
+      ...(image ? { images: [{ url: image, width: 1400, height: 1032, alt: title }] } : {}),
       locale: "en_IN",
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} | ${SITE_NAME}`,
       description,
-      images: [image],
+      ...(image ? { images: [image] } : {}),
     },
   }
 }
@@ -99,4 +99,10 @@ export const sitePages = [
   { path: "/career", priority: 0.7, changeFrequency: "weekly" as const },
   { path: "/reviews", priority: 0.6, changeFrequency: "weekly" as const },
   { path: "/contact-us", priority: 0.8, changeFrequency: "monthly" as const },
+  { path: "/privacy-policy", priority: 0.3, changeFrequency: "yearly" as const },
+  {
+    path: "/terms-and-conditions",
+    priority: 0.3,
+    changeFrequency: "yearly" as const,
+  },
 ]

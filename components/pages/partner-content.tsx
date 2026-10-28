@@ -232,6 +232,8 @@ export function PartnerContent() {
               </h3>
               <LeadForm
                 fields={fields}
+                kind="partner"
+                marketing
                 captcha={{ a: 4, b: 7 }}
                 submitLabel="Request information"
                 successTitle="Thanks, we'll be in touch"

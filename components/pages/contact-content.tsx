@@ -67,7 +67,6 @@ const channels = [
     icon: MessageCircle,
     label: "Quick enquiries",
     lines: [
-      { text: "WhatsApp +91 00000 00000", href: "https://wa.me/910000000000" },
       { text: "Call +91 00000 00000", href: "tel:+910000000000" },
     ],
   },
@@ -147,6 +146,8 @@ export function ContactContent() {
               </h2>
               <LeadForm
                 fields={fields}
+                kind="contact"
+                marketing
                 submitLabel="Submit"
                 successTitle="Thanks, we got your message"
                 successText="A member of our team will get back to you shortly."

@@ -3,12 +3,23 @@
 import { useId, useState } from "react"
 import { ArrowRight, Check } from "lucide-react"
 import { cn } from "@/lib/utils"
-import { btnBlue } from "@/components/site/ui"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { ConsentCheckbox } from "@/components/site/consent-checkbox"
 
 export type LeadField = {
   name: string
   label: string
-  type?: "text" | "email" | "tel" | "select" | "textarea" | "captcha"
+  type?: "text" | "email" | "tel" | "select" | "textarea" | "captcha" | "file"
   required?: boolean
   options?: string[]
   placeholder?: string
@@ -24,15 +35,25 @@ type LeadFormProps = {
   successText: string
   /** simple arithmetic check, e.g. { a: 4, b: 7 } */
   captcha?: { a: number; b: number }
+  /** which enquiry this is; decides how it is stored and how long it is kept */
+  kind: "contact" | "partner" | "career"
+  /** show the separate, optional "send me updates" checkbox */
+  marketing?: boolean
+  /** extra context saved with the enquiry, e.g. the job applied for */
+  extra?: Record<string, string>
+  /** 1 = every field on its own row (narrow cards); 2 = two per row */
+  columns?: 1 | 2
   className?: string
 }
 
 const inputBase =
-  "w-full rounded-xl border border-line bg-[#f6faff] px-4 text-[15px] text-ink outline-none transition placeholder:text-mute/70 focus:border-brand focus:bg-white focus:shadow-[0_0_0_4px_rgba(27,95,217,.12)] aria-[invalid=true]:border-red-400"
+  "h-12 rounded-xl border-line bg-[#f6faff] px-4 text-[15px] text-ink shadow-none placeholder:text-mute/70 focus-visible:border-brand focus-visible:bg-white focus-visible:ring-4 focus-visible:ring-brand/15 aria-invalid:border-red-400 aria-invalid:ring-red-100 md:text-[15px]"
+
+const DIRECT = new Set(["name", "email", "phone", "state", "message"])
 
 /**
- * Enquiry form with client-side validation.
- * No backend is connected yet, so it runs in demo mode and says so.
+ * Enquiry form: validates, requires explicit consent (DPDP Act), then posts
+ * to /api/enquiries.
  */
 export function LeadForm({
   fields,
@@ -40,19 +61,29 @@ export function LeadForm({
   successTitle,
   successText,
   captcha,
+  kind,
+  marketing = false,
+  extra,
+  columns = 2,
   className,
 }: LeadFormProps) {
+  const [selects, setSelects] = useState<Record<string, string>>({})
+  const [files, setFiles] = useState<Record<string, File | null>>({})
   const uid = useId()
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [sent, setSent] = useState(false)
+  const [busy, setBusy] = useState(false)
+  const [serverError, setServerError] = useState("")
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const data = new FormData(e.currentTarget)
     if (data.get("company_website")) return // honeypot
     const next: Record<string, string> = {}
+    if (data.get("consent") !== "on")
+      next.consent = "Please tick this box to continue"
     for (const f of fields) {
-      const value = String(data.get(f.name) ?? "").trim()
+      const value = String(selects[f.name] ?? data.get(f.name) ?? "").trim()
       if (f.required && !value) next[f.name] = `${f.label} is required`
       else if (f.type === "email" && value && !/^\S+@\S+\.\S+$/.test(value))
         next[f.name] = "Enter a valid email address"
@@ -69,8 +100,69 @@ export function LeadForm({
       )
         next[f.name] = "That answer is not correct"
     }
+    for (const f of fields) {
+      const file = files[f.name]
+      if (f.type === "file" && file) {
+        if (file.size > 5 * 1024 * 1024) next[f.name] = "File is too large (max 5 MB)"
+        else if (!/\.(pdf|jpe?g|png|webp)$/i.test(file.name)) next[f.name] = "Use a PDF, JPG, PNG or WebP file"
+      }
+    }
     setErrors(next)
-    if (Object.keys(next).length === 0) setSent(true)
+    setServerError("")
+    if (Object.keys(next).length > 0) return
+
+    const body: Record<string, unknown> = {
+      kind,
+      consent: true,
+      marketingOptIn: data.get("marketing") === "on",
+      source: window.location.pathname,
+    }
+    const details: Record<string, string> = { ...extra }
+    for (const f of fields) {
+      if (f.type === "captcha" || f.type === "file") continue
+      const value = String(selects[f.name] ?? data.get(f.name) ?? "").trim()
+      if (!value) continue
+      if (DIRECT.has(f.name)) body[f.name] = value
+      else if (f.name === "note") body.message = value
+      else details[f.name] = value
+    }
+    if (Object.keys(details).length) body.details = details
+
+    setBusy(true)
+    try {
+      for (const f of fields) {
+        const file = files[f.name]
+        if (f.type !== "file" || !file) continue
+        const up = new FormData()
+        up.append("file", file)
+        const upRes = await fetch("/api/careers/resume", { method: "POST", body: up })
+        const upJson = (await upRes.json().catch(() => null)) as { url?: string; name?: string; error?: string } | null
+        if (!upRes.ok || !upJson?.url) {
+          setServerError(upJson?.error ?? "Could not upload the file. Please try again or paste a link instead.")
+          return
+        }
+        details.resumeUrl = upJson.url
+        details.resumeName = upJson.name ?? file.name
+        body.details = details
+      }
+      const res = await fetch("/api/enquiries", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      })
+      if (!res.ok) {
+        const json = (await res.json().catch(() => null)) as {
+          error?: string
+        } | null
+        setServerError(json?.error ?? "Could not send. Please try again.")
+        return
+      }
+      setSent(true)
+    } catch {
+      setServerError("Network error. Please check your connection and retry.")
+    } finally {
+      setBusy(false)
+    }
   }
 
   if (sent) {
@@ -91,10 +183,6 @@ export function LeadForm({
         <p className="mt-2 max-w-[360px] text-[14px] leading-[1.7] text-mute">
           {successText}
         </p>
-        <p className="mt-3 text-[12px] font-semibold text-brand">
-          Demo mode: no data was saved because a backend isn&apos;t connected
-          yet.
-        </p>
         <button
           type="button"
           onClick={() => setSent(false)}
@@ -111,7 +199,8 @@ export function LeadForm({
       onSubmit={onSubmit}
       noValidate
       className={cn(
-        "grid grid-cols-2 gap-4 max-[560px]:grid-cols-1",
+        "grid gap-4",
+        columns === 2 ? "grid-cols-2 max-[560px]:grid-cols-1" : "grid-cols-1",
         className,
       )}
     >
@@ -135,46 +224,60 @@ export function LeadForm({
           <div
             key={f.name}
             className={cn(
-              f.full || f.type === "textarea"
+              "grid min-w-0 content-start gap-1.5",
+              columns === 2 && (f.full || f.type === "textarea")
                 ? "col-span-2 max-[560px]:col-span-1"
                 : "",
             )}
           >
-            <label
-              htmlFor={id}
-              className="mb-1.5 block text-[13px] font-bold text-ink"
-            >
+            <Label htmlFor={id} className="text-[13px] font-bold text-ink">
               {label}
               {f.required && <span className="text-red-500"> *</span>}
-            </label>
+            </Label>
             {f.type === "select" ? (
-              <select
-                id={id}
-                name={f.name}
-                defaultValue=""
-                aria-invalid={!!error}
-                className={cn(inputBase, "h-12")}
+              <Select
+                value={selects[f.name] ?? null}
+                onValueChange={(v) =>
+                  setSelects((s) => ({ ...s, [f.name]: String(v ?? "") }))
+                }
               >
-                <option value="" disabled>
-                  {f.placeholder ?? `Select ${f.label.toLowerCase()}`}
-                </option>
-                {f.options?.map((o) => (
-                  <option key={o} value={o}>
-                    {o}
-                  </option>
-                ))}
-              </select>
+                <SelectTrigger
+                  id={id}
+                  aria-invalid={!!error}
+                  className={cn(inputBase, "w-full py-0 pr-3 data-[size=default]:h-12")}
+                >
+                  <SelectValue
+                    placeholder={f.placeholder ?? `Select ${f.label.toLowerCase()}`}
+                  />
+                </SelectTrigger>
+                <SelectContent>
+                  {f.options?.map((o) => (
+                    <SelectItem key={o} value={o}>
+                      {o}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            ) : f.type === "file" ? (
+              <Input
+                id={id}
+                type="file"
+                accept=".pdf,.jpg,.jpeg,.png,.webp,application/pdf,image/*"
+                aria-invalid={!!error}
+                onChange={(e) => setFiles((x) => ({ ...x, [f.name]: e.target.files?.[0] ?? null }))}
+                className={cn(inputBase, "cursor-pointer py-2.5 file:mr-3 file:rounded-lg file:bg-brand file:px-3 file:py-1 file:text-[13px] file:font-bold file:text-white")}
+              />
             ) : f.type === "textarea" ? (
-              <textarea
+              <Textarea
                 id={id}
                 name={f.name}
                 rows={4}
                 placeholder={f.placeholder}
                 aria-invalid={!!error}
-                className={cn(inputBase, "resize-y py-3")}
+                className={cn(inputBase, "h-auto min-h-28 resize-y py-3")}
               />
             ) : (
-              <input
+              <Input
                 id={id}
                 name={f.name}
                 type={f.type === "captcha" ? "text" : (f.type ?? "text")}
@@ -186,27 +289,51 @@ export function LeadForm({
                 autoComplete={f.autoComplete}
                 placeholder={f.placeholder}
                 aria-invalid={!!error}
-                className={cn(inputBase, "h-12")}
+                className={inputBase}
               />
             )}
             {error && (
-              <p
-                className="mt-1 text-[12px] font-semibold text-red-500"
-                role="alert"
-              >
+              <p className="text-[12px] font-semibold text-red-500" role="alert">
                 {error}
               </p>
             )}
           </div>
         )
       })}
-      <div className="col-span-2 mt-1 max-[560px]:col-span-1">
-        <button
+      <div
+        className={cn(
+          "grid gap-3 rounded-2xl bg-[#f6faff] p-4 ring-1 ring-line",
+          columns === 2 && "col-span-2 max-[560px]:col-span-1",
+        )}
+      >
+        <ConsentCheckbox
+          purpose={
+            kind === "career"
+              ? "to process my job application and contact me about it"
+              : kind === "partner"
+                ? "to respond to my partnership enquiry"
+                : "to respond to my enquiry"
+          }
+          error={errors.consent}
+        />
+        {marketing && <ConsentCheckbox optional />}
+      </div>
+      <div className={cn("mt-1", columns === 2 && "col-span-2 max-[560px]:col-span-1")}>
+        {serverError && (
+          <p className="mb-3 text-[13px] font-semibold text-red-500" role="alert">
+            {serverError}
+          </p>
+        )}
+        <Button
           type="submit"
-          className={cn(btnBlue, "h-12 w-full px-8 sm:w-auto")}
+          disabled={busy}
+          className={cn(
+            "h-12 rounded-xl bg-brand px-8 text-[15px] font-bold text-white shadow-[0_10px_24px_rgba(27,95,217,.28)] hover:bg-brand/90",
+            columns === 1 ? "w-full" : "w-full sm:w-auto",
+          )}
         >
-          {submitLabel} <ArrowRight size={16} />
-        </button>
+          {busy ? "Sending…" : submitLabel} <ArrowRight size={16} />
+        </Button>
       </div>
     </form>
   )

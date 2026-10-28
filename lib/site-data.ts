@@ -135,9 +135,7 @@ export const categoryServices: Record<
 
 export const companyLinks = [
   { label: "About Us", href: "/about" },
-  { label: "Learning", href: "/#insights" },
   { label: "Partner With Us", href: "/partner-with-us" },
-  { label: "Media", href: "/#insights" },
   { label: "Work at Aeon", href: "/work-at-aeon" },
   { label: "Career", href: "/career" },
   { label: "Client Reviews", href: "/reviews" },
@@ -193,7 +191,6 @@ export const footerColumns = [
 ]
 export const footerLinks = [
   "About Us",
-  "Learning & Resources",
   "Privacy Policy",
   "Refund Policy",
   "Terms & Conditions",
@@ -234,7 +231,7 @@ export const navMenus = [
   },
   {
     label: "Company",
-    blurb: "About us, learning, careers and more",
+    blurb: "About us, partners, careers and more",
     icon: "company",
     links: companyLinks.map((c) => c.label),
   },

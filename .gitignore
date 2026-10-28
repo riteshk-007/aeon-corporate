@@ -1,3 +1,57 @@
+# ---------------------------------------------------------------------------
+# Secrets: NEVER commit these. Only `.env.example` (no real values) is tracked.
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.crt
+id_rsa*
+credentials*.json
+service-account*.json
+
+# Database dumps, backups and uploaded user files (contain personal data)
+*.sql.gz
+*.dump
+*.bak
+backups/
+uploads/
+!prisma/migrations/**/*.sql
+
+# Generated / build output
+node_modules
+.next/
+.next-verify*/
+out/
+build/
+dist/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+lib/generated/
+*.log
+npm-debug.log*
+pnpm-debug.log*
+.pnpm-store/
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# AI / editor tool folders (local config, permissions and cached skills)
+.agents/
+.claude/
+.windsurf/
+.cursor/
+AGENTS.md
+CLAUDE.md
+skills-lock.json
+
 # v0 sandbox internal files
 __v0_runtime_loader.js
 __v0_devtools.tsx
@@ -6,12 +60,3 @@ __v0_jsx-dev-runtime.ts
 .design-cache/
 .v0-trash/
 .vercel/
-
-# Environment variables
-.env*.local
-
-# Common ignores
-node_modules
-.next/
-.DS_Store
-.next-verify/

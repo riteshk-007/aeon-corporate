@@ -1,16 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import { Plus_Jakarta_Sans } from "next/font/google"
 import "./globals.css"
-import { ScrollToTop } from "@/components/ui/scroll-to-top"
-import { SiteHeader } from "@/components/site/site-header"
-import { SiteFooter } from "@/components/site/site-footer"
-import {
-  SITE_DESCRIPTION,
-  SITE_NAME,
-  SITE_URL,
-  organizationLd,
-  websiteLd,
-} from "@/lib/seo"
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo"
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -68,16 +59,7 @@ export default function RootLayout({
       className={`scroll-smooth motion-reduce:scroll-auto ${jakarta.variable}`}
     >
       <body className="bg-white font-sans text-ink antialiased selection:bg-sun selection:text-ink">
-        <SiteHeader />
         {children}
-        <SiteFooter />
-        <ScrollToTop />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify([organizationLd, websiteLd]),
-          }}
-        />
       </body>
     </html>
   )

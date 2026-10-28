@@ -1,0 +1,17 @@
+# DEVELOPMENT / TESTING ONLY. Not used in production (live runs without Docker).
+# Local PostgreSQL:  docker compose up -d
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: aeon
+      POSTGRES_PASSWORD: aeon_dev_password
+      POSTGRES_DB: aeon
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - aeon_pgdata:/var/lib/postgresql/data
+
+volumes:
+  aeon_pgdata:

@@ -1,0 +1,235 @@
+// Aeon Corporate — admin panel data model.
+// Docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// A named bundle of permissions, e.g. "Editor". Permissions are stored as
+/// "module:action" strings (see lib/auth/permissions.ts).
+model Role {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  /// System roles can't be deleted or renamed.
+  isSystem    Boolean  @default(false)
+  permissions String[]
+  users       User[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model User {
+  id           String @id @default(cuid())
+  /// Always stored lowercase.
+  email        String @unique
+  name         String
+  /// Argon2id hash — the password itself is never stored.
+  passwordHash String
+
+  roleId String
+  role   Role   @relation(fields: [roleId], references: [id], onDelete: Restrict)
+
+  /// Extra pages/permissions granted to this one person on top of their role.
+  extraPermissions String[]
+
+  /// Super admins bypass permission checks. Keep this to the owner(s).
+  isSuperAdmin       Boolean @default(false)
+  isActive           Boolean @default(true)
+  mustChangePassword Boolean @default(false)
+
+  /// Login protection: 5 failed attempts lock the account for 15 minutes.
+  failedAttempts Int       @default(0)
+  lockedUntil    DateTime?
+
+  lastLoginAt       DateTime?
+  lastLoginIp       String?
+  passwordChangedAt DateTime  @default(now())
+
+  createdById  String?
+  createdBy    User?   @relation("CreatedUsers", fields: [createdById], references: [id], onDelete: SetNull)
+  createdUsers User[]  @relation("CreatedUsers")
+
+  sessions  Session[]
+  auditLogs AuditLog[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([roleId])
+}
+
+/// Server-side session. `id` is the SHA-256 of the cookie token, so a leaked
+/// database can't be used to hijack live sessions.
+model Session {
+  id         String   @id
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  ip         String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+  /// When the sign-in first happened; survives token refreshes (hard cap 30 days).
+  startedAt  DateTime @default(now())
+  lastUsedAt DateTime @default(now())
+  expiresAt  DateTime
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+/// Every login try (including unknown emails) — drives rate limiting.
+model LoginAttempt {
+  id        String   @id @default(cuid())
+  email     String
+  ip        String
+  success   Boolean
+  createdAt DateTime @default(now())
+
+  @@index([email, createdAt])
+  @@index([ip, createdAt])
+}
+
+/// A website enquiry (contact, partner, career, newsletter). Holds personal
+/// data under the DPDP Act: stored only with consent, deleted after `retainUntil`.
+model Lead {
+  id      String @id @default(cuid())
+  /// contact | partner | career | newsletter
+  kind    String
+  name    String?
+  email   String?
+  phone   String?
+  state   String?
+  message String?
+  /// Other form fields (occupation, role, experience...).
+  details Json?
+  /// new | contacted | closed
+  status  String @default("new")
+  source  String?
+
+  consentGiven          Boolean  @default(true)
+  consentAt             DateTime @default(now())
+  consentPrivacyVersion String
+  consentTermsVersion   String
+  marketingOptIn        Boolean  @default(false)
+  /// HMAC of the IP address, never the raw IP.
+  consentIpHash         String?
+
+  retainUntil DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([kind, createdAt])
+  @@index([status])
+  @@index([retainUntil])
+}
+
+/// A job opening shown on /career. `descriptionHtml` is sanitised on save.
+model Job {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String
+  location        String   @default("Head Office")
+  type            String   @default("Full-time")
+  openings        Int      @default(1)
+  icon            String   @default("briefcase")
+  skills          String[]
+  summary         String   @default("")
+  descriptionHtml String   @default("")
+  isOpen          Boolean  @default(true)
+  assets          Asset[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([isOpen, createdAt])
+}
+
+/// A service page (/services/<slug>), written in admin > Service pages.
+model Service {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String
+  /// Group shown above the title, e.g. "Business Registration".
+  category        String   @default("")
+  /// Icon key from lib/icons.ts shown beside the page title ("" = none).
+  icon            String   @default("")
+  summary         String   @default("")
+  /// Main article (sanitised HTML from the rich-text editor).
+  bodyHtml        String   @default("")
+  highlights      String[]
+  /// Page sections [{ key, html }] (overview, advantages, eligibility...).
+  sections        Json?
+  /// [{ title, text }]
+  steps           Json?
+  /// [{ q, a }]
+  faqs            Json?
+  heroImageUrl    String?
+  seoTitle        String   @default("")
+  seoDescription  String   @default("")
+  isPublished     Boolean  @default(false)
+  /// True while the text is the automatic starter text; set to false when someone saves it in admin.
+  autoContent     Boolean  @default(false)
+  assets          Asset[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([isPublished, category])
+}
+
+/// A file stored in Cloudflare R2. Deleting the owner also deletes the object.
+model Asset {
+  id        String   @id @default(cuid())
+  /// Object key inside the R2 bucket.
+  key       String   @unique
+  url       String
+  mime      String
+  size      Int
+  jobId     String?
+  job       Job?     @relation(fields: [jobId], references: [id], onDelete: SetNull)
+  serviceId String?
+  service   Service? @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+  uploadedBy String?
+  createdAt DateTime @default(now())
+
+  @@index([jobId])
+  @@index([serviceId])
+  @@index([createdAt])
+}
+
+/// Header dropdown menu, three levels: top item > category (left column) > link.
+/// parentId null = top item. Edited from admin > Menus.
+model MenuItem {
+  id        String     @id @default(cuid())
+  parentId  String?
+  parent    MenuItem?  @relation("MenuTree", fields: [parentId], references: [id], onDelete: Cascade)
+  children  MenuItem[] @relation("MenuTree")
+  label     String
+  /// Internal path ("/about") or full https:// link. Optional for top items and categories.
+  href      String?
+  sortOrder Int        @default(0)
+  isActive  Boolean    @default(true)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([parentId, sortOrder])
+}
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorId    String?
+  actor      User?    @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  actorEmail String?
+  /// e.g. "auth.login", "user.create", "role.update"
+  action     String
+  target     String?
+  meta       Json?
+  ip         String?
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([actorId])
+  @@index([action])
+}

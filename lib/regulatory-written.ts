@@ -1,0 +1,98 @@
+import type { ServiceInput } from "@/lib/services"
+
+type Page = Omit<ServiceInput, "heroImageUrl" | "icon"> & { slug: string; icon?: string; autoContent?: boolean }
+const sec = (key: ServiceInput["sections"][number]["key"], html: string, title?: string, icon?: string) => ({
+  key,
+  html,
+  ...(title ? { title } : {}),
+  ...(icon ? { icon } : {}),
+})
+
+/**
+ * Hand-written Regulatory pages: general information (no fees, no promised
+ * timelines). Capital limits and rules are revised by the regulators, so each
+ * should be checked by a qualified professional and then edited in admin.
+ */
+export const REGULATORY_WRITTEN: Page[] = [
+  {
+    slug: "nbfc-registration",
+    title: "NBFC Registration",
+    category: "RBI",
+    icon: "landmark",
+    summary: "A Non-Banking Financial Company (NBFC) lends or invests money without being a bank. Know who can register with the RBI, the documents and the process.",
+    highlights: ["Check of structure, capital and promoters", "Company set-up and policies", "RBI application and replies to queries", "Guidance on compliance after registration"],
+    sections: [
+      sec("overview", `<p>A <strong>Non-Banking Financial Company (NBFC)</strong> is a company registered under the Companies Act, 2013 that is engaged in lending, investing in securities, leasing, hire purchase or similar financial activity, but is not a bank. NBFCs are regulated by the <strong>Reserve Bank of India (RBI)</strong> under the RBI Act, 1934, and no company can carry on this business without a <strong>Certificate of Registration (CoR)</strong> from the RBI.</p><p>NBFCs reach customers that banks often do not, such as small businesses, vehicle buyers, gold-loan borrowers and first-time borrowers.</p>`),
+      sec("advantages", `<ul><li><strong>Lawful lending business:</strong> registration is the only way to lend as a business without being a bank.</li><li><strong>Flexibility:</strong> NBFCs can serve many segments with products designed for them.</li><li><strong>Access to funding:</strong> banks, investors and debt markets lend to regulated NBFCs.</li><li><strong>Credibility:</strong> an RBI-registered NBFC is trusted by customers and partners.</li></ul>`, "Benefits", "thumbs-up"),
+      sec("eligibility", `<ul><li>The applicant must be a <strong>company</strong> registered under the Companies Act, with financial activity in its objects.</li><li><strong>Minimum Net Owned Fund (NOF):</strong> the RBI sets a minimum capital that has been raised in recent years. We confirm the current figure for your category.</li><li><strong>Fit and proper</strong> directors and promoters with a clean credit and legal record.</li><li>A viable business plan, with a view of the next few years.</li><li>Foreign investment and control conditions apply, depending on the activity.</li><li>An office in India and the staff and systems to run the business.</li></ul>`, "Eligibility criteria", "clipboard-check"),
+      sec("documents", `<ul><li>Certificate of incorporation, Memorandum and Articles of Association.</li><li>PAN of the company; KYC, CIBIL reports and declarations of directors and promoters.</li><li>Audited financial statements and net worth certificate of the company and the main promoters.</li><li>Business plan with projections for the next three to five years.</li><li>Proof of NOF, bank statements, and proof of the registered office.</li><li>Board resolution authorising the application, and policies such as the fair practices code and KYC policy.</li></ul>`, "Documents required", "file-text"),
+      sec("process", `<ol><li><strong>Eligibility and structure:</strong> we check your company, capital and promoters against the RBI's requirements.</li><li><strong>Company set-up:</strong> a company with NBFC objects is incorporated or its objects changed, and the capital is brought in.</li><li><strong>Documents and policies:</strong> the business plan, KYC and board-approved policies are prepared.</li><li><strong>Application:</strong> the application is filed with the RBI on its online portal.</li><li><strong>Queries:</strong> we respond to the RBI's questions and requests for information.</li><li><strong>Certificate of Registration:</strong> after the RBI's approval, the CoR is issued and the company can start its business as per its terms.</li></ol>`, "Application process", "list-ordered"),
+      sec("features", `<ul><li>Maintain the minimum capital and other prudential norms (capital adequacy, provisioning, exposure limits) applicable to your category.</li><li>File regular returns and reports with the RBI, and have the accounts audited each year.</li><li>Follow the fair practices code, KYC norms and the rules on digital lending, where they apply.</li><li>Take the RBI's prior approval for change in control, management or shareholding beyond the limits.</li><li>Display the Certificate of Registration and keep the registered details up to date.</li></ul>`, "Compliance after registration", "clock"),
+      sec("types", `<table><thead><tr><th>Type of NBFC</th><th>What it does</th></tr></thead><tbody><tr><td>Investment and Credit Company</td><td>Gives loans and invests in securities and similar assets</td></tr><tr><td>Infrastructure Finance Company</td><td>Finances infrastructure projects</td></tr><tr><td>Microfinance Institution (NBFC-MFI)</td><td>Gives small loans to low-income households</td></tr><tr><td>Factor</td><td>Finances businesses by buying their receivables</td></tr><tr><td>Peer-to-Peer Lending Platform</td><td>Connects lenders and borrowers online</td></tr><tr><td>Account Aggregator</td><td>Shares financial data between institutions with the customer's consent</td></tr><tr><td>Core Investment Company</td><td>Holds investments in group companies</td></tr></tbody></table><p>The RBI's categories and layers (base, middle, upper) have been revised under its scale-based framework, so we confirm the one that fits your plan.</p>`),
+      sec("why-us", `<ul><li><strong>Realistic assessment:</strong> we tell you early if your capital, promoters or plan are not ready.</li><li><strong>Strong file:</strong> a clear business plan and policies make the RBI's review smoother.</li><li><strong>Query handling:</strong> we answer the RBI's questions until the file is closed.</li><li><strong>After registration:</strong> returns, audit and compliance guidance.</li></ul>`, "How Aeon helps", "shield-check"),
+    ],
+    faqs: [
+      { q: "What is the difference between an NBFC and a bank?", a: "An NBFC lends and invests but cannot take demand deposits or issue cheques drawn on itself, and is not part of the payment and settlement system in the same way a bank is." },
+      { q: "Is there a minimum capital?", a: "Yes. The RBI sets a minimum Net Owned Fund that has been revised in recent years. We confirm the current requirement for your category." },
+      { q: "Can a foreign company or an NRI invest in an NBFC?", a: "Foreign investment is permitted in many NBFC activities, subject to the FDI policy and the RBI's conditions. We check your case." },
+      { q: "How long does RBI registration take?", a: "It depends on the completeness of your file and the RBI's review, and can take several months. After reviewing your details we can give you a realistic estimate." },
+    ],
+    seoTitle: "NBFC Registration in India",
+    seoDescription: "How to register an NBFC with the RBI: eligibility, documents, the application process and compliance after registration.",
+    isPublished: true,
+  },
+  {
+    slug: "alternative-investment-fund-registration",
+    title: "Alternative Investment Fund Registration",
+    category: "SEBI",
+    icon: "trending",
+    summary: "An Alternative Investment Fund (AIF) pools money from investors to invest in assets such as startups, real estate or special situations. Learn the categories, requirements and the SEBI registration process.",
+    highlights: ["Right AIF category and legal structure", "Fund documents and private placement memorandum", "SEBI application and replies to observations", "Ongoing AIF compliance guidance"],
+    sections: [
+      sec("overview", `<p>An <strong>Alternative Investment Fund (AIF)</strong> is a privately pooled investment vehicle that collects money from sophisticated investors, Indian or foreign, to invest according to a defined policy. AIFs are regulated by the <strong>Securities and Exchange Board of India (SEBI)</strong> under the <strong>SEBI (Alternative Investment Funds) Regulations, 2012</strong>.</p><p>AIFs cover private equity and venture capital funds, hedge funds, real estate funds, debt funds and similar funds that do not fall under mutual funds or other categories.</p>`),
+      sec("advantages", `<ul><li><strong>Raise pooled capital</strong> from investors in a regulated and recognised manner.</li><li><strong>Flexibility</strong> in investment strategy, within the category's rules.</li><li><strong>Investor confidence</strong> because of SEBI registration and oversight.</li><li><strong>Tax and structuring options</strong> depending on the category and the structure chosen.</li><li><strong>A route for managers</strong> to build a fund track record.</li></ul>`, "Benefits", "thumbs-up"),
+      sec("eligibility", `<ul><li>The AIF can be set up as a <strong>trust, company, LLP or body corporate</strong>.</li><li>The sponsor and the manager must be <strong>fit and proper</strong> persons with the experience and integrity SEBI looks for.</li><li><strong>Minimum corpus:</strong> the regulations set a minimum fund size (currently ₹20 crore for each scheme) and a minimum investment per investor (currently ₹1 crore, with some exceptions).</li><li><strong>Sponsor and manager commitment:</strong> a percentage of the corpus has to be invested by them, with a cap, and the figure differs by category.</li><li>The fund can have a limited number of investors in each scheme, as set by the regulations.</li><li>SEBI revises these limits from time to time, so we confirm the current ones.</li></ul>`, "Eligibility criteria", "clipboard-check"),
+      sec("documents", `<ul><li>Constitutional documents of the AIF: trust deed, or company or LLP documents.</li><li>KYC, net worth and fit-and-proper declarations of the sponsor, manager and key persons.</li><li>Draft private placement memorandum (PPM) and contribution agreement.</li><li>Investment management agreement and the details of the trustee, custodian and auditor, where required.</li><li>Proof of the registered office and the infrastructure and compliance officer details.</li><li>Fee, and the other forms and undertakings required by SEBI.</li></ul>`, "Documents required", "file-text"),
+      sec("process", `<ol><li><strong>Structure:</strong> choose the category and the legal form of the fund.</li><li><strong>Set-up:</strong> the fund entity, sponsor and manager are set up, and the key documents are drafted.</li><li><strong>Application:</strong> the application is filed with SEBI through its online portal, with the fee.</li><li><strong>Observations:</strong> SEBI may raise queries; we prepare the replies.</li><li><strong>Registration:</strong> SEBI grants the certificate of registration and the fund can raise commitments from investors.</li><li><strong>Launch:</strong> schemes are launched, the PPM is filed through a merchant banker where required and investors are onboarded.</li></ol>`, "Application process", "list-ordered"),
+      sec("features", `<ul><li>File periodic reports with SEBI and give investors regular reports and valuations.</li><li>Have the AIF's performance benchmarked and its accounts audited, as the regulations require.</li><li>Follow the investment conditions of the category, the leverage limits and the concentration norms.</li><li>Keep the sponsor and manager commitment and report any change in control.</li><li>Follow the rules on investor grievance redressal and on private placement.</li></ul>`, "Compliance after registration", "clock"),
+      sec("types", `<table><thead><tr><th>Category</th><th>What it covers</th><th>Examples</th></tr></thead><tbody><tr><td>Category I</td><td>Funds that invest in sectors the government or regulators want to encourage</td><td>Venture capital, SME, social venture and infrastructure funds</td></tr><tr><td>Category II</td><td>Funds that do not fall under Category I or III and do not use leverage other than for day-to-day operations</td><td>Private equity and debt funds</td></tr><tr><td>Category III</td><td>Funds that use complex or diverse trading strategies, and may use leverage</td><td>Hedge funds</td></tr></tbody></table>`),
+      sec("why-us", `<ul><li><strong>Right structure first:</strong> we help you choose the category and the legal form.</li><li><strong>Complete documentation:</strong> the PPM, agreements and declarations are prepared with care.</li><li><strong>SEBI queries:</strong> we respond until the registration is granted.</li><li><strong>Post-registration:</strong> reports, valuations and AIF compliance support.</li></ul>`, "How Aeon helps", "shield-check"),
+    ],
+    faqs: [
+      { q: "Who can invest in an AIF?", a: "AIFs are meant for sophisticated investors such as high-net-worth individuals, institutions and companies, Indian or foreign, subject to the minimum investment." },
+      { q: "Which AIF category should I choose?", a: "It depends on your strategy. Venture and social funds are usually Category I, private equity and debt funds Category II, and funds that use complex strategies or leverage Category III." },
+      { q: "Can a foreign investor invest in an AIF?", a: "Yes, subject to the foreign investment rules and the conditions in the regulations." },
+      { q: "How long does SEBI registration take?", a: "It depends on how complete the file is and on SEBI's review. After looking at your documents we can give you a realistic estimate." },
+    ],
+    seoTitle: "Alternative Investment Fund (AIF) Registration",
+    seoDescription: "How to register an AIF with SEBI: categories, eligibility, documents, the process and ongoing compliance.",
+    isPublished: true,
+  },
+  {
+    slug: "ul-vno-license",
+    title: "UL VNO License",
+    category: "Telecom",
+    icon: "phone",
+    summary: "A Unified License (Virtual Network Operator) lets a company offer telecom services using another operator's network. Learn who can apply, the categories and the process.",
+    highlights: ["Choice of VNO category", "Tie-up guidance with a network operator", "Application on the DoT portal", "Replies to DoT's queries"],
+    sections: [
+      sec("overview", `<p>A <strong>Virtual Network Operator (VNO)</strong> offers telecom services to customers using the network of a licensed network service operator, without building its own network. VNOs are licensed by the <strong>Department of Telecommunications (DoT)</strong> under the <strong>Unified License (UL)</strong> framework.</p><p>This lets new players, brands and platforms enter the telecom market with a lighter investment, while the regulatory conditions of the licence still apply to them.</p>`),
+      sec("advantages", `<ul><li><strong>Lower cost of entry:</strong> no need to build a network.</li><li><strong>Your own brand and customers:</strong> you sell services under your name.</li><li><strong>Flexibility:</strong> you can design plans and bundles for your market.</li><li><strong>Lawful operation:</strong> the licence lets you offer the service without risk of penalties.</li></ul>`, "Benefits", "thumbs-up"),
+      sec("eligibility", `<ul><li>An <strong>Indian company</strong> registered under the Companies Act, with telecom services in its objects.</li><li>The company and its promoters must meet the ownership, net worth and security conditions that the DoT sets for the category.</li><li>A <strong>tie-up with a licensed network service operator</strong> that will carry your traffic.</li><li>Foreign investment is subject to the FDI policy and the licence conditions.</li><li>The DoT revises the conditions, entry fee and guarantee amounts, so we confirm the current ones.</li></ul>`, "Eligibility criteria", "clipboard-check"),
+      sec("documents", `<ul><li>Certificate of incorporation, Memorandum and Articles of Association and shareholding details.</li><li>Audited financial statements and net worth certificate.</li><li>Identity, address and security-clearance details of directors and key persons.</li><li>Agreement or in-principle agreement with the network service operator.</li><li>Technical and business plan, and the board resolution authorising the application.</li><li>Fee and bank guarantee details, as the licence requires.</li></ul>`, "Documents required", "file-text"),
+      sec("process", `<ol><li><strong>Eligibility:</strong> we confirm the category and the readiness of the company.</li><li><strong>Network partner:</strong> an agreement with a licensed network operator is arranged.</li><li><strong>Application:</strong> the application and documents are filed on the DoT's online portal with the fee.</li><li><strong>Examination:</strong> the DoT examines the file and may seek clarifications, which we answer.</li><li><strong>Letter of intent:</strong> on acceptance, the DoT issues a letter of intent and asks for the guarantee and fee.</li><li><strong>Licence:</strong> the licence agreement is signed and the licence is issued.</li></ol>`, "Application process", "list-ordered"),
+      sec("features", `<ul><li>Pay the licence fee and file the returns that the licence requires.</li><li>Keep the bank guarantee valid, and the net worth at the required level.</li><li>Follow the quality of service, security and lawful interception conditions.</li><li>Take the DoT's approval for changes in shareholding or control.</li><li>Keep the arrangement with the network service operator in force.</li></ul>`, "Compliance after the licence", "clock"),
+      sec("types", `<table><thead><tr><th>Category</th><th>Area of service</th></tr></thead><tbody><tr><td>Category A</td><td>National area</td></tr><tr><td>Category B</td><td>Telecom circle or metro area</td></tr><tr><td>Category C</td><td>Secondary Switching Area (SSA)</td></tr></tbody></table><p>The category you choose decides the area where you can offer service, and the entry fee, guarantee and net worth that apply.</p>`),
+      sec("why-us", `<ul><li><strong>Right category:</strong> we help you match the licence to your plan and budget.</li><li><strong>Complete file:</strong> documents and plans are prepared the way the DoT expects.</li><li><strong>Query handling:</strong> we respond until the licence is signed.</li><li><strong>After the licence:</strong> fee, returns and conditions explained clearly.</li></ul>`, "How Aeon helps", "shield-check"),
+    ],
+    faqs: [
+      { q: "What is a VNO?", a: "A Virtual Network Operator provides telecom services to customers using the network of a licensed operator, instead of its own network." },
+      { q: "Do I need my own network to apply?", a: "No. A VNO uses the network of a licensed network service operator, so you need an agreement with one." },
+      { q: "Which category should I apply for?", a: "It depends on the area where you want to serve customers: national, a circle or metro, or a smaller secondary switching area." },
+      { q: "Is the licence permanent?", a: "A licence is granted for a stated period and has conditions on fees and renewal, which are set in the licence agreement." },
+    ],
+    seoTitle: "UL VNO License in India",
+    seoDescription: "How to get a Unified License (VNO) from the DoT: categories, eligibility, documents, process and compliance.",
+    isPublished: true,
+  },
+]

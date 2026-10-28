@@ -1,0 +1,472 @@
+import type { ServiceInput } from "@/lib/services"
+
+type Content = Pick<ServiceInput, "summary" | "highlights" | "sections" | "faqs" | "seoTitle" | "seoDescription">
+type Key = ServiceInput["sections"][number]["key"]
+
+const li = (items: string[]) => `<ul>${items.map((i) => `<li>${i}</li>`).join("")}</ul>`
+const ol = (items: string[]) => `<ol>${items.map((i) => `<li>${i}</li>`).join("")}</ol>`
+const sec = (key: Key, html: string, title?: string, icon?: string) => ({ key, html, ...(title ? { title } : {}), ...(icon ? { icon } : {}) })
+
+type Profile = {
+  authority: string
+  law: string
+  what: string
+  benefits: string[]
+  applies: string[]
+  docs: string[]
+  steps: string[]
+  after: string[]
+}
+
+const PROFILES: Record<string, Profile> = {
+  "Pollution NOC": {
+    authority: "the State Pollution Control Board or Committee, the Central Pollution Control Board (CPCB) or the local authority concerned",
+    law: "the Water (Prevention and Control of Pollution) Act, 1974, the Air (Prevention and Control of Pollution) Act, 1981, the Environment (Protection) Act, 1986 and the state rules",
+    what: "This is a no-objection certificate, consent or licence that shows a business or project meets the pollution, safety or environmental conditions set by the authority.",
+    benefits: [
+      "Lets you set up or run the unit or building lawfully.",
+      "Avoids closure notices, penalties and legal action for working without consent.",
+      "Needed by banks, insurers and other departments before they act on your application.",
+      "Shows customers and neighbours that you follow environmental norms.",
+    ],
+    applies: [
+      "Industrial units, commercial buildings, projects and service providers whose activity can cause pollution or needs a safety clearance.",
+      "The type of consent and the fee depend on the category of the industry (red, orange, green or white), the size and the location.",
+      "Some clearances are needed before construction or installation, and others before operation.",
+    ],
+    docs: [
+      "Business registration papers and PAN; identity proof of the owner or directors.",
+      "Land, lease or ownership documents of the site, and a site plan or layout.",
+      "Details of the activity: products, raw material, process, water use and waste.",
+      "Detailed project report or process flow, and details of pollution control arrangements.",
+      "Fire, building and local body approvals where relevant, and any earlier consents.",
+    ],
+    steps: [
+      "<strong>Applicability:</strong> we check which consent or NOC your activity needs and from which authority.",
+      "<strong>Information gathering:</strong> site, process and pollution control details are collected.",
+      "<strong>Application:</strong> the application and documents are filed on the authority's portal, with the fee.",
+      "<strong>Inspection:</strong> the authority may visit the site or take samples; we tell you what to keep ready.",
+      "<strong>Consent or NOC:</strong> the certificate is issued with its conditions.",
+    ],
+    after: [
+      "Follow the conditions of the consent, such as limits on emissions and discharge.",
+      "Renew the consent or NOC before it expires.",
+      "File the returns, such as environmental statements, in the time set.",
+      "Tell the authority about expansion, change of process or ownership.",
+    ],
+  },
+  "E-Waste Management": {
+    authority: "the Central Pollution Control Board (CPCB) and the State Pollution Control Boards, through the EPR portal",
+    law: "the E-Waste (Management) Rules and the Extended Producer Responsibility (EPR) framework made under the Environment (Protection) Act, 1986",
+    what: "Producers, importers, recyclers and refurbishers of electrical and electronic equipment have duties under the E-Waste Rules. This service helps you register, meet your EPR targets and keep your records right.",
+    benefits: [
+      "Lets you sell, import, recycle or refurbish electronic goods in line with the law.",
+      "Avoids environmental compensation and penalties for not meeting EPR obligations.",
+      "Required by many buyers, marketplaces and customs authorities.",
+      "Supports a sustainable image and ESG reporting.",
+    ],
+    applies: [
+      "Producers, importers and brand owners of notified electronic and electrical equipment.",
+      "Recyclers, dismantlers, refurbishers and Producer Responsibility Organisations (PROs).",
+      "The targets and conditions depend on the product category, the quantity placed on the market and the year.",
+    ],
+    docs: [
+      "Business registration, PAN, GST and import-export code, where relevant.",
+      "Details of the products, their categories and the quantity sold or imported in past years.",
+      "For recyclers and refurbishers: site details, consent from the Pollution Control Board, equipment and process details.",
+      "Agreements with recyclers or PROs, and earlier returns or certificates.",
+      "Authorised signatory details and a board resolution.",
+    ],
+    steps: [
+      "<strong>Applicability:</strong> we check your category, your obligation and your target for the year.",
+      "<strong>Registration or authorisation:</strong> the application is filed on the EPR portal with documents and the fee.",
+      "<strong>Meeting the target:</strong> through certificates from registered recyclers or credits, as the rules allow.",
+      "<strong>Reporting:</strong> returns and records are filed on the portal in the time set.",
+      "<strong>Follow-up:</strong> we answer queries and keep your records ready for audit.",
+    ],
+    after: [
+      "Meet the annual EPR targets and keep proof of how they were met.",
+      "File annual returns and quarterly or other reports on the portal.",
+      "Maintain the registration or authorisation and renew it on time.",
+      "Keep records for inspection and audit by the authorities.",
+    ],
+  },
+  "Plastic Waste Management": {
+    authority: "the Central Pollution Control Board (CPCB) and the State Pollution Control Boards, through the EPR portal",
+    law: "the Plastic Waste Management Rules, 2016 (as amended) and the EPR guidelines for plastic packaging",
+    what: "Producers, importers, brand owners and recyclers of plastic packaging have responsibilities for the waste their products create. This service helps you register, meet your EPR targets and report correctly.",
+    benefits: [
+      "Keeps your packaging business lawful and your products on the market.",
+      "Avoids environmental compensation and penalties.",
+      "Meets the requirements of large buyers and platforms.",
+      "Improves your sustainability record.",
+    ],
+    applies: [
+      "Producers, importers and brand owners (PIBOs) that use plastic packaging.",
+      "Plastic waste processors and recyclers.",
+      "The categories, targets and recycling conditions are set by the rules and revised over time.",
+    ],
+    docs: [
+      "Business registration, PAN, GST and import-export code.",
+      "Details of plastic packaging used, by category and quantity.",
+      "For processors and recyclers: site, consent from the Pollution Control Board, machinery and capacity details.",
+      "Agreements with recyclers or processors, and earlier returns.",
+      "Authorised signatory details.",
+    ],
+    steps: [
+      "<strong>Applicability:</strong> we map your packaging to the categories and your target.",
+      "<strong>Registration:</strong> the application is filed on the EPR portal with documents and the fee.",
+      "<strong>Meeting the target:</strong> through certificates or credits from registered processors and recyclers.",
+      "<strong>Reporting:</strong> the annual return and other reports are filed in the time set.",
+      "<strong>Follow-up:</strong> we answer queries and keep records for audit.",
+    ],
+    after: [
+      "Meet the yearly EPR targets and keep proof of fulfilment.",
+      "File returns and reports on the portal in time.",
+      "Keep the registration valid and renew it when due.",
+      "Be ready for inspection and verification by the authorities.",
+    ],
+  },
+  "Hazardous Waste Management": {
+    authority: "the State Pollution Control Board, the Central Pollution Control Board (CPCB) and, for imports and exports, the Ministry of Environment, Forest and Climate Change",
+    law: "the Hazardous and Other Wastes (Management and Transboundary Movement) Rules, 2016, the Solid Waste Management Rules, 2016 and the Bio-Medical Waste Management Rules, 2016",
+    what: "This is an authorisation or compliance service for generating, storing, transporting, treating, importing or exporting hazardous, industrial, biomedical or solid waste in a safe and lawful way.",
+    benefits: [
+      "Lets you handle the waste lawfully and safely.",
+      "Avoids closure, fines and criminal liability for improper disposal.",
+      "Protects workers, the neighbourhood and the environment.",
+      "Needed for renewing other consents and for tenders.",
+    ],
+    applies: [
+      "Industries that generate hazardous waste, and operators of storage, treatment, recycling and disposal facilities.",
+      "Importers and exporters of specified wastes, and generators of bio-medical or industrial waste.",
+      "The type of authorisation depends on the waste, the quantity and the activity.",
+    ],
+    docs: [
+      "Business registration papers and PAN; identity proof of the owner or directors.",
+      "Site details with a layout, and consent to establish or operate from the Pollution Control Board.",
+      "Waste details: type, quantity, source and the proposed handling.",
+      "Details of storage, treatment or recycling arrangements, and agreements with authorised facilities.",
+      "Emergency plan, worker safety details and earlier authorisations or returns.",
+    ],
+    steps: [
+      "<strong>Applicability:</strong> we identify the waste and the authorisation that applies.",
+      "<strong>Preparation:</strong> site, handling and safety arrangements are documented.",
+      "<strong>Application:</strong> the application is filed with the Board or the Ministry, with the fee.",
+      "<strong>Inspection:</strong> the authority may inspect and sample; we guide you.",
+      "<strong>Authorisation:</strong> the authorisation is issued with its conditions.",
+    ],
+    after: [
+      "Follow the conditions on storage, labelling, transport and disposal.",
+      "Maintain manifests and records, and file annual returns.",
+      "Renew the authorisation before it expires.",
+      "Report accidents and changes in process or quantity as the rules require.",
+    ],
+  },
+  "Battery Waste Management": {
+    authority: "the Central Pollution Control Board (CPCB), the Ministry of Environment, Forest and Climate Change and the State Pollution Control Boards",
+    law: "the Battery Waste Management Rules, 2022 and the EPR framework under the Environment (Protection) Act, 1986",
+    what: "Producers, importers, recyclers and refurbishers of batteries have responsibilities for collecting and recycling used batteries. This service helps with registration, import permissions and EPR compliance.",
+    benefits: [
+      "Lets you make, import, sell or recycle batteries lawfully.",
+      "Avoids environmental compensation and penalties.",
+      "Needed by customs and buyers for imports and sales.",
+      "Supports your sustainability and ESG record.",
+    ],
+    applies: [
+      "Producers and importers of batteries, including lead-acid and lithium-ion types.",
+      "Recyclers, refurbishers and importers of scrap batteries.",
+      "Targets and conditions depend on the type of battery and the quantity placed on the market.",
+    ],
+    docs: [
+      "Business registration, PAN, GST and import-export code.",
+      "Details of battery types, quantities and the supply chain.",
+      "For recyclers: site details, consent from the Pollution Control Board and technology details.",
+      "Agreements with recyclers, and earlier returns or certificates.",
+      "Authorised signatory details.",
+    ],
+    steps: [
+      "<strong>Applicability:</strong> we check your battery category and the obligation.",
+      "<strong>Registration or licence:</strong> the application is filed on the relevant portal with documents and the fee.",
+      "<strong>Meeting the target:</strong> through recycling certificates or credits from registered recyclers.",
+      "<strong>Reporting:</strong> annual returns and reports are filed in the time set.",
+      "<strong>Follow-up:</strong> we answer queries and keep records ready for audit.",
+    ],
+    after: [
+      "Meet the EPR targets and keep proof of recycling.",
+      "File annual returns and reports on the portal.",
+      "Keep the registration or licence valid and renew it when due.",
+      "Follow the rules on collection, labelling and storage of batteries.",
+    ],
+  },
+  "Environmental Licensing": {
+    authority: "the Central Pollution Control Board (CPCB), the State Pollution Control Boards, the Ministry of Environment, Forest and Climate Change or the certifying body for the scheme",
+    law: "the environmental laws and the scheme or standard that applies to the licence or certificate",
+    what: "This is a licence, authorisation or certification related to the environment, such as for a vehicle scrapping facility, forest or wildlife clearance, or a green or sustainability certificate.",
+    benefits: [
+      "Lets you carry on the activity lawfully or make credible environmental claims.",
+      "Opens doors to tenders, buyers and funders who ask for the certificate.",
+      "Reduces the risk of penalties and stop-work orders.",
+      "Supports your sustainability goals and reporting.",
+    ],
+    applies: [
+      "Businesses, projects and buildings that need the licence, or choose to certify under the scheme.",
+      "Conditions, fees and approvals depend on the scheme and on the activity or site.",
+      "Some certificates are mandatory by law, and others are voluntary and market-driven.",
+    ],
+    docs: [
+      "Business registration papers and PAN; identity proof of the owner or directors.",
+      "Site, project or facility details with plans and layouts.",
+      "Technical details, process or design information, and test or audit reports where required.",
+      "Earlier approvals, consents and returns.",
+      "Any forms and declarations specific to the scheme.",
+    ],
+    steps: [
+      "<strong>Scheme check:</strong> we confirm the licence or certificate, the authority and the conditions.",
+      "<strong>Preparation:</strong> technical papers, reports and documents are readied.",
+      "<strong>Application:</strong> it is filed with the authority or certifying body, with the fee.",
+      "<strong>Assessment:</strong> an inspection or audit may follow; we guide you.",
+      "<strong>Grant:</strong> the licence or certificate is issued.",
+    ],
+    after: [
+      "Follow the conditions and the validity period of the licence or certificate.",
+      "Renew or re-certify on time.",
+      "File reports and returns that the scheme requires.",
+      "Keep records ready for audits and surveillance.",
+    ],
+  },
+  "Environmental Advisory": {
+    authority: "the lenders, regulators or customers that ask for the study, and the standards or frameworks the work follows",
+    law: "the environmental laws, the Companies Act and ESG reporting requirements, and the standards or guidance that apply to the study",
+    what: "This is an advisory or assessment service that helps an organisation understand and manage its environmental, social and governance (ESG) risks and duties.",
+    benefits: [
+      "Helps you find and manage risks before they become costly.",
+      "Supports funding, listing and customer requirements that ask for ESG information.",
+      "Improves how you use resources and manage waste.",
+      "Builds trust with investors, employees and communities.",
+    ],
+    applies: [
+      "Companies, lenders, investors and project owners that want an assessment or a plan.",
+      "Some reporting is mandatory for certain companies, while other work is voluntary.",
+      "The scope depends on the sector, the size of the business and the purpose of the work.",
+    ],
+    docs: [
+      "Company details and the scope of the work to be done.",
+      "Site, operations and supply chain information.",
+      "Earlier audits, consents, policies and reports.",
+      "Data on energy, water, waste, emissions and labour practices, as the work needs.",
+    ],
+    steps: [
+      "<strong>Scope:</strong> we agree on the purpose, the sites and the standards to follow.",
+      "<strong>Data and visits:</strong> we collect information, hold interviews and visit sites where needed.",
+      "<strong>Assessment:</strong> risks and gaps are identified and rated.",
+      "<strong>Report:</strong> you receive findings and a plan of actions.",
+      "<strong>Follow-up:</strong> we support you in carrying out and tracking the actions.",
+    ],
+    after: [
+      "Act on the recommendations and track progress.",
+      "Repeat the assessment at regular intervals or before major deals.",
+      "Keep supporting records for audits and reporting.",
+      "Update policies as laws and standards change.",
+    ],
+  },
+  EIA: {
+    authority: "the Ministry of Environment, Forest and Climate Change (MoEFCC), the State Environment Impact Assessment Authority and the State Pollution Control Board",
+    law: "the Environment (Protection) Act, 1986 and the EIA Notification, 2006, along with the Water and Air Acts",
+    what: "This is a study, clearance or compliance service connected with the environmental impact of a project or plant, such as an environmental clearance, a consent, an audit or a related survey.",
+    benefits: [
+      "Lets a project start or expand with the clearances it needs.",
+      "Identifies environmental impacts early, so they can be reduced.",
+      "Avoids stop-work orders, penalties and legal challenges.",
+      "Needed by lenders, buyers and other departments.",
+    ],
+    applies: [
+      "Projects and industries listed in the EIA Notification, and units that need consent from the Pollution Control Board.",
+      "Whether a project needs a full clearance, and at which level, depends on its category, size and location.",
+      "Studies such as soil testing or hydrogeological surveys are done by qualified experts and accredited laboratories where required.",
+    ],
+    docs: [
+      "Project details: location, size, products, raw materials and process.",
+      "Land documents, maps and a site layout.",
+      "Pre-feasibility or project report and earlier approvals.",
+      "Baseline environmental data, where already available.",
+      "Details of pollution control and the proposed management plan.",
+    ],
+    steps: [
+      "<strong>Screening:</strong> we check whether and what type of clearance or consent applies.",
+      "<strong>Baseline and study:</strong> data is collected and the impact study or report is prepared.",
+      "<strong>Application:</strong> the application and reports are filed with the authority.",
+      "<strong>Public hearing or appraisal:</strong> where the rules require, a hearing and an expert appraisal follow.",
+      "<strong>Clearance or consent:</strong> the clearance or consent is issued with its conditions.",
+    ],
+    after: [
+      "Follow the conditions of the clearance, including the environmental management plan.",
+      "File half-yearly or annual compliance reports.",
+      "Renew consents on time, and seek approval for expansion or change.",
+      "Keep monitoring data and records ready for inspection.",
+    ],
+  },
+  "Environmental Industry": {
+    authority: "the lender, investor or buyer who asks for the review, and the standards or frameworks followed",
+    law: "the environmental and labour laws of the sector and the standards that lenders and investors follow for environmental and social due diligence",
+    what: "Environmental and Social Due Diligence (ESDD) is a review of how a business or project in this sector affects the environment and people, and how well it manages those risks.",
+    benefits: [
+      "Helps lenders and investors make informed decisions.",
+      "Identifies risks such as pollution, resource use, safety and labour issues early.",
+      "Gives the business an action plan to improve its practices.",
+      "Supports ESG reporting and responsible sourcing claims.",
+    ],
+    applies: [
+      "Companies, projects and lenders in the sector who need or want an ESDD.",
+      "The scope depends on the stage (planning, funding, operation or sale), the size and the standard followed.",
+      "Findings depend on the information and access given for the review.",
+    ],
+    docs: [
+      "Company and project details, and the organisation chart.",
+      "Site details, process descriptions and approvals, consents and permits.",
+      "Environmental data: energy, water, waste, emissions and chemical use.",
+      "Social information: workforce, health and safety records, grievance systems and community engagement.",
+      "Earlier audits, policies and incident records.",
+    ],
+    steps: [
+      "<strong>Scope:</strong> we agree on the purpose, the sites and the standard to follow.",
+      "<strong>Document review:</strong> permits, policies and data are reviewed.",
+      "<strong>Site visit and interviews:</strong> the site is visited and people are interviewed where the scope allows.",
+      "<strong>Assessment:</strong> issues are rated by risk and compared with legal and standard requirements.",
+      "<strong>Report:</strong> you receive findings and a corrective action plan.",
+    ],
+    after: [
+      "Carry out the corrective actions in the agreed time.",
+      "Track progress and keep evidence of improvements.",
+      "Repeat the review at regular intervals or when lenders ask for it.",
+      "Keep policies and permits up to date.",
+    ],
+  },
+}
+
+const WHAT: Record<string, string> = {
+  "Fire Department NOC": "A Fire Department NOC is a certificate from the state fire service stating that a building has the fire safety arrangements that the law requires.",
+  "Delhi Pollution Control Committee": "Businesses in Delhi need consents from the Delhi Pollution Control Committee (DPCC) to establish and operate units that can pollute.",
+  "Uttar Pradesh Pollution Control Board": "Units in Uttar Pradesh need consent from the Uttar Pradesh Pollution Control Board to establish and operate.",
+  "NOC Pollution Control Board": "A no-objection certificate from the Pollution Control Board shows that the unit meets the pollution norms of the state.",
+  "CGWA-Water Boring": "Extracting groundwater for industry, mining or infrastructure in many areas needs a no-objection certificate from the Central Ground Water Authority (CGWA).",
+  "E-waste License for Dismantling": "A dismantler of electronic waste needs authorisation from the State Pollution Control Board under the E-Waste Rules.",
+  "License for charging station in UP": "Setting up an electric vehicle charging station in Uttar Pradesh involves approvals from the power and local authorities.",
+  "Phase II Soil and Groundwater Investigations": "A Phase II investigation tests soil and groundwater for contamination, after a Phase I review has found a possible concern.",
+  "Consent for Establishment (CFE) from SPCB": "Consent to Establish (CTE or CFE) is the permission from the State Pollution Control Board to set up a plant or unit.",
+  "EPR Registration": "Extended Producer Responsibility (EPR) registration makes a producer, importer or brand owner responsible for collecting and recycling the waste created by its products.",
+  "Refurbisher Authorization and License": "A refurbisher repairs and resells used electronics and needs authorisation under the E-Waste Rules.",
+  "PRO Authorization": "A Producer Responsibility Organisation (PRO) helps producers meet their EPR duties and has to be authorised by the Central Pollution Control Board.",
+  "Plastic Waste Authorization": "An authorisation under the Plastic Waste Management Rules allows a business to manufacture, import, recycle or process plastic as the rules provide.",
+  "E-Waste Recycling Authorization": "A recycler of electronic waste needs authorisation from the Pollution Control Board before it can process e-waste.",
+  "EPR Authorization for E-waste": "Producers of electrical and electronic equipment need EPR authorisation to place their products on the market.",
+  "EPR Post Compliance (E-Waste)": "After registration, producers have to file returns and show that they met their e-waste EPR targets.",
+  "Authorization for Export of E-waste": "Exporting e-waste needs specific permission under the rules governing the movement of hazardous and other wastes.",
+  "EPR Target Fulfilment": "An EPR target is the quantity of waste a producer has to collect and recycle, and it is met through recyclers or credits.",
+  "EPR Authorization For Battery Waste": "Battery producers and importers need an EPR registration under the Battery Waste Management Rules.",
+  "EPR Credits From Plastic Waste Recyclers": "Producers can meet their plastic EPR targets by buying certificates or credits from registered plastic recyclers.",
+  "EPR for Importers": "Importers of regulated products are treated like producers and have to register and meet EPR targets.",
+  "EPR Credits": "EPR credits are certificates that show a quantity of waste was collected and recycled, and are used to meet EPR targets.",
+  "E-waste Recycling license": "A licence or authorisation to recycle e-waste allows a facility to process electronic waste safely.",
+  "EPR Registration for Producers and Brand Owners": "Producers and brand owners have to register on the EPR portal to place regulated products on the market.",
+  "EPR Fulfillment in E-Waste Management": "Fulfilling EPR means meeting the yearly target by getting e-waste recycled and proving it with documents.",
+  "EPR Compliance": "EPR compliance covers registration, targets, returns and records that a producer has to maintain under the EPR rules.",
+  "legacy waste management": "Legacy waste is old, accumulated waste at dump sites that needs scientific processing or remediation under the solid waste rules.",
+  "Battery EPR Credits": "Battery EPR credits are certificates of recycling that producers use to meet their battery EPR targets.",
+  "Agricultural Waste Management": "This covers the safe collection, reuse or processing of agricultural residues, to avoid burning and pollution.",
+  "EPR Credits Bid Management Services": "This helps producers take part in the platforms or bids where EPR credits are bought and sold.",
+  "EPR for Non-ferrous Metals": "Producers and recyclers of non-ferrous metals, such as copper and aluminium scrap, have duties under the environmental rules on waste and recycling.",
+  "EPR Authorization for Plastic waste Management": "Producers, importers and brand owners of plastic packaging need EPR registration under the Plastic Waste Management Rules.",
+  "EPR Post Compliance – Plastic Waste": "After registration, plastic producers must file returns and prove that they met their EPR targets.",
+  "Plastic Waste Recycling Plant & PWM": "Setting up a plastic waste recycling plant needs consents from the Pollution Control Board and registration under the plastic waste rules.",
+  "Plastic Waste Processors Authorisation": "A plastic waste processor needs registration and authorisation to process plastic waste and issue certificates.",
+  "EPR Fulfilment For Plastic Waste Management": "Fulfilling plastic EPR means meeting the yearly recycling targets and proving it with certificates.",
+  "Solid Waste Management Authorization": "Operators of solid waste processing and disposal facilities need authorisation under the Solid Waste Management Rules.",
+  "Hazardous Waste Management Authorization": "A unit that generates, stores, treats or disposes of hazardous waste needs authorisation from the State Pollution Control Board.",
+  "Authorization for Import of Hazardous Waste": "Importing certain wastes for recycling needs permission under the rules for hazardous and other wastes.",
+  "Authorization for Export of Hazardous Waste": "Exporting hazardous waste is allowed only with permission and as per the rules on transboundary movement.",
+  "Bio Medical Waste Recycling Plant": "Bio-medical waste has to be handled by authorised facilities under the Bio-Medical Waste Management Rules, 2016.",
+  "Hazardous Waste Export Authorisation": "An authorisation to export hazardous waste is issued under the rules on transboundary movement, subject to conditions.",
+  "Land Waste Management": "This covers the lawful handling and disposal of waste on land, including landfills and contaminated sites.",
+  "Hazardous Waste Management and Compliance Assurance": "A review that checks whether your handling, storage and records of hazardous waste meet the rules.",
+  "Industrial Waste Management": "Industrial waste has to be collected, stored, treated and disposed of as per the conditions in the unit's consent.",
+  "New Lead Acid Battery Import License": "Importing new lead-acid batteries needs permission and registration under the battery rules.",
+  "Lithium-Ion Battery Import License": "Importing lithium-ion batteries involves registration under the battery waste rules and other import requirements.",
+  "Registration for Lead Acid Battery Recycling": "A lead-acid battery recycler needs registration and consent from the Pollution Control Board.",
+  "Registration for Scrap Battery Import": "Importing scrap batteries for recycling needs registration and permission, with strict conditions.",
+  "Authorized Vehicle Scrapping Facility (AVSF)": "An AVSF is a facility authorised to scrap old vehicles in an environmentally safe way under the vehicle scrapping policy.",
+  "TSDF Facility Services": "A Treatment, Storage and Disposal Facility (TSDF) handles hazardous waste safely and needs consent and authorisation.",
+  "iCAT Certification": "iCAT certification relates to type approval and testing of vehicles and components by the International Centre for Automotive Technology.",
+  "MSTC License for Scrap": "MSTC runs e-auctions of scrap and other goods, and sellers and buyers register with it to take part.",
+  "Carbon Credit Accounting": "Carbon credit accounting records and reports credits created or bought, so they can be verified and used.",
+  "LEED Zero Carbon Certification": "LEED Zero Carbon recognises buildings that have net zero carbon emissions from energy use.",
+  "LEED Zero Water Certification": "LEED Zero Water recognises buildings that balance their water use with the water they return or reuse.",
+  "Green Building Certification": "A green building certification, such as LEED or IGBC, shows that a building was designed and runs in an energy and resource efficient way.",
+  "PEFC Certification": "PEFC certifies that wood and paper products come from sustainably managed forests.",
+  "FSC Certification": "FSC certification shows that forest products come from responsibly managed forests, and tracks them through the chain.",
+  "Vriksh Certification": "A tree-related or green certification scheme for plantations and wood products; the exact scheme conditions are confirmed before application.",
+  "Carbon Footprint Calculation Consulting": "A carbon footprint calculation measures the greenhouse gas emissions of a business, product or event.",
+  "CPCB Certification": "Some products and facilities are certified or approved by the Central Pollution Control Board before they can be sold or operated.",
+  "Vehicle Scrapping License": "A licence to run a vehicle scrapping business is given under the vehicle scrapping rules, with environment and safety conditions.",
+  "LEED Certification Services": "LEED is an international green building rating system. Services cover registration, documentation and certification.",
+  "CPCB Certificate for Compostable Products": "Products sold as compostable have to meet standards and get a certificate from the Central Pollution Control Board.",
+  "Forest Clearance Certificate": "Using forest land for non-forest purposes needs prior clearance from the competent authority under the forest conservation law.",
+  "Wildlife Clearance Certificate": "A project near or in a protected area may need clearance from the wildlife authorities.",
+  "PIMS Registration": "PIMS registration relates to the Plastic and e-waste or product information systems of the CPCB; the exact portal and use are confirmed for your case.",
+  "Environment, Social and Governance (ESG) Strategies": "An ESG strategy sets out how a company will manage environmental, social and governance risks and report on them.",
+  "Construction and Demolition (C&D) Waste Recycling": "Construction and demolition waste has to be collected, processed and reused under the C&D Waste Management Rules.",
+  "Risk Assessment": "An environmental risk assessment identifies and rates the hazards and risks of an activity, site or process.",
+  "Supply Chain and Human Rights and Environmental Due Diligence": "This reviews the environmental and human rights risks in a company's supply chain, as many global buyers and laws now expect.",
+  "Carbon Credit Trading Scheme": "A carbon credit trading scheme lets organisations buy and sell credits for emission reductions under a regulated framework.",
+  "Environmental Due Diligence Services": "Environmental due diligence checks a site or business for environmental liabilities before it is bought, leased or financed.",
+  "State Pollution Control Board (SPCB) - NOC": "A no-objection certificate from the State Pollution Control Board is needed for many industries before they are set up.",
+  "Environmental Auditing": "An environmental audit checks whether a unit follows the environmental laws and its consent conditions.",
+  "Environmental Clearance": "Environmental clearance is the approval that listed projects need from the environment ministry or the state authority before they start.",
+  "Environmental Impact Assessment (EIA)": "An EIA is a study of the effects of a project on the environment, with a plan to manage them, used in the clearance process.",
+  "Hydrogeological survey report": "A hydrogeological survey studies groundwater conditions at a site, and is needed for water extraction approvals and some projects.",
+  "Half-Yearly Environmental Compliance": "Projects with environmental clearance have to submit a compliance report every six months, showing how they are meeting the conditions.",
+  "Social Impact Assessment": "A social impact assessment studies how a project affects the people and communities around it.",
+  "Wildlife Conservation Plan": "A wildlife conservation plan sets out how a project will protect wildlife and habitat, and is required for some projects near protected areas.",
+  "Environmental Management Plan Report": "An environmental management plan lists the steps, costs and responsibilities for reducing a project's impact.",
+  "Consent for Operation (CFO)": "Consent to Operate (CTO or CFO) is the permission from the State Pollution Control Board to run a unit after it is built.",
+  "Soil Testing": "Soil testing measures the quality and contamination of soil at a site, for approvals, projects and farming.",
+  "CDP Reporting": "CDP is a global disclosure system through which companies report their environmental data, such as climate, water and forests.",
+}
+
+export function buildEnvironmentalContent(category: string, title: string): Content {
+  const p = PROFILES[category]
+  const what = WHAT[title] ?? (category === "Environmental Industry" ? `${p.what} This page covers ${title.replace(/^ESDD in (the )?/i, "").trim()}.` : p.what)
+  const overview = `<p>${what}</p><p>It falls under ${p.law}, and is dealt with by ${p.authority}. Rules, targets, fees and time limits are set by the authorities and are revised from time to time, so we check the current position for your case before we start.</p>`
+  const summary = `${title}: who it applies to, the documents needed, the application process and the compliance that follows.`
+
+  return {
+    summary,
+    highlights: ["Check of the rules that apply to you", "Documents and application prepared", "Replies to the authority's queries", "Guidance on renewals and returns"],
+    sections: [
+      sec("overview", overview),
+      sec("advantages", li(p.benefits), "Benefits", "thumbs-up"),
+      sec("eligibility", li(p.applies), "Applicability", "clipboard-check"),
+      sec("documents", `${li(p.docs)}<p>The exact list depends on your case. We confirm it after a short discussion.</p>`, "Documents required"),
+      sec("process", ol(p.steps), "Application procedure"),
+      sec("features", li(p.after), "Compliance & renewals", "clock"),
+      sec(
+        "why-us",
+        li([
+          "<strong>Applicability first:</strong> we check what you really need before you apply.",
+          "<strong>Complete files:</strong> documents and reports are prepared the way the authority expects.",
+          "<strong>Query handling:</strong> we answer the authority's questions until the work is complete.",
+          "<strong>After approval:</strong> we remind you about returns, targets and renewals.",
+        ]),
+        "How Aeon helps",
+      ),
+    ],
+    faqs: [
+      { q: `Who needs ${title}?`, a: "It depends on the activity, size and location. Share your details and we will confirm whether it applies to you and which category you fall under." },
+      { q: "Which documents are required?", a: "Usually business papers, site details, and information about your products, process or waste. The exact list depends on your case and we confirm it before you file." },
+      { q: "How long does it take?", a: "It depends on how complete your file is, any inspection, and how quickly the authority processes it. After reviewing your details we can give a realistic estimate." },
+      { q: "What happens if I do not comply?", a: "Non-compliance can lead to notices, environmental compensation, penalties, closure and in serious cases legal action. The amounts depend on the law and the case." },
+    ],
+    seoTitle: `${title} in India`.slice(0, 70),
+    seoDescription: summary.slice(0, 170),
+  }
+}

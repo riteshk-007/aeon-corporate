@@ -11,16 +11,29 @@ import {
   Phone,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { ConsentCheckbox } from "@/components/site/consent-checkbox"
 import { Eyebrow, Logo, btnBlueFlat, wrap } from "@/components/site/ui"
-import { footerColumns, footerLinks } from "@/lib/site-data"
+import { footerLinks } from "@/lib/site-data"
+import type { MenuTop } from "@/lib/menu"
 
 const footerHref: Record<string, string> = {
   "About Us": "/about",
-  "Learning & Resources": "/#insights",
   "Contact Us": "/contact-us",
+  "Refund Policy": "/terms-and-conditions#fees",
+  Sitemap: "/sitemap.xml",
+  "Privacy Policy": "/privacy-policy",
+  "Terms & Conditions": "/terms-and-conditions",
 }
 
-export function SiteFooter() {
+export function SiteFooter({ menu }: { menu: MenuTop[] }) {
+  // Footer columns follow the header menu that is edited in the admin panel.
+  const columns = menu.map((t) => ({
+    title: t.label,
+    links: t.categories.slice(0, 9).map((c) => ({
+      label: c.label,
+      href: c.href || c.links[0]?.href || t.href || "/contact-us",
+    })),
+  }))
   const [newsletterNotice, setNewsletterNotice] = useState("")
 
   return (
@@ -57,24 +70,51 @@ export function SiteFooter() {
               </div>
               <div>
                 <form
+                  id="newsletter-form"
                   className="flex gap-2 rounded-2xl bg-white p-2 shadow-[0_14px_34px_rgba(11,27,77,.14)] max-[560px]:flex-col"
-                  onSubmit={(e) => {
+                  onSubmit={async (e) => {
                     e.preventDefault()
                     const form = e.currentTarget
                     if (!form.checkValidity()) {
                       form.reportValidity()
                       return
                     }
-                    setNewsletterNotice(
-                      "Demo mode: no subscription was saved because a newsletter backend isn't connected yet.",
-                    )
-                    form.reset()
+                    const data = new FormData(form)
+                    if (data.get("consent") !== "on") {
+                      setNewsletterNotice(
+                        "Please tick the consent box to subscribe.",
+                      )
+                      return
+                    }
+                    try {
+                      const res = await fetch("/api/enquiries", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                          kind: "newsletter",
+                          email: data.get("email"),
+                          consent: true,
+                          source: window.location.pathname,
+                        }),
+                      })
+                      if (!res.ok) throw new Error()
+                      setNewsletterNotice(
+                        "Thanks! You're subscribed. You can unsubscribe any time by emailing privacy@aeoncorporate.com.",
+                      )
+                      form.reset()
+                    } catch {
+                      setNewsletterNotice(
+                        "Could not subscribe right now. Please try again later.",
+                      )
+                    }
                   }}
                 >
                   <div className="flex h-12 min-w-0 flex-1 items-center gap-2.5 px-3">
                     <Mail size={18} className="shrink-0 text-mute" />
                     <input
                       type="email"
+                      name="email"
+                      autoComplete="email"
                       required
                       placeholder="Your email address"
                       aria-label="Email address"
@@ -88,6 +128,14 @@ export function SiteFooter() {
                     Subscribe <ArrowRight size={15} />
                   </button>
                 </form>
+                <div className="mt-3">
+                  <ConsentCheckbox
+                    light
+                    purpose="to send me the Aeon Brief newsletter by email"
+                    name="consent"
+                    form="newsletter-form"
+                  />
+                </div>
                 {newsletterNotice && (
                   <p
                     className="mt-3 text-[13px] font-semibold text-ink"
@@ -107,18 +155,6 @@ export function SiteFooter() {
                 Technology-enabled guidance for businesses navigating
                 complexity.
               </p>
-              <div className="mt-5 flex gap-2">
-                {["in", "x", "ig"].map((label) => (
-                  <Link
-                    key={label}
-                    href="/#contact"
-                    aria-label={`Aeon Corporate on ${label}`}
-                    className="grid size-10 place-items-center rounded-full border border-white/20 text-[13px] font-bold transition hover:-translate-y-0.5 hover:border-sun hover:bg-sun hover:text-ink"
-                  >
-                    {label}
-                  </Link>
-                ))}
-              </div>
               <address className="mt-6 grid gap-3 not-italic max-[900px]:grid-cols-3 max-[900px]:gap-4 max-[640px]:grid-cols-1">
                 {[
                   [
@@ -159,23 +195,23 @@ export function SiteFooter() {
                 })}
               </address>
             </div>
-            {footerColumns.map(([title, ...links]) => (
+            {columns.map(({ title, links }) => (
               <div key={title}>
                 <h3 className="mb-5 inline-block border-b-2 border-sun pb-2 text-[12px] font-extrabold tracking-[.14em] text-white uppercase">
                   {title}
                 </h3>
                 <ul className="grid gap-3">
                   {links.map((link) => (
-                    <li key={link}>
+                    <li key={link.label}>
                       <Link
-                        href="/#services"
+                        href={link.href}
                         className="group inline-flex items-start gap-1.5 text-[14px] leading-snug text-white/70 transition-colors hover:text-sun"
                       >
                         <ChevronRight
                           size={14}
                           className="mt-[3px] -ml-3.5 shrink-0 opacity-0 transition-all duration-200 group-hover:ml-0 group-hover:opacity-100"
                         />
-                        {link}
+                        {link.label}
                       </Link>
                     </li>
                   ))}
@@ -218,7 +254,7 @@ export function SiteFooter() {
       </footer>
 
       <Link
-        className="fixed right-[22px] bottom-[22px] z-30 grid size-[43px] place-items-center rounded-full bg-[#27b95a] text-white shadow-[0_8px_18px_rgba(11,27,77,.2)] max-[560px]:right-3.5 max-[560px]:bottom-3.5"
+        data-floater="mail" className="fixed right-[22px] bottom-[22px] z-30 grid size-[43px] place-items-center rounded-full bg-[#27b95a] text-white shadow-[0_8px_18px_rgba(11,27,77,.2)] max-[560px]:right-3.5 max-[560px]:bottom-3.5"
         href="mailto:hello@aeoncorporate.com"
         aria-label="Email Aeon Corporate"
       >

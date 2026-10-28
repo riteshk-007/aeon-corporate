@@ -29,6 +29,7 @@ import {
 } from "@/components/site/ui"
 import { categoryServices } from "@/lib/site-data"
 import { ComplianceCalendar } from "@/components/ui/compliance-calendar"
+import { useMenuLinks } from "@/components/site/menu-links"
 import { HeroBackdrop } from "@/components/ui/hero-backdrop"
 import { HandDrawnFrame } from "@/components/ui/hand-writing-text"
 
@@ -62,6 +63,14 @@ const tones = {
   pale: { card: "bg-[#dcebff]", icon: "bg-white" },
   yellow: { card: "bg-sun", icon: "bg-white" },
 } as const
+
+const cardTarget: Record<string, [kind: "section" | "service", name: string]> = {
+  "Startup Registration": ["section", "Startup"],
+  "Tax and Auditing": ["service", "GST Registration"],
+  "Environmental Consultancy": ["section", "Environmental"],
+  "Regulatory Compliance": ["section", "Regulatory"],
+  Licensing: ["service", "FSSAI License"],
+}
 
 const serviceCards: {
   icon: string
@@ -277,6 +286,12 @@ const scrollbarThin =
 const index = "text-[13px] font-black text-brand"
 
 export default function Page() {
+  const menuLinks = useMenuLinks()
+  const cardHref = (title: string) => {
+    const t = cardTarget[title]
+    if (!t) return "/contact-us"
+    return t[0] === "section" ? menuLinks.section(t[1]) : menuLinks.service(t[1])
+  }
   const reduceMotion = useReducedMotion()
   const [query, setQuery] = useState("")
   const [activeCategory, setActiveCategory] = useState(categories[0])
@@ -289,13 +304,37 @@ export default function Page() {
   const [notice, setNotice] = useState("")
   const [searchFocused, setSearchFocused] = useState(false)
   const [typedPlaceholder, setTypedPlaceholder] = useState("")
-  const filteredServices = useMemo(
-    () =>
-      quickServices.filter((item) =>
-        item.toLowerCase().includes(query.toLowerCase()),
-      ),
-    [query],
-  )
+  const [results, setResults] = useState<
+    { slug: string; title: string; category: string }[]
+  >([])
+  const [searching, setSearching] = useState(false)
+  const term = query.trim()
+  // Debounced live search against the real service pages in the database.
+  useEffect(() => {
+    if (term.length < 2) {
+      setResults([])
+      setSearching(false)
+      return
+    }
+    setSearching(true)
+    const ctrl = new AbortController()
+    const timer = setTimeout(async () => {
+      try {
+        const res = await fetch(`/api/services/search?q=${encodeURIComponent(term)}`, {
+          signal: ctrl.signal,
+        })
+        const data = await res.json()
+        setResults(data.results ?? [])
+        setSearching(false)
+      } catch (e) {
+        if ((e as Error).name !== "AbortError") setSearching(false)
+      }
+    }, 300)
+    return () => {
+      clearTimeout(timer)
+      ctrl.abort()
+    }
+  }, [term])
   const currentTestimonial = testimonials[testimonial]
   const explorerRef = useRef<HTMLElement>(null)
   const testimonialRef = useRef<HTMLElement>(null)
@@ -505,6 +544,11 @@ export default function Page() {
                 <input
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && results[0])
+                      window.location.href = `/services/${results[0].slug}`
+                    if (e.key === "Escape") setQuery("")
+                  }}
                   onFocus={() => setSearchFocused(true)}
                   onBlur={() => setSearchFocused(false)}
                   aria-label="Search services"
@@ -552,35 +596,38 @@ export default function Page() {
                 btnBlue,
                 "h-12 px-7 text-[13px] max-[560px]:w-full",
               )}
-              onClick={() =>
-                setNotice(
-                  query
-                    ? `Showing services related to “${query}”.`
-                    : "Choose a service to get started.",
-                )
-              }
+              onClick={() => {
+                if (results[0]) window.location.href = `/services/${results[0].slug}`
+                else if (term.length >= 2)
+                  setNotice(searching ? "Searching…" : "No page found for that search. Please ask an expert.")
+                else setNotice("Type at least 2 letters to search.")
+              }}
             >
               Find a service <ArrowRight size={15} />
             </button>
           </div>
 
           <p className="mt-6 mb-3 text-[13px] font-black tracking-[.16em] text-brand">
-            {query ? "MATCHING SERVICES" : "RECOMMENDED SERVICES"}
+            {term.length >= 2 ? "MATCHING SERVICES" : "RECOMMENDED SERVICES"}
           </p>
           <div className="flex flex-wrap gap-2.5">
-            {(query ? filteredServices : quickServices).map((item, i) => (
-              <button
-                key={item}
-                onClick={() => setQuery(item)}
+            {(term.length >= 2
+              ? results.map((r) => ({ label: r.title, href: `/services/${r.slug}`, hint: r.category }))
+              : quickServices.map((s) => ({ label: s, href: menuLinks.service(s), hint: "" }))
+            ).map((item, i) => (
+              <a
+                key={item.href + item.label}
+                href={item.href}
+                title={item.hint || undefined}
                 className={cn(
                   "rounded-xl px-4 py-2.5 text-[13px] font-semibold text-ink transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(11,27,77,.1)] motion-reduce:transition-none",
                   chipTones[i % chipTones.length],
                 )}
               >
-                {item}
-              </button>
+                {item.label}
+              </a>
             ))}
-            {!query && (
+            {term.length < 2 && (
               <a
                 href="#explorer"
                 className="inline-flex items-center gap-1.5 rounded-xl bg-ink px-4 py-2.5 text-[13px] font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-brand motion-reduce:transition-none"
@@ -588,9 +635,16 @@ export default function Page() {
                 More <span aria-hidden="true">+</span>
               </a>
             )}
-            {query && filteredServices.length === 0 && (
+            {term.length >= 2 && searching && results.length === 0 && (
+              <span className="py-2.5 text-[13px] text-mute">Searching…</span>
+            )}
+            {term.length >= 2 && !searching && results.length === 0 && (
               <span className="py-2.5 text-[13px] text-mute">
-                No exact matches yet — try another keyword.
+                No matching page yet. Try another word or{" "}
+                <a href="/contact-us" className="font-bold text-brand hover:underline">
+                  ask an expert
+                </a>
+                .
               </span>
             )}
           </div>
@@ -818,7 +872,7 @@ export default function Page() {
                         {description}
                       </p>
                       <a
-                        href="#explorer"
+                        href={cardHref(title)}
                         className="mt-3 -mb-2 inline-flex items-center gap-[7px] py-2 text-[13px] font-extrabold"
                       >
                         Explore service{" "}
@@ -1082,7 +1136,7 @@ export default function Page() {
                     {categoryServices[activeCategory].map((item, i) => (
                       <motion.a
                         key={item.title}
-                        href="#contact"
+                        href={menuLinks.service(item.title)}
                         variants={{
                           hidden: { opacity: 0, y: 22, scale: 0.97 },
                           show: { opacity: 1, y: 0, scale: 1 },
@@ -1533,7 +1587,7 @@ export default function Page() {
               return (
                 <motion.a
                   key={article.title}
-                  href="#contact"
+                  href="/contact-us"
                   className={cn(
                     "group relative overflow-hidden rounded-[26px] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_26px_54px_rgba(11,27,77,.16)] motion-reduce:transition-none max-[560px]:rounded-[20px]",
                     featured

@@ -15,72 +15,20 @@ import {
   wrap,
 } from "@/components/site/ui"
 import { Highlight, PageHero } from "@/components/site/page-hero"
+import { RichContent } from "@/components/editor/rich-content"
 import { LeadForm, type LeadField } from "@/components/site/lead-form"
 
-/**
- * Sample openings so the layout can be reviewed.
- * Replace with the real list (or load from the admin panel later).
- */
-const openings = [
-  {
-    icon: "accountant",
-    title: "Compliance Executive",
-    openings: 2,
-    location: "Head Office",
-    type: "Full-time",
-    skills: ["MS Office", "GST", "ROC filings", "Documentation"],
-  },
-  {
-    icon: "trademark",
-    title: "Trademark & IP Executive",
-    openings: 2,
-    location: "Head Office",
-    type: "Full-time",
-    skills: ["TM filings", "Objections", "Oppositions", "CRM"],
-  },
-  {
-    icon: "chip",
-    title: "BDM, Certifications (BIS / ISO)",
-    openings: 3,
-    location: "Head Office",
-    type: "Full-time",
-    skills: [
-      "CRM",
-      "BIS / ISO processes",
-      "Client advisory",
-      "Lab coordination",
-    ],
-  },
-  {
-    icon: "bank",
-    title: "BDM, Incorporation & Compliance",
-    openings: 2,
-    location: "Head Office",
-    type: "Full-time",
-    skills: [
-      "Sales forecasting",
-      "CRM management",
-      "Team leadership",
-      "Pricing",
-    ],
-  },
-  {
-    icon: "workflow",
-    title: "Project Coordinator",
-    openings: 2,
-    location: "Head Office",
-    type: "Full-time",
-    skills: ["MS Office", "Jira / Trello", "Agile basics", "Communication"],
-  },
-  {
-    icon: "bulb",
-    title: "Content & Video Creator",
-    openings: 1,
-    location: "Head Office",
-    type: "Full-time",
-    skills: ["Premiere Pro", "After Effects", "Photoshop", "Storytelling"],
-  },
-]
+export type PublicJob = {
+  id: string
+  icon: string
+  title: string
+  openings: number
+  location: string
+  type: string
+  skills: string[]
+  summary: string
+  descriptionHtml: string
+}
 
 const perks = [
   { icon: "expert", t: "Inclusive culture" },
@@ -121,6 +69,12 @@ const baseFields: LeadField[] = [
     options: ["Fresher", "1–3 years", "3–5 years", "5+ years"],
   },
   {
+    name: "resumeFile",
+    label: "Resume (PDF or image, max 5 MB)",
+    type: "file",
+    full: true,
+  },
+  {
     name: "note",
     label: "Cover note or resume link",
     type: "textarea",
@@ -128,8 +82,9 @@ const baseFields: LeadField[] = [
   },
 ]
 
-export function CareerContent() {
-  const [role, setRole] = useState<string | null>(null)
+export function CareerContent({ openings }: { openings: PublicJob[] }) {
+  const [role, setRole] = useState<PublicJob | null>(null)
+  const [expanded, setExpanded] = useState<string | null>(null)
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && setRole(null)
@@ -189,10 +144,17 @@ export function CareerContent() {
             description="Click Apply Now on any position and share a few details."
           />
 
-          <ul className="mt-12 grid grid-cols-2 gap-5 max-[900px]:grid-cols-1">
+          {openings.length === 0 && (
+            <p className="mt-12 rounded-[24px] bg-pale p-8 text-center text-[15px] leading-[1.7] text-mute">
+              There are no open positions right now. Send your resume to{" "}
+              <a href="mailto:hr@aeoncorporate.com" className="font-bold text-brand hover:underline">hr@aeoncorporate.com</a>{" "}
+              and we will keep it on file.
+            </p>
+          )}
+          <ul className="mt-12 grid grid-cols-2 items-start gap-5 max-[900px]:grid-cols-1">
             {openings.map((job, i) => (
               <motion.li
-                key={job.title}
+                key={job.id}
                 {...reveal(i % 2)}
                 className="group flex flex-col rounded-[26px] border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_24px_48px_rgba(27,95,217,.13)] motion-reduce:transition-none"
               >
@@ -230,12 +192,27 @@ export function CareerContent() {
                     </li>
                   ))}
                 </ul>
-                <button
-                  onClick={() => setRole(job.title)}
-                  className={cn(btnBlue, "mt-6 w-fit")}
-                >
-                  Apply Now <ArrowRight size={15} />
-                </button>
+                {job.summary && (
+                  <p className="mt-4 text-[14px] leading-[1.7] text-mute">{job.summary}</p>
+                )}
+                {expanded === job.id && job.descriptionHtml && (
+                  <RichContent html={job.descriptionHtml} className="mt-4 rounded-2xl bg-[#f6faff] p-4" />
+                )}
+                <div className="mt-6 flex flex-wrap items-center gap-3">
+                  <button onClick={() => setRole(job)} className={cn(btnBlue, "w-fit")}>
+                    Apply Now <ArrowRight size={15} />
+                  </button>
+                  {job.descriptionHtml && (
+                    <button
+                      type="button"
+                      aria-expanded={expanded === job.id}
+                      onClick={() => setExpanded(expanded === job.id ? null : job.id)}
+                      className="text-[14px] font-bold text-brand hover:underline"
+                    >
+                      {expanded === job.id ? "Hide details" : "View details"}
+                    </button>
+                  )}
+                </div>
               </motion.li>
             ))}
           </ul>
@@ -295,7 +272,7 @@ export function CareerContent() {
               <motion.div
                 role="dialog"
                 aria-modal="true"
-                aria-label={`Apply for ${role}`}
+                aria-label={`Apply for ${role.title}`}
                 className="relative my-auto w-[min(560px,100%)] rounded-[24px] bg-white p-8 shadow-[0_30px_90px_rgba(0,0,0,.3)] max-[560px]:p-5"
                 initial={{ opacity: 0, y: 16, scale: 0.97 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -311,10 +288,12 @@ export function CareerContent() {
                 </button>
                 <Eyebrow>APPLY NOW</Eyebrow>
                 <h2 className="mb-6 pr-10 text-[26px] leading-tight font-extrabold tracking-[-0.03em]">
-                  {role}
+                  {role.title}
                 </h2>
                 <LeadForm
                   fields={baseFields}
+                  kind="career"
+                  extra={{ job: role.title, jobId: role.id }}
                   submitLabel="Submit application"
                   successTitle="Application received"
                   successText="Thank you for applying. Our HR team will review your details and get in touch."

@@ -49,7 +49,7 @@ export function ScrollToTop() {
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.94 }}
           transition={{ type: "spring", stiffness: 320, damping: 24 }}
-          className="group fixed right-[22px] bottom-[78px] z-30 grid size-[54px] place-items-center rounded-full bg-white shadow-[0_14px_34px_rgba(11,27,77,.22)] max-[560px]:right-3.5 max-[560px]:bottom-[70px]"
+          data-floater="top" className="group fixed right-[22px] bottom-[78px] z-30 grid size-[54px] place-items-center rounded-full bg-white shadow-[0_14px_34px_rgba(11,27,77,.22)] max-[560px]:right-3.5 max-[560px]:bottom-[70px]"
         >
           <svg
             viewBox="0 0 54 54"

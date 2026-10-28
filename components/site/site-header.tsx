@@ -23,20 +23,19 @@ import {
   btnOutline,
   wrap,
 } from "@/components/site/ui"
-import { companyHrefs, companyLinks, navMenus } from "@/lib/site-data"
+import { companyLinks } from "@/lib/site-data"
+import type { MenuTop } from "@/lib/menu"
 
 const companyIcons: Record<string, string> = {
   "About Us": "company",
-  Learning: "bulb",
   "Partner With Us": "advisory",
-  Media: "templates",
   "Work at Aeon": "expert",
   Career: "briefcase",
   "Client Reviews": "approved",
   "Contact Us": "mail",
 }
 
-export function SiteHeader() {
+export function SiteHeader({ menu }: { menu: MenuTop[] }) {
   const pathname = usePathname()
   const [panelOpen, setPanelOpen] = useState(false)
   const { scrollYProgress } = useScroll()
@@ -44,12 +43,14 @@ export function SiteHeader() {
     stiffness: 120,
     damping: 30,
   })
+  const [catIdx, setCatIdx] = useState(0)
   const [hoverNav, setHoverNav] = useState<string | null>(null)
   const [openNav, setOpenNav] = useState<string | null>(null)
   const closeTimer = useRef<number | undefined>(undefined)
 
   const openMenu = (label: string) => {
     window.clearTimeout(closeTimer.current)
+    if (label !== openNav) setCatIdx(0)
     setOpenNav(label)
     setHoverNav(label)
   }
@@ -95,8 +96,7 @@ export function SiteHeader() {
     setPanelOpen(false)
   }, [pathname])
 
-  const hrefFor = (menu: string, link: string) =>
-    menu === "Company" ? (companyHrefs[link] ?? "/#contact") : "/#explorer"
+  const openTop = menu.find((m) => m.label === openNav)
 
   return (
     <>
@@ -160,105 +160,45 @@ export function SiteHeader() {
             >
               Home
             </Link>
-            {navMenus
-              .filter((m) => m.label !== "Company")
-              .map(({ label, blurb, icon, links }, i) => (
-                <div
-                  key={label}
-                  className="relative"
-                  onMouseEnter={() => openMenu(label)}
-                  onMouseLeave={() => closeMenu()}
-                  onFocus={() => openMenu(label)}
-                  onBlur={(e) => {
-                    if (!e.currentTarget.contains(e.relatedTarget as Node))
-                      closeMenu(60)
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Escape") closeNow()
-                  }}
+            {menu.map(({ label, href }) => (
+              <div
+                key={label}
+                className="relative"
+                onMouseEnter={() => openMenu(label)}
+                onMouseLeave={() => closeMenu()}
+                onFocus={() => openMenu(label)}
+                onBlur={(e) => {
+                  if (!e.currentTarget.contains(e.relatedTarget as Node)) closeMenu(60)
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Escape") closeNow()
+                }}
+              >
+                <Link
+                  href={href || "/#services"}
+                  onClick={closeNow}
+                  aria-haspopup="true"
+                  aria-expanded={openNav === label}
+                  className={cn(
+                    "relative inline-flex items-center gap-1 rounded-lg px-3 py-2 text-[13px] font-bold whitespace-nowrap transition-colors duration-200",
+                    openNav === label ? "text-brand" : "text-mute",
+                  )}
                 >
-                  <Link
-                    href="/#services"
-                    onClick={closeNow}
-                    aria-haspopup="true"
-                    aria-expanded={openNav === label}
-                    className={cn(
-                      "relative inline-flex items-center gap-1 rounded-lg px-3 py-2 text-[13px] font-bold whitespace-nowrap transition-colors duration-200",
-                      openNav === label ? "text-brand" : "text-mute",
-                    )}
-                  >
-                    {hoverNav === label && (
-                      <motion.span
-                        layoutId="nav-pill"
-                        className="absolute inset-0 rounded-lg bg-[#dcebff]"
-                        transition={{
-                          type: "spring",
-                          stiffness: 380,
-                          damping: 32,
-                        }}
-                      />
-                    )}
-                    <span className="relative">{label}</span>
-                    <ChevronDown
-                      size={14}
-                      className={cn(
-                        "relative transition-transform duration-200",
-                        openNav === label && "rotate-180",
-                      )}
+                  {hoverNav === label && (
+                    <motion.span
+                      layoutId="nav-pill"
+                      className="absolute inset-0 rounded-lg bg-[#dcebff]"
+                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
                     />
-                  </Link>
-                  <div
-                    className={cn(
-                      "absolute top-full w-[440px] pt-3 transition duration-200",
-                      openNav === label
-                        ? "visible translate-y-0 opacity-100"
-                        : "pointer-events-none invisible translate-y-2 opacity-0",
-                      i <= 1
-                        ? "left-0"
-                        : i >= 3
-                          ? "right-0"
-                          : "left-1/2 -translate-x-1/2",
-                    )}
-                  >
-                    <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-[0_28px_70px_rgba(11,27,77,.18)]">
-                      <div className="flex items-center gap-3 border-b border-line bg-[#f2f8ff] p-4">
-                        <span className="grid size-14 place-items-center rounded-xl bg-white shadow-[0_6px_16px_rgba(11,27,77,.14)] ring-1 ring-line">
-                          <ColorIcon name={icon} size={38} />
-                        </span>
-                        <div>
-                          <b className="block text-[15px]">{label}</b>
-                          <small className="block text-[12px] text-mute">
-                            {blurb}
-                          </small>
-                        </div>
-                      </div>
-                      <div className="grid grid-cols-2 gap-x-1 p-2.5">
-                        {links.map((link) => (
-                          <Link
-                            key={link}
-                            href={hrefFor(label, link)}
-                            onClick={closeNow}
-                            className="group/link flex items-center justify-between gap-2 rounded-lg px-3 py-2 text-[13px] font-semibold text-ink hover:bg-pale hover:text-brand"
-                          >
-                            <span className="truncate">{link}</span>
-                            <ArrowUpRight
-                              size={13}
-                              className="shrink-0 -translate-x-1 text-brand opacity-0 transition group-hover/link:translate-x-0 group-hover/link:opacity-100"
-                            />
-                          </Link>
-                        ))}
-                      </div>
-                      <Link
-                        href="/#services"
-                        onClick={closeNow}
-                        className="flex items-center justify-between bg-ink px-5 py-3 text-[13px] font-bold text-white transition hover:bg-brand"
-                      >
-                        View all services <ArrowRight size={15} />
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ))}
+                  )}
+                  <span className="relative">{label}</span>
+                  <ChevronDown
+                    size={14}
+                    className={cn("relative transition-transform duration-200", openNav === label && "rotate-180")}
+                  />
+                </Link>
+              </div>
+            ))}
           </nav>
           <div className="flex items-center gap-2">
             <Link
@@ -288,6 +228,85 @@ export function SiteHeader() {
             >
               {menuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
+          </div>
+          {/* Mega menu: categories on the left, their links on the right */}
+          <div
+            className={cn(
+              "absolute inset-x-0 top-full z-10 pt-3 transition duration-200 max-[1024px]:hidden",
+              openTop ? "visible translate-y-0 opacity-100" : "pointer-events-none invisible translate-y-2 opacity-0",
+            )}
+            onMouseEnter={() => openNav && openMenu(openNav)}
+            onMouseLeave={() => closeMenu()}
+            onKeyDown={(e) => {
+              if (e.key === "Escape") closeNow()
+            }}
+          >
+            {openTop && (
+              <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-[0_28px_70px_rgba(11,27,77,.18)]">
+                {openTop.categories.length === 0 ? (
+                  <p className="p-6 text-[14px] text-mute">No links yet.</p>
+                ) : (
+                  <div className={cn("grid h-[min(72dvh,540px)] grid-rows-[minmax(0,1fr)]", openTop.categories.length > 1 ? "grid-cols-[250px_1fr]" : "grid-cols-1")}>
+                    {openTop.categories.length > 1 && (
+                      <ul className="min-h-0 overflow-y-auto overscroll-contain border-r border-line bg-[#f6faff] p-2.5" role="tablist" aria-label={`${openTop.label} categories`}>
+                        {openTop.categories.map((c, i) => (
+                          <li key={c.label + i}>
+                            <button
+                              type="button"
+                              role="tab"
+                              aria-selected={catIdx === i}
+                              onMouseEnter={() => setCatIdx(i)}
+                              onFocus={() => setCatIdx(i)}
+                              onClick={() => setCatIdx(i)}
+                              className={cn(
+                                "flex w-full items-center justify-between gap-2 rounded-xl px-3.5 py-2.5 text-left text-[14px] font-semibold transition-colors",
+                                catIdx === i ? "bg-brand text-white shadow-[0_8px_18px_rgba(27,95,217,.25)]" : "text-ink hover:bg-pale",
+                              )}
+                            >
+                              <span className="min-w-0 leading-snug">{c.label}</span>
+                              <ChevronRight size={15} className="shrink-0 opacity-70" />
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                    <div className="min-h-0 overflow-y-auto overscroll-contain p-6 pb-10">
+                      {(() => {
+                        const cat = openTop.categories[Math.min(catIdx, openTop.categories.length - 1)]
+                        return (
+                          <>
+                            <h3 className="mb-3 text-[18px] font-extrabold tracking-[-0.02em] text-royal">
+                              {cat.href ? (
+                                <Link href={cat.href} onClick={closeNow} className="hover:underline">{cat.label}</Link>
+                              ) : (
+                                cat.label
+                              )}
+                            </h3>
+                            {cat.links.length === 0 ? (
+                              <p className="text-[13px] text-mute">No links yet.</p>
+                            ) : (
+                              <ul className="columns-2 gap-x-10 [&>li]:break-inside-avoid">
+                                {cat.links.map((l, i) => (
+                                  <li key={l.label + i}>
+                                    <Link
+                                      href={l.href || "/contact-us"}
+                                      onClick={closeNow}
+                                      className="block rounded-lg px-2 py-1.5 text-[14px] text-ink/85 transition-colors hover:bg-pale hover:text-brand"
+                                    >
+                                      {l.label}
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            )}
+                          </>
+                        )
+                      })()}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
           <motion.div
             aria-hidden="true"
@@ -331,33 +350,32 @@ export function SiteHeader() {
                   Home
                   <ChevronRight size={18} className="text-mute" />
                 </Link>
-                {navMenus.map(({ label, blurb, icon, links }) => (
+                {menu.map(({ label, categories }) => (
                   <details key={label} className="group border-b border-line">
-                    <summary className="flex cursor-pointer list-none items-center gap-3 px-2 py-3.5 [&::-webkit-details-marker]:hidden">
-                      <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-white shadow-[0_4px_12px_rgba(11,27,77,.12)] ring-1 ring-line">
-                        <ColorIcon name={icon} size={36} />
-                      </span>
-                      <span className="min-w-0 flex-1">
-                        <b className="block text-[15px]">{label}</b>
-                        <small className="block truncate text-[12px] text-mute">
-                          {blurb}
-                        </small>
-                      </span>
-                      <ChevronDown
-                        size={18}
-                        className="shrink-0 text-mute transition-transform duration-200 group-open:rotate-180"
-                      />
+                    <summary className="flex cursor-pointer list-none items-center gap-3 px-2 py-4 text-[15px] font-bold [&::-webkit-details-marker]:hidden">
+                      <span className="flex-1">{label}</span>
+                      <ChevronDown size={18} className="shrink-0 text-mute transition-transform duration-200 group-open:rotate-180" />
                     </summary>
-                    <div className="grid grid-cols-2 gap-x-3 pb-3 pl-[52px] max-[420px]:grid-cols-1">
-                      {links.map((link) => (
-                        <Link
-                          key={link}
-                          href={hrefFor(label, link)}
-                          onClick={() => setMenuOpen(false)}
-                          className="rounded-lg px-2 py-2 text-[13px] text-mute hover:bg-pale hover:text-brand"
-                        >
-                          {link}
-                        </Link>
+                    <div className="grid gap-1 pb-3">
+                      {categories.map((c, ci) => (
+                        <details key={c.label + ci} className="group/cat rounded-xl bg-[#f6faff]">
+                          <summary className="flex cursor-pointer list-none items-center gap-2 px-3 py-3 text-[14px] font-semibold [&::-webkit-details-marker]:hidden">
+                            <span className="flex-1">{c.label}</span>
+                            <ChevronRight size={16} className="shrink-0 text-mute transition-transform duration-200 group-open/cat:rotate-90" />
+                          </summary>
+                          <div className="grid pb-2 pl-3">
+                            {c.links.map((l, li) => (
+                              <Link
+                                key={l.label + li}
+                                href={l.href || "/contact-us"}
+                                onClick={() => setMenuOpen(false)}
+                                className="rounded-lg px-3 py-2 text-[13px] text-mute hover:bg-white hover:text-brand"
+                              >
+                                {l.label}
+                              </Link>
+                            ))}
+                          </div>
+                        </details>
                       ))}
                     </div>
                   </details>
@@ -471,11 +489,11 @@ export function SiteHeader() {
                       <Mail size={18} className="text-brand" /> Email
                     </Link>
                     <Link
-                      href="https://wa.me/910000000000"
+                      href="/contact-us"
                       className="flex flex-col items-center gap-1.5 rounded-2xl bg-[#eaf3ff] px-2 py-3.5 text-[12px] font-bold hover:bg-[#dcebff]"
                     >
                       <MessageCircle size={18} className="text-brand" />{" "}
-                      WhatsApp
+                      Enquire
                     </Link>
                   </div>
                   <Link
