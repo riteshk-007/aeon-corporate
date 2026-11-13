@@ -156,7 +156,7 @@ export function CareerContent({ openings }: { openings: PublicJob[] }) {
               <motion.li
                 key={job.id}
                 {...reveal(i % 2)}
-                className="group flex flex-col rounded-[26px] border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_24px_48px_rgba(27,95,217,.13)] motion-reduce:transition-none"
+                className="group flex flex-col rounded-[26px] border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_24px_48px_rgba(11,106,224,.13)] motion-reduce:transition-none"
               >
                 <div className="flex items-start gap-4">
                   <span className="grid size-16 shrink-0 place-items-center rounded-2xl bg-[#eaf3ff]">

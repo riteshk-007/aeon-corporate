@@ -58,7 +58,7 @@ export function ScrollToTop() {
           >
             <defs>
               <linearGradient id="scroll-progress" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#1b5fd9" />
+                <stop offset="0%" stopColor="#0b6ae0" />
                 <stop offset="100%" stopColor="#e6bd00" />
               </linearGradient>
             </defs>

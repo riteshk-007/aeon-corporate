@@ -28,7 +28,6 @@ import {
   wrap,
 } from "@/components/site/ui"
 import { categoryServices } from "@/lib/site-data"
-import { ComplianceCalendar } from "@/components/ui/compliance-calendar"
 import { useMenuLinks } from "@/components/site/menu-links"
 import { HeroBackdrop } from "@/components/ui/hero-backdrop"
 import { HandDrawnFrame } from "@/components/ui/hand-writing-text"
@@ -282,7 +281,7 @@ const floatCard =
   "absolute animate-float motion-reduce:animate-none flex items-center gap-2.5 rounded-[13px] border border-[rgba(220,229,245,.9)] bg-white/90 px-[15px] py-[13px] shadow-[0_15px_35px_rgba(11,27,77,.14)] backdrop-blur-[12px] max-[560px]:p-[9px]"
 const chipTones = ["bg-[#dcebff]", "bg-sun/70", "bg-[#eef0f6]", "bg-[#c9defc]"]
 const scrollbarThin =
-  "[scrollbar-width:thin] [scrollbar-color:rgba(27,95,217,.5)_transparent]"
+  "[scrollbar-width:thin] [scrollbar-color:rgba(11,106,224,.5)_transparent]"
 const index = "text-[13px] font-black text-brand"
 
 export default function Page() {
@@ -299,7 +298,6 @@ export default function Page() {
   const [testimonialPaused, setTestimonialPaused] = useState(false)
   const goToTestimonial = (index: number) =>
     setTestimonial((index + testimonials.length) % testimonials.length)
-  const [calendarOpen, setCalendarOpen] = useState(false)
   const [videoOpen, setVideoOpen] = useState(false)
   const [notice, setNotice] = useState("")
   const [searchFocused, setSearchFocused] = useState(false)
@@ -346,7 +344,6 @@ export default function Page() {
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setCalendarOpen(false)
         setVideoOpen(false)
       }
     }
@@ -414,16 +411,16 @@ export default function Page() {
   }, [activeCategory])
 
   useEffect(() => {
-    document.body.style.overflow = calendarOpen || videoOpen ? "hidden" : ""
+    document.body.style.overflow = videoOpen ? "hidden" : ""
     return () => {
       document.body.style.overflow = ""
     }
-  }, [calendarOpen, videoOpen])
+  }, [videoOpen])
 
   return (
     <main id="top" className="overflow-hidden">
-      <section className="relative flex min-h-[calc(100svh+50px)] items-center bg-[linear-gradient(135deg,#3b8cf5_0%,#1b5fd9_48%,#0a44b8_100%)] pt-[150px] pb-[150px] max-[900px]:block max-[900px]:min-h-0 max-[900px]:pt-[142px] max-[900px]:pb-[100px] max-[560px]:pt-[130px] max-[560px]:pb-[70px]">
-        <div className="absolute inset-0 animate-drift bg-[radial-gradient(circle,rgba(255,255,255,.42)_1px,transparent_1.5px),radial-gradient(circle,rgba(255,217,61,.75)_1px,transparent_1.5px)] [background-position:0_0,42px_33px] [background-size:21px_21px,83px_83px] opacity-65 [mask-image:radial-gradient(ellipse_55%_75%_at_68%_45%,black_0%,transparent_75%)] after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_72%_43%,rgba(255,255,255,.16),transparent_36%)] after:content-[''] motion-reduce:animate-none" />
+      <section className="relative flex min-h-[calc(100svh+50px)] items-center bg-[linear-gradient(135deg,#3b8cf5_0%,#0b6ae0_48%,#0a44b8_100%)] pt-[140px] pb-[150px] max-[900px]:block max-[900px]:min-h-0 max-[900px]:pt-[120px] max-[900px]:pb-[100px] max-[560px]:pt-[104px] max-[560px]:pb-[70px]">
+        <div className="absolute inset-0 animate-drift bg-[radial-gradient(circle,rgba(255,255,255,.42)_1px,transparent_1.5px),radial-gradient(circle,rgba(255,190,11,.75)_1px,transparent_1.5px)] [background-position:0_0,42px_33px] [background-size:21px_21px,83px_83px] opacity-65 [mask-image:radial-gradient(ellipse_55%_75%_at_68%_45%,black_0%,transparent_75%)] after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_72%_43%,rgba(255,255,255,.16),transparent_36%)] after:content-[''] motion-reduce:animate-none" />
         <HeroBackdrop />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-sky" />
         <div className="pointer-events-none absolute top-[245px] -right-[100px] h-[280px] w-[600px] -rotate-[20deg] rounded-full border border-white/25" />
@@ -537,7 +534,7 @@ export default function Page() {
             </p>
           </div>
 
-          <div className="mt-6 flex items-center gap-2 rounded-2xl border border-line bg-[#f2f8ff] p-2 transition focus-within:border-brand focus-within:bg-white focus-within:shadow-[0_0_0_4px_rgba(27,95,217,.12)] max-[560px]:flex-col max-[560px]:items-stretch">
+          <div className="mt-6 flex items-center gap-2 rounded-2xl border border-line bg-[#f2f8ff] p-2 transition focus-within:border-brand focus-within:bg-white focus-within:shadow-[0_0_0_4px_rgba(11,106,224,.12)] max-[560px]:flex-col max-[560px]:items-stretch">
             <div className="flex h-12 flex-1 items-center gap-3 px-3.5 text-mute">
               <Search size={20} className="shrink-0" />
               <div className="relative min-w-0 flex-1">
@@ -680,7 +677,7 @@ export default function Page() {
         <div className="relative mx-auto min-h-[560px] w-full max-w-[560px] max-[900px]:min-h-[480px] max-[560px]:min-h-[380px]">
           <div
             aria-hidden="true"
-            className="absolute -top-5 -left-5 size-44 bg-[radial-gradient(circle,rgba(27,95,217,.45)_1.6px,transparent_2.2px)] [background-size:16px_16px] max-[560px]:size-28"
+            className="absolute -top-5 -left-5 size-44 bg-[radial-gradient(circle,rgba(11,106,224,.45)_1.6px,transparent_2.2px)] [background-size:16px_16px] max-[560px]:size-28"
           />
           <div
             aria-hidden="true"
@@ -735,7 +732,7 @@ export default function Page() {
           <Eyebrow>ABOUT AEON CORPORATE</Eyebrow>
           <h2 className="max-w-[560px] text-[clamp(30px,3.7vw,48px)] leading-[1.06] font-extrabold tracking-[-0.035em]">
             More Than Compliance. A{" "}
-            <span className="bg-[linear-gradient(transparent_62%,#ffd93d_62%)] px-1">
+            <span className="bg-[linear-gradient(transparent_62%,#ffbe0b_62%)] px-1">
               Partner
             </span>{" "}
             in Your Growth.
@@ -772,7 +769,7 @@ export default function Page() {
               return (
                 <div
                   key={title as string}
-                  className="group flex items-center gap-4 rounded-2xl border border-line bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_14px_30px_rgba(27,95,217,.1)] motion-reduce:transition-none"
+                  className="group flex items-center gap-4 rounded-2xl border border-line bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_14px_30px_rgba(11,106,224,.1)] motion-reduce:transition-none"
                 >
                   <span className="grid size-14 shrink-0 place-items-center rounded-xl bg-[#eaf3ff] transition-transform duration-200 group-hover:scale-105">
                     <ColorIcon name={Icon as string} size={44} />
@@ -821,7 +818,7 @@ export default function Page() {
                   <article
                     key={title}
                     className={cn(
-                      "group relative flex min-h-[200px] flex-col justify-between overflow-hidden rounded-[22px] border border-line p-[26px] transition duration-[250ms] hover:-translate-y-[5px] hover:shadow-[0_18px_35px_rgba(27,95,217,.12)] motion-reduce:transition-none max-[560px]:min-h-[185px]",
+                      "group relative flex min-h-[200px] flex-col justify-between overflow-hidden rounded-[22px] border border-line p-[26px] transition duration-[250ms] hover:-translate-y-[5px] hover:shadow-[0_18px_35px_rgba(11,106,224,.12)] motion-reduce:transition-none max-[560px]:min-h-[185px]",
                       tones[tone].card,
                       className,
                     )}
@@ -890,38 +887,13 @@ export default function Page() {
         </div>
       </section>
 
-      <section className="bg-royal [background:radial-gradient(circle_at_78%_45%,rgba(255,217,61,.16),transparent_36%),linear-gradient(135deg,#0a44b8,#0b3590)] py-14 text-white max-[560px]:py-16">
-        <div
-          className={cn(
-            wrap,
-            "grid grid-cols-[0.88fr_1.12fr] items-center gap-[75px] max-[900px]:grid-cols-1 max-[900px]:gap-[55px] max-[560px]:gap-[38px]",
-          )}
-        >
-          <div>
-            <SectionHeading
-              light
-              eyebrow="COMPLIANCE RESOURCES"
-              title="Make Compliance a Clearer Process."
-              description="Build a clearer picture of upcoming business milestones with a practical, easy-to-use compliance calendar."
-            />
-            <button
-              className={cn(btnYellow, "mt-7")}
-              onClick={() => setCalendarOpen(true)}
-            >
-              Explore compliance resources <ArrowRight size={16} />
-            </button>
-          </div>
-          <ComplianceCalendar />
-        </div>
-      </section>
-
       <section
         id="approach"
         className="relative overflow-hidden bg-pale py-[120px] max-[560px]:py-20"
       >
         <div
           aria-hidden="true"
-          className="absolute -top-10 -right-10 size-80 bg-[radial-gradient(circle,rgba(27,95,217,.3)_1.6px,transparent_2.2px)] [background-size:18px_18px] [mask-image:radial-gradient(circle,black,transparent_70%)]"
+          className="absolute -top-10 -right-10 size-80 bg-[radial-gradient(circle,rgba(11,106,224,.3)_1.6px,transparent_2.2px)] [background-size:18px_18px] [mask-image:radial-gradient(circle,black,transparent_70%)]"
         />
         <div className={cn(wrap, "relative")}>
           <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
@@ -942,7 +914,7 @@ export default function Page() {
             />
             <motion.div
               aria-hidden="true"
-              className="absolute top-[27px] right-[27px] left-[27px] h-0.5 origin-left rounded-full bg-[linear-gradient(90deg,#1b5fd9,#ffd93d)] max-[900px]:hidden"
+              className="absolute top-[27px] right-[27px] left-[27px] h-0.5 origin-left rounded-full bg-[linear-gradient(90deg,#0b6ae0,#ffbe0b)] max-[900px]:hidden"
               initial={reduceMotion ? false : { scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true, amount: 0.6 }}
@@ -961,13 +933,13 @@ export default function Page() {
                 >
                   <span
                     className={cn(
-                      "relative z-10 grid size-16 place-items-center rounded-full border-4 bg-white shadow-[0_10px_24px_rgba(27,95,217,.22)]",
+                      "relative z-10 grid size-16 place-items-center rounded-full border-4 bg-white shadow-[0_10px_24px_rgba(11,106,224,.22)]",
                       i % 2 === 1 ? "border-sun" : "border-brand",
                     )}
                   >
                     <ColorIcon name={stepIcon} size={42} />
                   </span>
-                  <div className="group relative mt-5 overflow-hidden rounded-[24px] border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(27,95,217,.12)] motion-reduce:transition-none">
+                  <div className="group relative mt-5 overflow-hidden rounded-[24px] border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(11,106,224,.12)] motion-reduce:transition-none">
                     <span
                       aria-hidden="true"
                       className="absolute -top-3 right-3 text-[84px] leading-none font-black tracking-[-0.06em] text-brand/[.07] transition-colors duration-300 group-hover:text-brand/[.14]"
@@ -985,7 +957,7 @@ export default function Page() {
                     </p>
                     <span
                       aria-hidden="true"
-                      className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-[linear-gradient(90deg,#1b5fd9,#ffd93d)] transition-transform duration-300 group-hover:scale-x-100"
+                      className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-[linear-gradient(90deg,#0b6ae0,#ffbe0b)] transition-transform duration-300 group-hover:scale-x-100"
                     />
                   </div>
                 </motion.li>
@@ -998,7 +970,7 @@ export default function Page() {
       <section
         id="explorer"
         ref={explorerRef}
-        className="relative overflow-hidden bg-ink [background:radial-gradient(circle_at_80%_20%,rgba(27,95,217,.3),transparent_32%),radial-gradient(circle_at_8%_90%,rgba(255,217,61,.08),transparent_30%),#0b1b4d] py-[110px] text-white max-[560px]:py-16"
+        className="relative overflow-hidden bg-ink [background:radial-gradient(circle_at_80%_20%,rgba(11,106,224,.3),transparent_32%),radial-gradient(circle_at_8%_90%,rgba(255,190,11,.08),transparent_30%),#0b1b4d] py-[110px] text-white max-[560px]:py-16"
       >
         <div
           aria-hidden="true"
@@ -1053,7 +1025,7 @@ export default function Page() {
                     {active && (
                       <motion.span
                         layoutId="explorer-active"
-                        className="absolute inset-0 rounded-[inherit] bg-brand shadow-[0_14px_30px_rgba(27,95,217,.4)]"
+                        className="absolute inset-0 rounded-[inherit] bg-brand shadow-[0_14px_30px_rgba(11,106,224,.4)]"
                         transition={{
                           type: "spring",
                           stiffness: 340,
@@ -1146,7 +1118,7 @@ export default function Page() {
                           duration: 0.4,
                           ease: [0.22, 1, 0.36, 1],
                         }}
-                        className="group relative flex min-h-[150px] flex-col justify-between overflow-hidden rounded-[20px] border border-white/[.12] bg-white/[.06] p-5 transition duration-300 hover:-translate-y-1 hover:border-brand hover:bg-white/10 hover:shadow-[0_20px_40px_rgba(27,95,217,.25)] motion-reduce:transition-none max-[560px]:min-h-0 max-[560px]:gap-3"
+                        className="group relative flex min-h-[150px] flex-col justify-between overflow-hidden rounded-[20px] border border-white/[.12] bg-white/[.06] p-5 transition duration-300 hover:-translate-y-1 hover:border-brand hover:bg-white/10 hover:shadow-[0_20px_40px_rgba(11,106,224,.25)] motion-reduce:transition-none max-[560px]:min-h-0 max-[560px]:gap-3"
                       >
                         <div className="flex items-start justify-between gap-3">
                           <span className="grid size-10 place-items-center rounded-xl bg-brand text-[13px] font-extrabold text-white">
@@ -1185,7 +1157,7 @@ export default function Page() {
           <Eyebrow>WHO WE ARE</Eyebrow>
           <h2 className="text-[clamp(30px,3.9vw,50px)] leading-[1.06] font-extrabold tracking-[-0.035em]">
             Clarity in Complexity.{" "}
-            <span className="bg-[linear-gradient(transparent_62%,#ffd93d_62%)] px-1">
+            <span className="bg-[linear-gradient(transparent_62%,#ffbe0b_62%)] px-1">
               Confidence
             </span>{" "}
             in Every Decision.
@@ -1213,7 +1185,7 @@ export default function Page() {
               ],
             ].map(([title, description]) => (
               <li key={title} className="flex items-start gap-3.5">
-                <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-brand text-white shadow-[0_6px_14px_rgba(27,95,217,.3)]">
+                <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-brand text-white shadow-[0_6px_14px_rgba(11,106,224,.3)]">
                   <Check size={15} />
                 </span>
                 <span>
@@ -1242,7 +1214,7 @@ export default function Page() {
         <div className="relative max-[900px]:order-1">
           <div
             aria-hidden="true"
-            className="absolute -top-5 -right-5 size-40 bg-[radial-gradient(circle,rgba(27,95,217,.45)_1.6px,transparent_2.2px)] [background-size:16px_16px] max-[560px]:size-24"
+            className="absolute -top-5 -right-5 size-40 bg-[radial-gradient(circle,rgba(11,106,224,.45)_1.6px,transparent_2.2px)] [background-size:16px_16px] max-[560px]:size-24"
           />
           <div
             aria-hidden="true"
@@ -1291,7 +1263,7 @@ export default function Page() {
           <Eyebrow>THE AEON DIFFERENCE</Eyebrow>
           <h2 className="text-[clamp(30px,3.7vw,48px)] leading-[1.06] font-extrabold tracking-[-0.035em]">
             Better Clarity. Better Decisions.{" "}
-            <span className="bg-[linear-gradient(transparent_62%,#ffd93d_62%)] px-1">
+            <span className="bg-[linear-gradient(transparent_62%,#ffbe0b_62%)] px-1">
               Better Business.
             </span>
           </h2>
@@ -1363,7 +1335,7 @@ export default function Page() {
       <section className="relative overflow-hidden border-y border-line bg-[linear-gradient(180deg,#f2f8ff,#ffffff_55%,#f2f8ff)] py-16 max-[560px]:py-12">
         <div
           aria-hidden="true"
-          className="absolute top-0 left-1/2 h-px w-2/3 -translate-x-1/2 bg-[linear-gradient(90deg,transparent,#1b5fd9,transparent)] opacity-40"
+          className="absolute top-0 left-1/2 h-px w-2/3 -translate-x-1/2 bg-[linear-gradient(90deg,transparent,#0b6ae0,transparent)] opacity-40"
         />
         <div className={cn(wrap, "text-center")}>
           <Eyebrow className="mb-3 justify-center">
@@ -1371,7 +1343,7 @@ export default function Page() {
           </Eyebrow>
           <h2 className="mx-auto max-w-[620px] text-[clamp(24px,3vw,34px)] leading-[1.15] font-extrabold tracking-[-0.03em]">
             Support for businesses across a{" "}
-            <span className="bg-[linear-gradient(transparent_62%,#ffd93d_62%)] px-1">
+            <span className="bg-[linear-gradient(transparent_62%,#ffbe0b_62%)] px-1">
               range of industries
             </span>
             .
@@ -1393,7 +1365,7 @@ export default function Page() {
                       <span
                         key={`${copy}-${label}`}
                         aria-hidden={copy === 1}
-                        className="inline-flex shrink-0 items-center gap-3 rounded-full border border-line bg-white py-2.5 pr-6 pl-2.5 text-[15px] font-bold whitespace-nowrap text-ink shadow-[0_8px_20px_rgba(11,27,77,.05)] transition duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_12px_26px_rgba(27,95,217,.14)] max-[560px]:text-[13px]"
+                        className="inline-flex shrink-0 items-center gap-3 rounded-full border border-line bg-white py-2.5 pr-6 pl-2.5 text-[15px] font-bold whitespace-nowrap text-ink shadow-[0_8px_20px_rgba(11,27,77,.05)] transition duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_12px_26px_rgba(11,106,224,.14)] max-[560px]:text-[13px]"
                       >
                         <span className="grid size-11 place-items-center rounded-full bg-[#eaf3ff] max-[560px]:size-9">
                           <ColorIcon name={IndustryIcon} size={34} />
@@ -1519,7 +1491,7 @@ export default function Page() {
                   className={cn(
                     "relative overflow-hidden rounded-[20px] border p-5 text-left transition duration-300 motion-reduce:transition-none",
                     active
-                      ? "border-brand bg-white shadow-[0_18px_40px_rgba(27,95,217,.14)]"
+                      ? "border-brand bg-white shadow-[0_18px_40px_rgba(11,106,224,.14)]"
                       : "border-line bg-white/60 hover:border-brand/40 hover:bg-white",
                   )}
                 >
@@ -1555,7 +1527,7 @@ export default function Page() {
                             ? "paused"
                             : "running",
                       }}
-                      className="absolute inset-x-0 bottom-0 h-1 origin-left animate-progress bg-[linear-gradient(90deg,#1b5fd9,#ffd93d)] motion-reduce:animate-none"
+                      className="absolute inset-x-0 bottom-0 h-1 origin-left animate-progress bg-[linear-gradient(90deg,#0b6ae0,#ffbe0b)] motion-reduce:animate-none"
                     />
                   )}
                 </button>
@@ -1672,7 +1644,7 @@ export default function Page() {
 
       <section
         id="contact"
-        className="relative overflow-hidden bg-[linear-gradient(135deg,#1b5fd9,#0a44b8)] py-[87px] text-white"
+        className="relative overflow-hidden bg-[linear-gradient(135deg,#0b6ae0,#0a44b8)] py-[87px] text-white"
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle,white_1px,transparent_1.5px)] [background-size:21px_21px] opacity-[.33] [mask-image:linear-gradient(90deg,transparent,black,transparent)]" />
         <div
@@ -1704,34 +1676,6 @@ export default function Page() {
         </div>
       </section>
 
-      {calendarOpen && (
-        <div className={modalBackdrop} onClick={() => setCalendarOpen(false)}>
-          <div className={modalCard} onClick={(e) => e.stopPropagation()}>
-            <button
-              className={modalClose}
-              onClick={() => setCalendarOpen(false)}
-              aria-label="Close"
-            >
-              <X />
-            </button>
-            <Eyebrow>COMPLIANCE RESOURCES</Eyebrow>
-            <h2 className={modalTitle}>
-              Your compliance calendar is ready to explore.
-            </h2>
-            <p className={modalText}>
-              Use this planning view as a starting point for organizing filings,
-              documentation, and important business milestones.
-            </p>
-            <a
-              className={btnBlue}
-              href="#contact"
-              onClick={() => setCalendarOpen(false)}
-            >
-              Talk to an expert <ArrowRight size={15} />
-            </a>
-          </div>
-        </div>
-      )}
       {videoOpen && (
         <div className={modalBackdrop} onClick={() => setVideoOpen(false)}>
           <div
@@ -1745,7 +1689,7 @@ export default function Page() {
             >
               <X />
             </button>
-            <div className="relative mx-auto mb-[25px] grid size-[68px] place-items-center rounded-full bg-white text-brand shadow-[0_0_0_11px_rgba(27,95,217,.12)]">
+            <div className="relative mx-auto mb-[25px] grid size-[68px] place-items-center rounded-full bg-white text-brand shadow-[0_0_0_11px_rgba(11,106,224,.12)]">
               <Play fill="currentColor" size={19} />
             </div>
             <Eyebrow className="justify-center">THE AEON APPROACH</Eyebrow>

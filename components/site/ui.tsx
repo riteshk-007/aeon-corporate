@@ -7,7 +7,7 @@ export const wrap =
 export const btn =
   "inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3 text-[14px] font-bold transition duration-200 hover:-translate-y-0.5 motion-reduce:transition-none"
 export const btnBlueFlat = `${btn} bg-brand text-white hover:bg-[#1450bd]`
-export const btnBlue = `${btnBlueFlat} shadow-[0_10px_23px_rgba(27,95,217,.22)]`
+export const btnBlue = `${btnBlueFlat} shadow-[0_10px_23px_rgba(11,106,224,.22)]`
 export const btnYellow = `${btn} bg-sun text-ink`
 export const btnWhite = `${btn} bg-white text-ink`
 export const btnOutline = `${btn} border border-[#bfcbe0] bg-white/70 text-ink`
@@ -48,18 +48,19 @@ export function Logo({
       className={cn("group inline-flex shrink-0 items-center")}
       aria-label="Aeon Corporate home"
     >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/brand/aeon-logo.png"
-        alt="Aeon — Corporate & Business Advisors"
-        width={600}
-        height={200}
+        src={light ? "/brand/aeon-logo-light.png" : "/brand/aeon-logo.png"}
+        alt="Aeon: Corporate and Business Advisors"
+        width={900}
+        height={290}
         className={cn(
-          "w-auto object-contain transition-[height,transform] duration-300 group-hover:scale-[1.03]",
+          "w-auto object-contain transition-[height] duration-300",
           light
-            ? "h-14 brightness-0 invert max-[560px]:h-12"
+            ? "h-[72px] max-[560px]:h-16"
             : compact
-              ? "h-[38px] max-[560px]:h-[36px]"
-              : "h-[50px] max-[560px]:h-[40px]",
+              ? "h-12 max-[560px]:h-[42px]"
+              : "h-14 max-[560px]:h-[46px]",
         )}
       />
     </Link>
@@ -130,4 +131,4 @@ export const reveal = (i = 0) => ({
 
 /** Decorative dot grid. */
 export const dots =
-  "bg-[radial-gradient(circle,rgba(27,95,217,.4)_1.6px,transparent_2.2px)] [background-size:16px_16px]"
+  "bg-[radial-gradient(circle,rgba(11,106,224,.4)_1.6px,transparent_2.2px)] [background-size:16px_16px]"

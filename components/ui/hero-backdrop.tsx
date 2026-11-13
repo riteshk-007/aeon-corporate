@@ -186,7 +186,7 @@ export function HeroBackdrop() {
               maskImage: sunSpot,
               WebkitMaskImage: sunSpot,
             }}
-            className="absolute -inset-10 bg-[radial-gradient(circle,rgba(255,217,61,.95)_1.6px,transparent_2.3px)] [background-position:10px_10px] [background-size:21px_21px]"
+            className="absolute -inset-10 bg-[radial-gradient(circle,rgba(255,190,11,.95)_1.6px,transparent_2.3px)] [background-position:10px_10px] [background-size:21px_21px]"
           />
           <motion.div
             style={{

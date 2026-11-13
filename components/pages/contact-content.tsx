@@ -177,7 +177,7 @@ export function ContactContent() {
                 <motion.div
                   key={c.label}
                   {...reveal(i)}
-                  className="flex gap-4 rounded-[24px] border border-line bg-[#f2f8ff] p-6 transition hover:border-brand/40 hover:bg-white hover:shadow-[0_18px_40px_rgba(27,95,217,.1)]"
+                  className="flex gap-4 rounded-[24px] border border-line bg-[#f2f8ff] p-6 transition hover:border-brand/40 hover:bg-white hover:shadow-[0_18px_40px_rgba(11,106,224,.1)]"
                 >
                   <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-brand text-white">
                     <c.icon size={21} />

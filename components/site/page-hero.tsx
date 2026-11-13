@@ -10,7 +10,7 @@ import { ColorIcon, Eyebrow, wrap } from "@/components/site/ui"
 /** Yellow marker highlight for the key words of a hero title. */
 export function Highlight({ children }: { children: React.ReactNode }) {
   return (
-    <span className="bg-[linear-gradient(transparent_64%,#ffd93d_64%)] px-1">
+    <span className="bg-[linear-gradient(transparent_64%,#ffbe0b_64%)] px-1">
       {children}
     </span>
   )
@@ -61,7 +61,7 @@ export function PageHero({
 }: PageHeroProps) {
   return (
     <MotionConfig reducedMotion="user">
-      <section className="pt-[142px] max-[1024px]:pt-[106px] max-[560px]:pt-[88px]">
+      <section className="pt-[124px] max-[1024px]:pt-[110px] max-[560px]:pt-[92px]">
         <div
           className={cn(
             wrap,
@@ -71,7 +71,7 @@ export function PageHero({
           {/* decoration */}
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-[radial-gradient(circle,rgba(27,95,217,.22)_1.4px,transparent_2px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_55%_90%_at_88%_40%,black,transparent_75%)]"
+            className="absolute inset-0 bg-[radial-gradient(circle,rgba(11,106,224,.22)_1.4px,transparent_2px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_55%_90%_at_88%_40%,black,transparent_75%)]"
           />
           <div
             aria-hidden="true"
@@ -130,7 +130,7 @@ export function PageHero({
                   {chips.map((chip) => (
                     <li
                       key={chip}
-                      className="rounded-full border border-brand/15 bg-white px-3.5 py-1.5 text-[12px] font-bold text-brand shadow-[0_4px_12px_rgba(27,95,217,.08)]"
+                      className="rounded-full border border-brand/15 bg-white px-3.5 py-1.5 text-[12px] font-bold text-brand shadow-[0_4px_12px_rgba(11,106,224,.08)]"
                     >
                       {chip}
                     </li>

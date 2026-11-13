@@ -43,8 +43,8 @@
     var(--font-jakarta), ui-sans-serif, system-ui, -apple-system, "Segoe UI",
     sans-serif;
 
-  --color-brand: #1b5fd9;
-  --color-sun: #ffd93d;
+  --color-brand: #0b6ae0;
+  --color-sun: #ffbe0b;
   --color-ink: #0b1b4d;
   --color-mute: #5b6b8c;
   --color-sky: #cfe5ff;
@@ -173,8 +173,8 @@
   --border: #dce5f5;
   --radius: 0.75rem;
   --input: #d3e3f7;
-  --ring: #1b5fd9;
-  --primary: #1b5fd9;
+  --ring: #0b6ae0;
+  --primary: #0b6ae0;
   --primary-foreground: #ffffff;
   --secondary: #eaf3ff;
   --secondary-foreground: #0b1b4d;
@@ -189,12 +189,12 @@
   --popover-foreground: #0b1b4d;
   --sidebar: #0b1b4d;
   --sidebar-foreground: #e6edff;
-  --sidebar-primary: #ffd93d;
+  --sidebar-primary: #ffbe0b;
   --sidebar-primary-foreground: #0b1b4d;
   --sidebar-accent: rgb(255 255 255 / 0.1);
   --sidebar-accent-foreground: #ffffff;
   --sidebar-border: rgb(255 255 255 / 0.12);
-  --sidebar-ring: #ffd93d;
+  --sidebar-ring: #ffbe0b;
 }
 
 @layer base {
@@ -241,7 +241,7 @@
 .rich-content .hljs-comment, .rich-content .hljs-quote { color: #8fa2c9; }
 .rich-content .hljs-keyword, .rich-content .hljs-selector-tag { color: #ff9ac1; }
 .rich-content .hljs-string, .rich-content .hljs-attr { color: #9be28b; }
-.rich-content .hljs-number, .rich-content .hljs-literal { color: #ffd93d; }
+.rich-content .hljs-number, .rich-content .hljs-literal { color: #ffbe0b; }
 .rich-content .hljs-title, .rich-content .hljs-function { color: #7cc4ff; }
 
 /* Pages with a bottom call-to-action bar (data-bottom-bar) lift the floating buttons above it on phones and tablets. */

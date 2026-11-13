@@ -120,7 +120,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   ]
 
   return (
-    <main id="top" className="overflow-x-clip pt-[142px] pb-28 max-[1024px]:pt-[106px] max-[560px]:pt-[88px]">
+    <main id="top" className="overflow-x-clip pt-[124px] pb-28 max-[1024px]:pt-[110px] max-[560px]:pt-[92px]">
       <JsonLd
         data={[
           breadcrumbLd([
@@ -200,7 +200,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           </div>
 
           <aside id="enquire" className="relative scroll-mt-28 overflow-hidden rounded-[26px] border border-white bg-white shadow-[0_22px_54px_rgba(11,27,77,.16)]">
-            <div className="relative bg-[linear-gradient(135deg,#1b5fd9,#0a44b8)] px-6 py-5 text-white max-[560px]:px-5">
+            <div className="relative bg-[linear-gradient(135deg,#0b6ae0,#0a44b8)] px-6 py-5 text-white max-[560px]:px-5">
               <div aria-hidden="true" className="absolute -top-10 -right-10 size-32 rounded-full border border-white/20" />
               <span className="mb-2 grid size-10 place-items-center rounded-xl bg-white/15"><Headphones size={20} /></span>
               <b className="block text-[19px] tracking-[-0.02em]">Get free expert consultation</b>
@@ -252,7 +252,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 const Icon = iconFor(look.icon)
                 return (
                   <section key={sec.key} id={sec.key} className="relative scroll-mt-40 overflow-hidden rounded-[24px] border border-line bg-white p-7 pl-8 shadow-[0_10px_30px_rgba(11,27,77,.05)] max-[560px]:rounded-[20px] max-[560px]:p-5 max-[560px]:pl-6">
-                    <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-[linear-gradient(to_bottom,#1b5fd9,#ffd93d)]" />
+                    <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-[linear-gradient(to_bottom,#0b6ae0,#ffbe0b)]" />
                     <span aria-hidden="true" className="pointer-events-none absolute -top-3 right-5 text-[84px] leading-none font-black text-brand/[.06] select-none">{String(i + 1).padStart(2, "0")}</span>
                     <div className="relative mb-5 flex flex-wrap items-center gap-3 border-b border-line pb-4">
                       <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-[linear-gradient(135deg,#eaf3ff,#cfe5ff)] text-brand ring-1 ring-white"><Icon size={24} /></span>

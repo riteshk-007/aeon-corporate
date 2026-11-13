@@ -12,7 +12,7 @@ export default async function LoginPage() {
 
   return (
     <main className="grid min-h-screen grid-cols-[1.05fr_0.95fr] bg-white max-[900px]:grid-cols-1">
-      <section className="relative flex flex-col justify-between overflow-hidden bg-[linear-gradient(135deg,#1b5fd9,#0a44b8)] p-12 text-white max-[900px]:hidden">
+      <section className="relative flex flex-col justify-between overflow-hidden bg-[linear-gradient(135deg,#0b6ae0,#0a44b8)] p-12 text-white max-[900px]:hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,.3)_1px,transparent_1.5px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_70%_70%_at_30%_70%,black,transparent)]" />
         <div className="absolute -right-24 -bottom-24 size-96 rounded-full bg-sun/25 blur-[100px]" />
         <Logo light />

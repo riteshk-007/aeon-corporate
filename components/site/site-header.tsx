@@ -100,48 +100,17 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
 
   return (
     <>
-      <div
-        className={cn(
-          "fixed inset-x-0 top-0 z-40 flex h-9 items-center border-b border-white/10 bg-ink text-xs text-white/75 transition-transform duration-300 max-[1024px]:hidden",
-          scrolled && "-translate-y-full",
-        )}
-      >
-        <div className={cn(wrap, "flex items-center justify-between")}>
-          <span className="flex items-center gap-2">
-            <i className="size-1.5 rounded-full bg-sun" />
-            Technology-enabled corporate guidance for ambitious businesses
-          </span>
-          <span className="flex items-center gap-5">
-            <Link
-              href="tel:+910000000000"
-              className="inline-flex items-center gap-1.5 hover:text-sun"
-            >
-              <Phone size={13} /> +91 00000 00000
-            </Link>
-            <Link
-              href="mailto:hello@aeoncorporate.com"
-              className="inline-flex items-center gap-1.5 hover:text-sun"
-            >
-              <Mail size={13} /> hello@aeoncorporate.com
-            </Link>
-          </span>
-        </div>
-      </div>
-
       <header
         className={cn(
-          "fixed inset-x-0 z-50 transition-[top] duration-300 max-[1024px]:top-4 max-[560px]:top-2.5",
-          scrolled ? "top-4" : "top-[52px]",
+          "fixed inset-x-0 top-0 z-50 border-b border-line/80 bg-white/95 backdrop-blur-xl transition-shadow duration-300",
+          scrolled ? "shadow-[0_8px_30px_rgba(11,27,77,.10)]" : "shadow-none",
         )}
       >
         <div
           className={cn(
-            wrap,
-            "relative flex items-center justify-between rounded-2xl border border-white/70 bg-white/80 px-4 backdrop-blur-xl max-[560px]:px-3 transition-all duration-300",
-            scrolled
-              ? "h-[58px] shadow-[0_18px_50px_rgba(11,27,77,.14)]"
-              : "h-[70px] shadow-[0_14px_45px_rgba(11,27,77,.08)]",
-            "max-[560px]:h-[56px]",
+            "relative mx-auto flex w-full max-w-7xl items-center justify-between px-4 transition-[height] duration-300 sm:px-6 lg:px-8",
+            scrolled ? "h-[68px]" : "h-[84px]",
+            "max-[560px]:h-[64px]",
           )}
         >
           <Logo compact={scrolled} />
@@ -154,7 +123,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
               href="/"
               aria-current={pathname === "/" ? "page" : undefined}
               className={cn(
-                "inline-flex items-center rounded-lg px-3 py-2 text-[13px] font-bold whitespace-nowrap transition-colors duration-200 hover:bg-[#dcebff] hover:text-brand",
+                "inline-flex items-center rounded-md px-3 py-2 text-[13px] font-bold whitespace-nowrap transition-colors duration-200 hover:bg-[#dcebff] hover:text-brand",
                 pathname === "/" ? "bg-[#dcebff] text-brand" : "text-mute",
               )}
             >
@@ -180,14 +149,14 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
                   aria-haspopup="true"
                   aria-expanded={openNav === label}
                   className={cn(
-                    "relative inline-flex items-center gap-1 rounded-lg px-3 py-2 text-[13px] font-bold whitespace-nowrap transition-colors duration-200",
+                    "relative inline-flex items-center gap-1 rounded-md px-3 py-2 text-[13px] font-bold whitespace-nowrap transition-colors duration-200",
                     openNav === label ? "text-brand" : "text-mute",
                   )}
                 >
                   {hoverNav === label && (
                     <motion.span
                       layoutId="nav-pill"
-                      className="absolute inset-0 rounded-lg bg-[#dcebff]"
+                      className="absolute inset-0 rounded-md bg-[#dcebff]"
                       transition={{ type: "spring", stiffness: 380, damping: 32 }}
                     />
                   )}
@@ -216,12 +185,12 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
               aria-label="Open menu"
               aria-haspopup="dialog"
               aria-expanded={panelOpen}
-              className="grid size-10 shrink-0 place-items-center rounded-xl border border-line bg-white transition hover:border-brand hover:bg-[#eaf3ff] hover:text-brand max-[1024px]:hidden"
+              className="grid size-10 shrink-0 place-items-center rounded-md border border-line bg-white transition hover:border-brand hover:bg-[#eaf3ff] hover:text-brand max-[1024px]:hidden"
             >
               <Menu size={20} />
             </button>
             <button
-              className="hidden size-10 items-center justify-center rounded-xl border border-line bg-white max-[1024px]:flex"
+              className="hidden size-10 items-center justify-center rounded-md border border-line bg-white max-[1024px]:flex"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label={menuOpen ? "Close menu" : "Open menu"}
               aria-expanded={menuOpen}
@@ -232,7 +201,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
           {/* Mega menu: categories on the left, their links on the right */}
           <div
             className={cn(
-              "absolute inset-x-0 top-full z-10 pt-3 transition duration-200 max-[1024px]:hidden",
+              "absolute inset-x-4 top-full z-10 pt-2 transition sm:inset-x-6 lg:inset-x-8 duration-200 max-[1024px]:hidden",
               openTop ? "visible translate-y-0 opacity-100" : "pointer-events-none invisible translate-y-2 opacity-0",
             )}
             onMouseEnter={() => openNav && openMenu(openNav)}
@@ -242,7 +211,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
             }}
           >
             {openTop && (
-              <div className="overflow-hidden rounded-2xl border border-line bg-white shadow-[0_28px_70px_rgba(11,27,77,.18)]">
+              <div className="overflow-hidden rounded-lg border border-line bg-white shadow-[0_28px_70px_rgba(11,27,77,.18)]">
                 {openTop.categories.length === 0 ? (
                   <p className="p-6 text-[14px] text-mute">No links yet.</p>
                 ) : (
@@ -259,8 +228,8 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
                               onFocus={() => setCatIdx(i)}
                               onClick={() => setCatIdx(i)}
                               className={cn(
-                                "flex w-full items-center justify-between gap-2 rounded-xl px-3.5 py-2.5 text-left text-[14px] font-semibold transition-colors",
-                                catIdx === i ? "bg-brand text-white shadow-[0_8px_18px_rgba(27,95,217,.25)]" : "text-ink hover:bg-pale",
+                                "flex w-full items-center justify-between gap-2 rounded-md px-3.5 py-2.5 text-left text-[14px] font-semibold transition-colors",
+                                catIdx === i ? "bg-brand text-white shadow-[0_8px_18px_rgba(11,106,224,.25)]" : "text-ink hover:bg-pale",
                               )}
                             >
                               <span className="min-w-0 leading-snug">{c.label}</span>
@@ -312,7 +281,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
             aria-hidden="true"
             style={{ scaleX: scrollProgress }}
             className={cn(
-              "absolute inset-x-5 bottom-0 h-[3px] origin-left rounded-full bg-[linear-gradient(90deg,#1b5fd9,#ffd93d)] transition-opacity duration-300",
+              "absolute inset-x-0 bottom-[-1px] h-[3px] origin-left bg-[linear-gradient(90deg,#0b6ae0,#ffbe0b)] transition-opacity duration-300",
               scrolled ? "opacity-100" : "opacity-0",
             )}
           />
@@ -333,7 +302,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
               <motion.nav
                 key="sheet"
                 aria-label="Mobile"
-                className="mx-auto mt-2 flex max-h-[calc(100dvh-90px)] w-[min(560px,calc(100%_-_32px))] flex-col overflow-y-auto rounded-3xl border border-line bg-white p-3 shadow-[0_28px_70px_rgba(11,27,77,.25)] min-[1025px]:hidden"
+                className="mx-auto flex max-h-[calc(100dvh-72px)] w-full flex-col overflow-y-auto border-t border-line bg-white p-3 shadow-[0_28px_70px_rgba(11,27,77,.25)] min-[1025px]:hidden"
                 initial={{ opacity: 0, y: -14, scale: 0.97 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -10, scale: 0.98 }}
@@ -423,7 +392,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
                 role="dialog"
                 aria-modal="true"
                 aria-label="Site menu"
-                className="fixed top-4 right-4 bottom-4 z-[70] flex w-[min(400px,calc(100%_-_32px))] flex-col overflow-y-auto rounded-[28px] bg-white p-6 shadow-[0_30px_90px_rgba(11,27,77,.35)] max-[1024px]:hidden"
+                className="fixed top-0 right-0 bottom-0 z-[70] flex w-[min(420px,100%)] flex-col overflow-y-auto rounded-l-xl bg-white p-6 shadow-[0_30px_90px_rgba(11,27,77,.35)] max-[1024px]:hidden"
                 initial={{ opacity: 0, x: 48 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 48 }}
@@ -454,7 +423,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
                           pathname === item.href ? "page" : undefined
                         }
                         className={cn(
-                          "group flex items-center gap-3.5 rounded-2xl px-3 py-2.5 text-[16px] font-bold transition-colors hover:bg-[#eaf3ff]",
+                          "group flex items-center gap-3.5 rounded-lg px-3 py-2.5 text-[16px] font-bold transition-colors hover:bg-[#eaf3ff]",
                           pathname === item.href && "bg-[#eaf3ff] text-brand",
                         )}
                       >
@@ -478,19 +447,19 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
                   <div className="grid grid-cols-3 gap-2">
                     <Link
                       href="tel:+910000000000"
-                      className="flex flex-col items-center gap-1.5 rounded-2xl bg-[#eaf3ff] px-2 py-3.5 text-[12px] font-bold hover:bg-[#dcebff]"
+                      className="flex flex-col items-center gap-1.5 rounded-lg bg-[#eaf3ff] px-2 py-3.5 text-[12px] font-bold hover:bg-[#dcebff]"
                     >
                       <Phone size={18} className="text-brand" /> Call
                     </Link>
                     <Link
                       href="mailto:hello@aeoncorporate.com"
-                      className="flex flex-col items-center gap-1.5 rounded-2xl bg-[#eaf3ff] px-2 py-3.5 text-[12px] font-bold hover:bg-[#dcebff]"
+                      className="flex flex-col items-center gap-1.5 rounded-lg bg-[#eaf3ff] px-2 py-3.5 text-[12px] font-bold hover:bg-[#dcebff]"
                     >
                       <Mail size={18} className="text-brand" /> Email
                     </Link>
                     <Link
                       href="/contact-us"
-                      className="flex flex-col items-center gap-1.5 rounded-2xl bg-[#eaf3ff] px-2 py-3.5 text-[12px] font-bold hover:bg-[#dcebff]"
+                      className="flex flex-col items-center gap-1.5 rounded-lg bg-[#eaf3ff] px-2 py-3.5 text-[12px] font-bold hover:bg-[#dcebff]"
                     >
                       <MessageCircle size={18} className="text-brand" />{" "}
                       Enquire

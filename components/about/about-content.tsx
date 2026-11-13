@@ -154,7 +154,7 @@ const reveal = (i = 0) => ({
 })
 
 const dots =
-  "bg-[radial-gradient(circle,rgba(27,95,217,.4)_1.6px,transparent_2.2px)] [background-size:16px_16px]"
+  "bg-[radial-gradient(circle,rgba(11,106,224,.4)_1.6px,transparent_2.2px)] [background-size:16px_16px]"
 
 export function AboutContent() {
   const [videoOpen, setVideoOpen] = useState(false)
@@ -205,7 +205,7 @@ export function AboutContent() {
               <Eyebrow>WHO WE ARE</Eyebrow>
               <h2 className="max-w-[560px] text-[clamp(30px,3.7vw,46px)] leading-[1.06] font-extrabold tracking-[-0.035em]">
                 We serve small teams, ambitious founders and{" "}
-                <span className="bg-[linear-gradient(transparent_62%,#ffd93d_62%)] px-1">
+                <span className="bg-[linear-gradient(transparent_62%,#ffbe0b_62%)] px-1">
                   established companies.
                 </span>
               </h2>
@@ -260,7 +260,7 @@ export function AboutContent() {
               <motion.article
                 key={item.title}
                 {...reveal(i)}
-                className="group flex gap-5 rounded-[24px] border border-line bg-pale p-7 transition duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(27,95,217,.12)] motion-reduce:transition-none max-[560px]:flex-col max-[560px]:p-6"
+                className="group flex gap-5 rounded-[24px] border border-line bg-pale p-7 transition duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(11,106,224,.12)] motion-reduce:transition-none max-[560px]:flex-col max-[560px]:p-6"
               >
                 <span className="grid size-16 shrink-0 place-items-center rounded-2xl bg-white shadow-[0_8px_20px_rgba(11,27,77,.12)]">
                   <ColorIcon name={item.icon} size={44} />
@@ -279,7 +279,7 @@ export function AboutContent() {
         </section>
 
         {/* ---------------- Tagline banner ---------------- */}
-        <section className="relative overflow-hidden bg-[linear-gradient(135deg,#1b5fd9,#0a44b8)] py-16 text-white max-[560px]:py-12">
+        <section className="relative overflow-hidden bg-[linear-gradient(135deg,#0b6ae0,#0a44b8)] py-16 text-white max-[560px]:py-12">
           <div className="absolute inset-0 bg-[radial-gradient(circle,white_1px,transparent_1.5px)] [background-size:22px_22px] opacity-[.18] [mask-image:linear-gradient(90deg,transparent,black,transparent)]" />
           <div className={cn(wrap, "relative text-center")}>
             <motion.p
@@ -407,7 +407,7 @@ export function AboutContent() {
 
               <motion.div
                 {...reveal(1)}
-                className="relative flex flex-col justify-between overflow-hidden rounded-[28px] bg-[linear-gradient(135deg,#1b5fd9,#0a44b8)] p-8 text-white max-[560px]:p-6"
+                className="relative flex flex-col justify-between overflow-hidden rounded-[28px] bg-[linear-gradient(135deg,#0b6ae0,#0a44b8)] p-8 text-white max-[560px]:p-6"
               >
                 <div
                   aria-hidden="true"
@@ -456,7 +456,7 @@ export function AboutContent() {
               <motion.article
                 key={card.title}
                 {...reveal(i)}
-                className="group relative overflow-hidden rounded-[26px] border border-line bg-white p-7 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_24px_48px_rgba(27,95,217,.14)] motion-reduce:transition-none"
+                className="group relative overflow-hidden rounded-[26px] border border-line bg-white p-7 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_24px_48px_rgba(11,106,224,.14)] motion-reduce:transition-none"
               >
                 <span
                   aria-hidden="true"
@@ -480,7 +480,7 @@ export function AboutContent() {
 
         {/* ---------------- Our journey ---------------- */}
         <section className="relative overflow-hidden bg-ink py-[100px] text-white max-[560px]:py-16">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_10%,rgba(27,95,217,.4),transparent_35%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_10%,rgba(11,106,224,.4),transparent_35%)]" />
           <div className={cn(wrap, "relative")}>
             <SectionHeading
               light
@@ -496,7 +496,7 @@ export function AboutContent() {
                   className="relative"
                 >
                   <span className="absolute top-[9px] left-0 hidden h-px w-full bg-white/15 min-[561px]:block" />
-                  <span className="relative z-10 grid size-[18px] place-items-center rounded-full bg-sun shadow-[0_0_0_6px_rgba(255,217,61,.22)] max-[560px]:absolute max-[560px]:top-1 max-[560px]:-left-[33px]" />
+                  <span className="relative z-10 grid size-[18px] place-items-center rounded-full bg-sun shadow-[0_0_0_6px_rgba(255,190,11,.22)] max-[560px]:absolute max-[560px]:top-1 max-[560px]:-left-[33px]" />
                   <p className="mt-5 text-[11px] font-black tracking-[.18em] text-sun max-[560px]:mt-0">
                     PHASE 0{i + 1}
                   </p>
@@ -584,19 +584,19 @@ export function AboutContent() {
             <ol className="relative mt-14 grid grid-cols-4 gap-5 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1">
               <div
                 aria-hidden="true"
-                className="absolute top-8 right-8 left-8 h-0.5 rounded-full bg-[linear-gradient(90deg,#1b5fd9,#ffd93d)] max-[900px]:hidden"
+                className="absolute top-8 right-8 left-8 h-0.5 rounded-full bg-[linear-gradient(90deg,#0b6ae0,#ffbe0b)] max-[900px]:hidden"
               />
               {workSteps.map((step, i) => (
                 <motion.li key={step.title} {...reveal(i)} className="relative">
                   <span
                     className={cn(
-                      "relative z-10 grid size-16 place-items-center rounded-full border-4 bg-white shadow-[0_10px_24px_rgba(27,95,217,.22)]",
+                      "relative z-10 grid size-16 place-items-center rounded-full border-4 bg-white shadow-[0_10px_24px_rgba(11,106,224,.22)]",
                       i % 2 === 1 ? "border-sun" : "border-brand",
                     )}
                   >
                     <ColorIcon name={step.icon} size={42} />
                   </span>
-                  <div className="relative mt-5 overflow-hidden rounded-[24px] border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_22px_44px_rgba(27,95,217,.12)] motion-reduce:transition-none">
+                  <div className="relative mt-5 overflow-hidden rounded-[24px] border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_22px_44px_rgba(11,106,224,.12)] motion-reduce:transition-none">
                     <span
                       aria-hidden="true"
                       className="absolute -top-3 right-3 text-[84px] leading-none font-black tracking-[-0.06em] text-brand/[.07]"
@@ -630,7 +630,7 @@ export function AboutContent() {
               <motion.div
                 key={item.label}
                 {...reveal(i % 3)}
-                className="group flex flex-col items-center gap-4 rounded-[22px] border border-line bg-white p-6 text-center transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_20px_40px_rgba(27,95,217,.12)] motion-reduce:transition-none max-[560px]:p-4"
+                className="group flex flex-col items-center gap-4 rounded-[22px] border border-line bg-white p-6 text-center transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_20px_40px_rgba(11,106,224,.12)] motion-reduce:transition-none max-[560px]:p-4"
               >
                 <span className="grid size-[72px] place-items-center rounded-2xl bg-[#eaf3ff]">
                   <ColorIcon name={item.icon} size={48} />
@@ -699,7 +699,7 @@ export function AboutContent() {
         </section>
 
         {/* ---------------- Final CTA ---------------- */}
-        <section className="relative overflow-hidden bg-[linear-gradient(135deg,#1b5fd9,#0a44b8)] py-20 text-white max-[560px]:py-14">
+        <section className="relative overflow-hidden bg-[linear-gradient(135deg,#0b6ae0,#0a44b8)] py-20 text-white max-[560px]:py-14">
           <div className="absolute inset-0 bg-[radial-gradient(circle,white_1px,transparent_1.5px)] [background-size:22px_22px] opacity-[.2] [mask-image:linear-gradient(90deg,transparent,black,transparent)]" />
           <div
             className={cn(
@@ -747,7 +747,7 @@ export function AboutContent() {
               >
                 <X />
               </button>
-              <div className="mx-auto mb-6 grid size-[68px] place-items-center rounded-full bg-white text-brand shadow-[0_0_0_11px_rgba(27,95,217,.12)]">
+              <div className="mx-auto mb-6 grid size-[68px] place-items-center rounded-full bg-white text-brand shadow-[0_0_0_11px_rgba(11,106,224,.12)]">
                 <Play fill="currentColor" size={19} />
               </div>
               <Eyebrow className="justify-center">THE AEON APPROACH</Eyebrow>

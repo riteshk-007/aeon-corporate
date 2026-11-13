@@ -32,17 +32,17 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 72,
-          background: "linear-gradient(135deg, #1b5fd9 0%, #0a44b8 60%, #0b1b4d 100%)",
+          background: "linear-gradient(135deg, #0b6ae0 0%, #0a44b8 60%, #0b1b4d 100%)",
           color: "white",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 14, fontSize: 30, fontWeight: 700 }}>
-          <div style={{ width: 16, height: 16, borderRadius: 8, background: "#ffd93d" }} />
+          <div style={{ width: 16, height: 16, borderRadius: 8, background: "#ffbe0b" }} />
           Aeon Corporate
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           {category ? (
-            <div style={{ fontSize: 28, fontWeight: 700, color: "#ffd93d", letterSpacing: 4, textTransform: "uppercase", marginBottom: 18 }}>
+            <div style={{ fontSize: 28, fontWeight: 700, color: "#ffbe0b", letterSpacing: 4, textTransform: "uppercase", marginBottom: 18 }}>
               {category}
             </div>
           ) : null}

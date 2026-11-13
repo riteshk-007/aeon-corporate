@@ -148,7 +148,7 @@ export function SiteFooter({ menu }: { menu: MenuTop[] }) {
             </div>
           </div>
 
-          <div className="grid grid-cols-[1.5fr_repeat(4,1fr)] gap-x-8 gap-y-12 pt-16 pb-12 max-[1100px]:grid-cols-[1.2fr_repeat(4,1fr)] max-[900px]:grid-cols-2 max-[900px]:pt-12 max-[560px]:gap-x-5 max-[560px]:pt-10">
+          <div className="grid grid-cols-[1.4fr_repeat(5,1fr)] gap-x-8 gap-y-12 pt-16 pb-12 max-[1100px]:grid-cols-[1.2fr_repeat(5,1fr)] max-[900px]:grid-cols-2 max-[900px]:pt-12 max-[560px]:gap-x-5 max-[560px]:pt-10">
             <div className="max-[900px]:col-span-2">
               <Logo light />
               <p className="mt-5 max-w-[300px] text-[14px] leading-[1.7] text-white/70">
