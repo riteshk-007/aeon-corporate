@@ -32,7 +32,7 @@ export function LegalLayout({
   return (
     <main id="top" className="overflow-hidden pt-[124px] pb-24 max-[1024px]:pt-[110px] max-[560px]:pt-[92px]">
       <div className={wrap}>
-        <header className="rounded-[32px] bg-[linear-gradient(135deg,#eaf3ff,#cfe5ff_60%,#dcebff)] px-12 py-12 max-[900px]:px-6 max-[900px]:py-9 max-[560px]:rounded-[24px]">
+        <header className="rounded-xl bg-[linear-gradient(135deg,#eaf3ff,#cfe5ff_60%,#dcebff)] px-12 py-12 max-[900px]:px-6 max-[900px]:py-9 max-[560px]:rounded-xl">
           <nav
             aria-label="Breadcrumb"
             className="mb-5 inline-flex items-center gap-1.5 rounded-full bg-white/80 px-4 py-2 text-[13px] font-semibold text-mute"
@@ -59,7 +59,7 @@ export function LegalLayout({
           <aside className="sticky top-28 max-[1024px]:static">
             <nav
               aria-label="On this page"
-              className="rounded-[22px] border border-line bg-white p-5 shadow-[0_10px_30px_rgba(11,27,77,.06)]"
+              className="rounded-lg border border-line bg-white p-5 shadow-[0_10px_30px_rgba(11,27,77,.06)]"
             >
               <p className="mb-3 text-[11px] font-black tracking-[.16em] text-mute uppercase">
                 On this page
@@ -79,7 +79,7 @@ export function LegalLayout({
               </ol>
               <Link
                 href={other.href}
-                className="mt-4 flex items-center gap-2 rounded-xl bg-[#eaf3ff] px-3 py-2.5 text-[13px] font-bold text-brand hover:bg-[#dcebff]"
+                className="mt-4 flex items-center gap-2 rounded-lg bg-[#eaf3ff] px-3 py-2.5 text-[13px] font-bold text-brand hover:bg-[#dcebff]"
               >
                 <other.icon size={16} /> {other.label}
               </Link>

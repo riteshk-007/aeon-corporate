@@ -68,7 +68,7 @@ export function AboutContent() {
           description="An AI and tech-enabled corporate and business advisory platform, offering curated services and solutions tailored to the unique needs of each client across industries and sectors."
           chips={focusAreas}
           image={{
-            src: "/illustrations/about-team.jpg",
+            src: "/illustrations/about-team.png",
             alt: "Illustration of consultants working together on a client checklist",
             width: 900,
             height: 900,
@@ -107,13 +107,12 @@ export function AboutContent() {
             </div>
           </motion.div>
           <motion.div {...reveal(1)} className="relative">
-            <div aria-hidden="true" className="absolute -inset-4 rounded-xl bg-[linear-gradient(135deg,#eaf3ff,#fff4d6)]" />
             <Image
-              src="/illustrations/about-connected.jpg"
+              src="/illustrations/about-connected.png"
               alt="Illustration of connected teams and systems working as one"
               width={704}
               height={546}
-              className="relative w-full rounded-lg border border-line bg-white object-contain shadow-[0_24px_60px_rgba(11,27,77,.12)]"
+              className="relative w-full object-contain drop-shadow-[0_24px_30px_rgba(11,27,77,.15)]"
             />
           </motion.div>
         </section>
@@ -207,7 +206,7 @@ export function AboutContent() {
             />
             <motion.article
               {...reveal()}
-              className="mt-10 grid grid-cols-[260px_1fr] gap-8 rounded-xl bg-white p-8 shadow-[0_24px_60px_rgba(11,27,77,.08)] max-[800px]:grid-cols-1 max-[560px]:p-5"
+              className="mt-10 grid grid-cols-[260px_1fr] gap-8 rounded-lg bg-white p-8 shadow-[0_24px_60px_rgba(11,27,77,.08)] max-[800px]:grid-cols-1 max-[560px]:p-5"
             >
               <div>
                 {/* Photo to be supplied by the client. */}

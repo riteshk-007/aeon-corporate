@@ -72,7 +72,7 @@ export function SiteGuards() {
         role="dialog"
         aria-modal="true"
         aria-labelledby="exit-title"
-        className="relative grid w-[min(880px,100%)] grid-cols-[300px_1fr] overflow-hidden rounded-xl bg-white shadow-[0_30px_90px_rgba(0,0,0,.35)] max-[760px]:grid-cols-1"
+        className="relative grid w-[min(880px,100%)] grid-cols-[300px_1fr] overflow-hidden rounded-lg bg-white shadow-[0_30px_90px_rgba(0,0,0,.35)] max-[760px]:grid-cols-1"
         onClick={(e) => e.stopPropagation()}
       >
         <button

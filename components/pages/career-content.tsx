@@ -125,7 +125,7 @@ export function CareerContent({ openings }: { openings: PublicJob[] }) {
             "Creative",
           ]}
           image={{
-            src: "/illustrations/story-process.jpg",
+            src: "/illustrations/story-process.png",
             alt: "Illustration of a team presenting a process, representing life at Aeon",
             width: 1400,
             height: 910,
@@ -145,7 +145,7 @@ export function CareerContent({ openings }: { openings: PublicJob[] }) {
           />
 
           {openings.length === 0 && (
-            <p className="mt-12 rounded-[24px] bg-pale p-8 text-center text-[15px] leading-[1.7] text-mute">
+            <p className="mt-12 rounded-xl bg-pale p-8 text-center text-[15px] leading-[1.7] text-mute">
               There are no open positions right now. Send your resume to{" "}
               <a href="mailto:hr@aeoncorporate.com" className="font-bold text-brand hover:underline">hr@aeoncorporate.com</a>{" "}
               and we will keep it on file.
@@ -156,10 +156,10 @@ export function CareerContent({ openings }: { openings: PublicJob[] }) {
               <motion.li
                 key={job.id}
                 {...reveal(i % 2)}
-                className="group flex flex-col rounded-[26px] border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_24px_48px_rgba(63,109,246,.13)] motion-reduce:transition-none"
+                className="group flex flex-col rounded-xl border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_24px_48px_rgba(63,109,246,.13)] motion-reduce:transition-none"
               >
                 <div className="flex items-start gap-4">
-                  <span className="grid size-16 shrink-0 place-items-center rounded-2xl bg-[#eaf3ff]">
+                  <span className="grid size-16 shrink-0 place-items-center rounded-lg bg-[#eaf3ff]">
                     <ColorIcon name={job.icon} size={44} />
                   </span>
                   <div className="min-w-0">
@@ -196,7 +196,7 @@ export function CareerContent({ openings }: { openings: PublicJob[] }) {
                   <p className="mt-4 text-[14px] leading-[1.7] text-mute">{job.summary}</p>
                 )}
                 {expanded === job.id && job.descriptionHtml && (
-                  <RichContent html={job.descriptionHtml} className="mt-4 rounded-2xl bg-[#f6faff] p-4" />
+                  <RichContent html={job.descriptionHtml} className="mt-4 rounded-lg bg-[#f6faff] p-4" />
                 )}
                 <div className="mt-6 flex flex-wrap items-center gap-3">
                   <button onClick={() => setRole(job)} className={cn(btnBlue, "w-fit")}>
@@ -219,7 +219,7 @@ export function CareerContent({ openings }: { openings: PublicJob[] }) {
 
           <motion.div
             {...reveal()}
-            className="mt-10 flex flex-wrap items-center justify-between gap-4 rounded-[24px] bg-pale p-6"
+            className="mt-10 flex flex-wrap items-center justify-between gap-4 rounded-xl bg-pale p-6"
           >
             <p className="max-w-[560px] text-[15px] leading-[1.6] text-mute">
               Don&apos;t see a role that fits? Send your resume to{" "}
@@ -248,9 +248,9 @@ export function CareerContent({ openings }: { openings: PublicJob[] }) {
                 <motion.div
                   key={p.t}
                   {...reveal(i)}
-                  className="flex items-center gap-4 rounded-[22px] bg-white p-5 shadow-[0_14px_34px_rgba(11,27,77,.08)]"
+                  className="flex items-center gap-4 rounded-lg bg-white p-5 shadow-[0_14px_34px_rgba(11,27,77,.08)]"
                 >
-                  <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-[#eaf3ff]">
+                  <span className="grid size-14 shrink-0 place-items-center rounded-lg bg-[#eaf3ff]">
                     <ColorIcon name={p.icon} size={38} />
                   </span>
                   <b className="text-[15px]">{p.t}</b>
@@ -273,7 +273,7 @@ export function CareerContent({ openings }: { openings: PublicJob[] }) {
                 role="dialog"
                 aria-modal="true"
                 aria-label={`Apply for ${role.title}`}
-                className="relative my-auto w-[min(560px,100%)] rounded-[24px] bg-white p-8 shadow-[0_30px_90px_rgba(0,0,0,.3)] max-[560px]:p-5"
+                className="relative my-auto w-[min(560px,100%)] rounded-xl bg-white p-8 shadow-[0_30px_90px_rgba(0,0,0,.3)] max-[560px]:p-5"
                 initial={{ opacity: 0, y: 16, scale: 0.97 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10, scale: 0.98 }}

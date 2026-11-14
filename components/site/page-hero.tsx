@@ -65,7 +65,7 @@ export function PageHero({
         <div
           className={cn(
             wrap,
-            "relative overflow-hidden rounded-[40px] bg-[linear-gradient(135deg,#eaf3ff_0%,#cfe5ff_58%,#dcebff_100%)] px-14 py-16 max-[1024px]:px-10 max-[1024px]:py-12 max-[560px]:rounded-[28px] max-[560px]:px-5 max-[560px]:py-9",
+            "relative overflow-hidden rounded-xl bg-[linear-gradient(135deg,#eaf3ff_0%,#cfe5ff_58%,#dcebff_100%)] px-14 py-16 max-[1024px]:px-10 max-[1024px]:py-12 max-[560px]:rounded-xl max-[560px]:px-5 max-[560px]:py-9",
           )}
         >
           {/* decoration */}
@@ -145,11 +145,7 @@ export function PageHero({
               transition={{ duration: 0.55, delay: 0.12 }}
               className="relative mx-auto w-full max-w-[540px]"
             >
-              <div
-                aria-hidden="true"
-                className="absolute -right-4 -bottom-4 size-[85%] rounded-[36px_36px_36px_120px] bg-brand/90 max-[560px]:-right-2 max-[560px]:-bottom-2"
-              />
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[36px_36px_36px_120px] bg-white shadow-[0_30px_70px_rgba(11,27,77,.22)] max-[560px]:rounded-[24px_24px_24px_70px]">
+              <div className="relative aspect-[4/3]">
                 <Image
                   src={image.src}
                   alt={image.alt}
@@ -158,8 +154,7 @@ export function PageHero({
                   priority
                   sizes="(max-width: 900px) 100vw, 540px"
                   className={cn(
-                    "size-full animate-float-slow object-cover",
-                    image.position,
+                    "size-full animate-float-slow object-contain drop-shadow-[0_24px_30px_rgba(11,27,77,.18)]",
                   )}
                 />
               </div>
@@ -170,7 +165,7 @@ export function PageHero({
                   aria-hidden="true"
                   style={{ animationDelay: `${-i * 2}s` }}
                   className={cn(
-                    "absolute grid size-[68px] animate-float place-items-center rounded-2xl bg-white shadow-[0_16px_34px_rgba(11,27,77,.2)] motion-reduce:animate-none max-[560px]:size-14",
+                    "absolute grid size-[68px] animate-float place-items-center rounded-lg bg-white shadow-[0_16px_34px_rgba(11,27,77,.2)] motion-reduce:animate-none max-[560px]:size-14",
                     iconSpots[i],
                   )}
                 >
@@ -183,7 +178,7 @@ export function PageHero({
               ))}
 
               {note && (
-                <div className="absolute bottom-6 -left-4 flex animate-float items-center gap-2.5 rounded-2xl bg-white px-4 py-3 shadow-[0_18px_36px_rgba(11,27,77,.2)] max-[560px]:bottom-4 max-[560px]:-left-1">
+                <div className="absolute bottom-6 -left-4 flex animate-float items-center gap-2.5 rounded-lg bg-white px-4 py-3 shadow-[0_18px_36px_rgba(11,27,77,.2)] max-[560px]:bottom-4 max-[560px]:-left-1">
                   <span className="grid size-8 place-items-center rounded-full bg-brand text-white">
                     <Check size={16} />
                   </span>

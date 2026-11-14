@@ -86,7 +86,7 @@ const how = [
 
 function Cta({ title }: { title: string }) {
   return (
-    <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-[20px] bg-[linear-gradient(135deg,#0b1b4d,#16327f)] px-6 py-6 text-white max-[560px]:px-5">
+    <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-lg bg-[linear-gradient(135deg,#0b1b4d,#16327f)] px-6 py-6 text-white max-[560px]:px-5">
       <div className="min-w-0">
         <b className="block text-[18px] tracking-[-0.02em]">{title}</b>
         <p className="mt-1 text-[13px] text-white/70">Share a few details and our team will get back to you.</p>
@@ -172,7 +172,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Top: title + what is included, with the enquiry form beside it */}
-        <header className="relative grid grid-cols-[minmax(0,1fr)_600px] items-center gap-10 max-[1280px]:grid-cols-[minmax(0,1fr)_520px] overflow-hidden rounded-[32px] bg-[linear-gradient(135deg,#eaf3ff,#cfe5ff_60%,#dcebff)] p-10 max-[1100px]:grid-cols-[minmax(0,1fr)] max-[900px]:gap-8 max-[900px]:p-6 max-[560px]:rounded-[24px] max-[560px]:p-5">
+        <header className="relative grid grid-cols-[minmax(0,1fr)_600px] items-center gap-10 max-[1280px]:grid-cols-[minmax(0,1fr)_520px] overflow-hidden rounded-xl bg-[linear-gradient(135deg,#eaf3ff,#cfe5ff_60%,#dcebff)] p-10 max-[1100px]:grid-cols-[minmax(0,1fr)] max-[900px]:gap-8 max-[900px]:p-6 max-[560px]:rounded-xl max-[560px]:p-5">
           <div aria-hidden="true" className="pointer-events-none absolute -top-24 -left-20 size-72 rounded-full bg-white/50 blur-3xl" />
           <div aria-hidden="true" className="pointer-events-none absolute -right-16 -bottom-24 size-72 rounded-full bg-sun/25 blur-3xl" />
           <div className="relative min-w-0">
@@ -188,7 +188,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <span className="min-w-0 truncate text-brand" aria-current="page">{s.title}</span>
             </nav>
             {s.icon && (
-              <span className="mb-4 grid size-14 place-items-center rounded-2xl bg-white text-brand shadow-[0_10px_24px_rgba(11,27,77,.12)] ring-1 ring-line">
+              <span className="mb-4 grid size-14 place-items-center rounded-lg bg-white text-brand shadow-[0_10px_24px_rgba(11,27,77,.12)] ring-1 ring-line">
                 {(() => { const PageIcon = iconFor(s.icon); return <PageIcon size={28} /> })()}
               </span>
             )}
@@ -196,11 +196,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             <h1 className="text-[clamp(28px,3.6vw,46px)] leading-[1.08] font-extrabold tracking-[-0.04em] [overflow-wrap:anywhere]">{s.title}</h1>
             {s.summary && <p className="mt-4 text-[16px] leading-[1.75] text-mute max-[560px]:text-[15px]">{s.summary}</p>}
             {s.highlights.length > 0 && (
-              <div className="mt-6 rounded-[22px] bg-white/80 p-5 shadow-[0_10px_30px_rgba(11,27,77,.06)] ring-1 ring-white">
+              <div className="mt-6 rounded-lg bg-white/80 p-5 shadow-[0_10px_30px_rgba(11,27,77,.06)] ring-1 ring-white">
                 <b className="flex items-center gap-2 text-[14px] text-brand"><ShieldCheck size={18} /> What is included</b>
                 <ul className="mt-3 grid grid-cols-2 gap-2.5 max-[640px]:grid-cols-1">
                   {s.highlights.map((h) => (
-                    <li key={h} className="flex items-center gap-3 rounded-xl bg-white px-3 py-2.5 text-[14px] leading-[1.4] font-semibold text-ink/90 ring-1 ring-line">
+                    <li key={h} className="flex items-center gap-3 rounded-lg bg-white px-3 py-2.5 text-[14px] leading-[1.4] font-semibold text-ink/90 ring-1 ring-line">
                       <AeBullet className="size-7" />
                       {h}
                     </li>
@@ -223,10 +223,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             </div>
           </div>
 
-          <aside id="enquire" className="relative scroll-mt-28 overflow-hidden rounded-[26px] border border-white bg-white shadow-[0_22px_54px_rgba(11,27,77,.16)]">
+          <aside id="enquire" className="relative scroll-mt-28 overflow-hidden rounded-xl border border-white bg-white shadow-[0_22px_54px_rgba(11,27,77,.16)]">
             <div className="relative bg-[linear-gradient(135deg,#3f6df6,#0a44b8)] px-6 py-5 text-white max-[560px]:px-5">
               <div aria-hidden="true" className="absolute -top-10 -right-10 size-32 rounded-full border border-white/20" />
-              <span className="mb-2 grid size-10 place-items-center rounded-xl bg-white/15"><Headphones size={20} /></span>
+              <span className="mb-2 grid size-10 place-items-center rounded-lg bg-white/15"><Headphones size={20} /></span>
               <b className="block text-[19px] tracking-[-0.02em]">Get free expert consultation</b>
               <p className="mt-1 text-[13px] text-white/80 [overflow-wrap:anywhere]">About {s.title}</p>
             </div>
@@ -250,8 +250,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
         <ol className="mt-6 grid grid-cols-4 gap-3 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1">
           {how.map(({ icon: HI, title, text }, i) => (
-            <li key={title} className="flex items-start gap-3 rounded-2xl border border-line bg-white p-4 shadow-[0_8px_24px_rgba(11,27,77,.04)]">
-              <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-pale text-brand"><HI size={22} /></span>
+            <li key={title} className="flex items-start gap-3 rounded-lg border border-line bg-white p-4 shadow-[0_8px_24px_rgba(11,27,77,.04)]">
+              <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-pale text-brand"><HI size={22} /></span>
               <div className="min-w-0">
                 <span className="text-[11px] font-black tracking-[.12em] text-brand">STEP {i + 1}</span>
                 <b className="block text-[14.5px] leading-snug">{title}</b>
@@ -267,7 +267,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
           <div className="min-w-0">
             {sections.length === 0 && (
-              <p className="rounded-2xl bg-pale p-6 text-[15px] text-mute">Details for this service are coming soon. Please request a call back and we will guide you.</p>
+              <p className="rounded-lg bg-pale p-6 text-[15px] text-mute">Details for this service are coming soon. Please request a call back and we will guide you.</p>
             )}
 
             <div className="grid gap-5" style={{ gridTemplateColumns: "minmax(0, 1fr)" }}>
@@ -275,11 +275,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 const look = sectionLook(sec)
                 const Icon = iconFor(look.icon)
                 return (
-                  <section key={sec.key} id={sec.key} className="relative scroll-mt-40 overflow-hidden rounded-[24px] border border-line bg-white p-7 pl-8 shadow-[0_10px_30px_rgba(11,27,77,.05)] max-[560px]:rounded-[20px] max-[560px]:p-5 max-[560px]:pl-6">
+                  <section key={sec.key} id={sec.key} className="relative scroll-mt-40 overflow-hidden rounded-xl border border-line bg-white p-7 pl-8 shadow-[0_10px_30px_rgba(11,27,77,.05)] max-[560px]:rounded-lg max-[560px]:p-5 max-[560px]:pl-6">
                     <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-[linear-gradient(to_bottom,#3f6df6,#ffbe0b)]" />
                     <span aria-hidden="true" className="pointer-events-none absolute -top-3 right-5 text-[84px] leading-none font-black text-brand/[.06] select-none">{String(i + 1).padStart(2, "0")}</span>
                     <div className="relative mb-5 flex flex-wrap items-center gap-3 border-b border-line pb-4">
-                      <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-[linear-gradient(135deg,#eaf3ff,#cfe5ff)] text-brand ring-1 ring-white"><Icon size={24} /></span>
+                      <span className="grid size-12 shrink-0 place-items-center rounded-lg bg-[linear-gradient(135deg,#eaf3ff,#cfe5ff)] text-brand ring-1 ring-white"><Icon size={24} /></span>
                       <h2 className="min-w-0 flex-1 text-[22px] font-extrabold tracking-[-0.03em] max-[560px]:text-[20px]">{look.title}</h2>
                       {sec.key === "process" && <StepsDialog title={s.title} html={sec.html} className="h-10 px-4">Open as pop-up</StepsDialog>}
                     </div>
@@ -287,7 +287,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                       <div className="grid grid-cols-[1fr_280px] items-start gap-6 max-[900px]:grid-cols-1">
                         <RichContent html={sec.html} className="text-[15.5px]" />
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={s.heroImageUrl} alt="" className="w-full rounded-[18px] border border-line object-cover" />
+                        <img src={s.heroImageUrl} alt="" className="w-full rounded-lg border border-line object-cover" />
                       </div>
                     ) : (
                       <RichContent html={sec.html} className="text-[15.5px]" />
@@ -300,14 +300,14 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               })}
 
               {faqs.length > 0 && (
-                <section id="faq" className="scroll-mt-40 rounded-[24px] border border-line bg-white p-7 max-[560px]:rounded-[20px] max-[560px]:p-5" aria-labelledby="faq-title">
+                <section id="faq" className="scroll-mt-40 rounded-xl border border-line bg-white p-7 max-[560px]:rounded-lg max-[560px]:p-5" aria-labelledby="faq-title">
                   <div className="mb-4 flex items-center gap-3">
-                    <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-[linear-gradient(135deg,#eaf3ff,#cfe5ff)] text-brand ring-1 ring-white"><Phone size={24} /></span>
+                    <span className="grid size-12 shrink-0 place-items-center rounded-lg bg-[linear-gradient(135deg,#eaf3ff,#cfe5ff)] text-brand ring-1 ring-white"><Phone size={24} /></span>
                     <h2 id="faq-title" className="text-[22px] font-extrabold tracking-[-0.03em] max-[560px]:text-[20px]">Frequently asked questions</h2>
                   </div>
                   <div className="grid gap-2.5">
                     {faqs.map((f, i) => (
-                      <details key={i} className="group rounded-2xl border border-line bg-[#f8fbff] px-4 py-3.5">
+                      <details key={i} className="group rounded-lg border border-line bg-[#f8fbff] px-4 py-3.5">
                         <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-[15px] font-bold [&::-webkit-details-marker]:hidden">
                           <span className="min-w-0">{f.q}</span>
                           <ChevronRight size={18} className="shrink-0 text-mute transition-transform group-open:rotate-90" />
@@ -326,7 +326,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 <ul className="mt-4 grid grid-cols-3 gap-3 max-[900px]:grid-cols-2 max-[560px]:grid-cols-1">
                   {similar.map((x) => (
                     <li key={x.slug}>
-                      <Link href={`/services/${x.slug}`} className="flex items-center justify-between gap-2 rounded-xl border border-line bg-white px-4 py-3 text-[14px] font-semibold transition hover:border-brand hover:text-brand">
+                      <Link href={`/services/${x.slug}`} className="flex items-center justify-between gap-2 rounded-lg border border-line bg-white px-4 py-3 text-[14px] font-semibold transition hover:border-brand hover:text-brand">
                         <span className="min-w-0 truncate">{x.title}</span>
                         <ArrowRight size={15} className="shrink-0 text-brand" />
                       </Link>
@@ -336,18 +336,18 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               </section>
             )}
 
-            <div className="mt-10 grid grid-cols-[1fr_auto] items-center gap-4 rounded-[22px] bg-[linear-gradient(135deg,#0b1b4d,#16327f)] p-6 text-white max-[700px]:grid-cols-1">
+            <div className="mt-10 grid grid-cols-[1fr_auto] items-center gap-4 rounded-lg bg-[linear-gradient(135deg,#0b1b4d,#16327f)] p-6 text-white max-[700px]:grid-cols-1">
               <div>
                 <b className="block text-[19px] tracking-[-0.02em]">Still have questions about {s.title}?</b>
                 <p className="mt-1 text-[14px] text-white/70">Talk to our team. We will explain the process in simple words.</p>
               </div>
               <div className="flex flex-wrap gap-2">
                 <Link href="#enquire" className={btnYellow}>Request a call back <ArrowRight size={15} /></Link>
-                <Link href="mailto:support@aeoncorporate.com" className="inline-flex h-12 items-center gap-2 rounded-xl border border-white/30 px-5 text-[14px] font-bold hover:bg-white/10"><Mail size={16} /> Email us</Link>
+                <Link href="mailto:support@aeoncorporate.com" className="inline-flex h-12 items-center gap-2 rounded-lg border border-white/30 px-5 text-[14px] font-bold hover:bg-white/10"><Mail size={16} /> Email us</Link>
               </div>
             </div>
 
-            <p className="mt-6 rounded-2xl bg-pale p-4 text-[12px] leading-[1.7] text-mute">
+            <p className="mt-6 rounded-lg bg-pale p-4 text-[12px] leading-[1.7] text-mute">
               Aeon Corporate is a private advisory and facilitation service and is not affiliated with any government body. This page is general information, not legal advice. Fees, timelines and outcomes depend on the case and on the relevant authorities.
             </p>
           </div>

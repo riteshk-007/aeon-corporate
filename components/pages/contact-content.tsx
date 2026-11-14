@@ -125,7 +125,7 @@ export function ContactContent() {
           }
           chips={["Consulting", "Compliance", "Tax filing", "Business support"]}
           image={{
-            src: "/illustrations/hero.jpg",
+            src: "/illustrations/hero.png",
             alt: "Illustration of a consultant presenting a compliance dashboard",
             width: 1400,
             height: 1032,
@@ -141,7 +141,7 @@ export function ContactContent() {
           <div className="grid grid-cols-[1.05fr_0.95fr] items-start gap-12 max-[1024px]:gap-8 max-[900px]:grid-cols-1">
             <motion.div
               {...reveal()}
-              className="rounded-[28px] bg-white p-8 shadow-[0_30px_70px_rgba(11,27,77,.14)] ring-1 ring-line max-[560px]:rounded-[22px] max-[560px]:p-5"
+              className="rounded-xl bg-white p-8 shadow-[0_30px_70px_rgba(11,27,77,.14)] ring-1 ring-line max-[560px]:rounded-lg max-[560px]:p-5"
             >
               <Eyebrow>QUICK SUPPORT</Eyebrow>
               <h2 className="mb-6 text-[clamp(26px,3vw,36px)] leading-[1.1] font-extrabold tracking-[-0.03em]">
@@ -180,9 +180,9 @@ export function ContactContent() {
                 <motion.div
                   key={c.label}
                   {...reveal(i)}
-                  className="flex gap-4 rounded-[24px] border border-line bg-[#f2f8ff] p-6 transition hover:border-brand/40 hover:bg-white hover:shadow-[0_18px_40px_rgba(63,109,246,.1)]"
+                  className="flex gap-4 rounded-xl border border-line bg-[#f2f8ff] p-6 transition hover:border-brand/40 hover:bg-white hover:shadow-[0_18px_40px_rgba(63,109,246,.1)]"
                 >
-                  <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-brand text-white">
+                  <span className="grid size-12 shrink-0 place-items-center rounded-lg bg-brand text-white">
                     <c.icon size={21} />
                   </span>
                   <div className="min-w-0">
@@ -222,9 +222,9 @@ export function ContactContent() {
             />
             <motion.article
               {...reveal()}
-              className="mt-10 grid max-w-[720px] grid-cols-[auto_1fr] gap-5 rounded-[28px] bg-white p-7 shadow-[0_24px_60px_rgba(11,27,77,.1)] max-[560px]:grid-cols-1 max-[560px]:p-5"
+              className="mt-10 grid max-w-[720px] grid-cols-[auto_1fr] gap-5 rounded-xl bg-white p-7 shadow-[0_24px_60px_rgba(11,27,77,.1)] max-[560px]:grid-cols-1 max-[560px]:p-5"
             >
-              <span className="grid size-14 place-items-center rounded-2xl bg-[#eaf3ff] text-brand">
+              <span className="grid size-14 place-items-center rounded-lg bg-[#eaf3ff] text-brand">
                 <MapPin size={26} />
               </span>
               <div>

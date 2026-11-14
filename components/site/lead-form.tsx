@@ -47,7 +47,7 @@ type LeadFormProps = {
 }
 
 const inputBase =
-  "h-12 rounded-xl border-line bg-[#f6faff] px-4 text-[15px] text-ink shadow-none placeholder:text-mute/70 focus-visible:border-brand focus-visible:bg-white focus-visible:ring-4 focus-visible:ring-brand/15 aria-invalid:border-red-400 aria-invalid:ring-red-100 md:text-[15px]"
+  "h-12 rounded-lg border-line bg-[#f6faff] px-4 text-[15px] text-ink shadow-none placeholder:text-mute/70 focus-visible:border-brand focus-visible:bg-white focus-visible:ring-4 focus-visible:ring-brand/15 aria-invalid:border-red-400 aria-invalid:ring-red-100 md:text-[15px]"
 
 const DIRECT = new Set(["name", "email", "phone", "state", "message"])
 
@@ -170,7 +170,7 @@ export function LeadForm({
       <div
         role="status"
         className={cn(
-          "grid place-items-center rounded-2xl bg-[#eaf3ff] p-8 text-center",
+          "grid place-items-center rounded-lg bg-[#eaf3ff] p-8 text-center",
           className,
         )}
       >
@@ -302,7 +302,7 @@ export function LeadForm({
       })}
       <div
         className={cn(
-          "grid gap-3 rounded-2xl bg-[#f6faff] p-4 ring-1 ring-line",
+          "grid gap-3 rounded-lg bg-[#f6faff] p-4 ring-1 ring-line",
           columns === 2 && "col-span-2 max-[560px]:col-span-1",
         )}
       >
@@ -328,7 +328,7 @@ export function LeadForm({
           type="submit"
           disabled={busy}
           className={cn(
-            "h-12 rounded-xl bg-brand px-8 text-[15px] font-bold text-white shadow-[0_10px_24px_rgba(63,109,246,.28)] hover:bg-brand/90",
+            "h-12 rounded-lg bg-brand px-8 text-[15px] font-bold text-white shadow-[0_10px_24px_rgba(63,109,246,.28)] hover:bg-brand/90",
             columns === 1 ? "w-full" : "w-full sm:w-auto",
           )}
         >

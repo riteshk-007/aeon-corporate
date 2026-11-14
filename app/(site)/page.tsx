@@ -172,20 +172,20 @@ const articles = [
     title: "How businesses can prepare for their next stage of growth",
     description:
       "Practical considerations for building structured business operations.",
-    image: "/illustrations/insight-startup.jpg",
+    image: "/illustrations/insight-startup.png",
   },
   {
     category: "COMPLIANCE & REGULATION",
     title: "Understanding the importance of proactive compliance",
     description: "How organized processes help businesses stay prepared.",
-    image: "/illustrations/insight-compliance.jpg",
+    image: "/illustrations/insight-compliance.png",
   },
   {
     category: "SUSTAINABILITY",
     title: "Building environmental responsibility into business strategy",
     description:
       "The role of environmental thinking in modern business planning.",
-    image: "/illustrations/insight-sustainability.jpg",
+    image: "/illustrations/insight-sustainability.png",
   },
 ]
 const testimonials = [
@@ -275,7 +275,7 @@ const circlePath =
   "M 1090 110 C 1190 330, 950 565, 560 565 C 190 565, 25 430, 45 290 C 65 130, 320 35, 620 35 C 920 35, 1150 150, 1135 300"
 
 const floatCard =
-  "absolute animate-float motion-reduce:animate-none flex items-center gap-2.5 rounded-[13px] border border-[rgba(220,229,245,.9)] bg-white/90 px-[15px] py-[13px] shadow-[0_15px_35px_rgba(11,27,77,.14)] backdrop-blur-[12px] max-[560px]:p-[9px]"
+  "absolute animate-float motion-reduce:animate-none flex items-center gap-2.5 rounded-lg border border-[rgba(220,229,245,.9)] bg-white/90 px-[15px] py-[13px] shadow-[0_15px_35px_rgba(11,27,77,.14)] backdrop-blur-[12px] max-[560px]:p-[9px]"
 const chipTones = ["bg-[#dcebff]", "bg-sun/70", "bg-[#eef0f6]", "bg-[#c9defc]"]
 const scrollbarThin =
   "[scrollbar-width:thin] [scrollbar-color:rgba(63,109,246,.5)_transparent]"
@@ -462,13 +462,13 @@ export default function Page() {
             </div>
           </div>
           <div className="relative flex items-center justify-center py-6 max-[900px]:py-4">
-            {/* Whole illustration is shown (no cropping); cards sit on the frame edges, never on the subject. */}
-            <div className="relative aspect-[4/3] h-[clamp(300px,52svh,460px)] max-w-full overflow-hidden rounded-[28px] border-[8px] border-white bg-white shadow-[0_30px_70px_rgba(11,27,77,.28)] max-[900px]:h-auto max-[900px]:w-full max-[900px]:max-w-[560px] max-[560px]:rounded-[20px] max-[560px]:border-[5px]">
+            {/* Whole illustration is shown (no cropping, no frame); cards sit on its edges. */}
+            <div className="relative aspect-[4/3] h-[clamp(300px,52svh,460px)] max-w-full max-[900px]:h-auto max-[900px]:w-full max-[900px]:max-w-[560px]">
               <Image
-                src="/illustrations/hero.jpg"
+                src="/illustrations/hero.png"
                 alt="Illustration of a consultant presenting a compliance dashboard with a shield, calendar and documents"
 
-                className="size-full object-contain"
+                className="size-full object-contain drop-shadow-[0_26px_34px_rgba(6,36,128,.35)]"
                 width={1400}
                 height={1032}
                 sizes="(max-width: 900px) 100vw, 560px"
@@ -530,7 +530,7 @@ export default function Page() {
       </section>
 
       <section className="relative z-[2] -mt-[60px] bg-[linear-gradient(to_bottom,transparent_60px,#cfe5ff_60px)] pb-[100px] max-[560px]:-mt-[40px] max-[560px]:bg-[linear-gradient(to_bottom,transparent_40px,#cfe5ff_40px)] max-[560px]:pb-[70px]">
-        <div className="mx-auto w-[min(1080px,calc(100%_-_48px))] rounded-[28px] border border-line bg-white p-8 shadow-[0_30px_80px_rgba(11,27,77,.12)] max-[560px]:w-[calc(100%_-_32px)] max-[560px]:rounded-[22px] max-[560px]:p-5">
+        <div className="mx-auto w-[min(1080px,calc(100%_-_48px))] rounded-xl border border-line bg-white p-8 shadow-[0_30px_80px_rgba(11,27,77,.12)] max-[560px]:w-[calc(100%_-_32px)] max-[560px]:rounded-lg max-[560px]:p-5">
           <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
             <div>
               <Eyebrow className="mb-2.5">FIND YOUR NEXT STEP</Eyebrow>
@@ -543,7 +543,7 @@ export default function Page() {
             </p>
           </div>
 
-          <div className="mt-6 flex items-center gap-2 rounded-2xl border border-line bg-[#f2f8ff] p-2 transition focus-within:border-brand focus-within:bg-white focus-within:shadow-[0_0_0_4px_rgba(63,109,246,.12)] max-[560px]:flex-col max-[560px]:items-stretch">
+          <div className="mt-6 flex items-center gap-2 rounded-lg border border-line bg-[#f2f8ff] p-2 transition focus-within:border-brand focus-within:bg-white focus-within:shadow-[0_0_0_4px_rgba(63,109,246,.12)] max-[560px]:flex-col max-[560px]:items-stretch">
             <div className="flex h-12 flex-1 items-center gap-3 px-3.5 text-mute">
               <Search size={20} className="shrink-0" />
               <div className="relative min-w-0 flex-1">
@@ -630,7 +630,7 @@ export default function Page() {
                 href={item.href}
                 title={item.hint || undefined}
                 className={cn(
-                  "rounded-xl px-4 py-2.5 text-[13px] font-semibold text-ink transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(11,27,77,.1)] motion-reduce:transition-none",
+                  "rounded-lg px-4 py-2.5 text-[13px] font-semibold text-ink transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(11,27,77,.1)] motion-reduce:transition-none",
                   chipTones[i % chipTones.length],
                 )}
               >
@@ -642,7 +642,7 @@ export default function Page() {
                 type="button"
                 onClick={() => setShowAllQuick((v) => !v)}
                 aria-expanded={showAllQuick}
-                className="inline-flex items-center gap-1.5 rounded-xl bg-ink px-4 py-2.5 text-[13px] font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-brand motion-reduce:transition-none"
+                className="inline-flex items-center gap-1.5 rounded-lg bg-ink px-4 py-2.5 text-[13px] font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-brand motion-reduce:transition-none"
               >
                 {showAllQuick ? "Less" : `More (${quickServices.length - QUICK_FIRST})`}{" "}
                 <span aria-hidden="true">{showAllQuick ? "−" : "+"}</span>
@@ -699,29 +699,29 @@ export default function Page() {
             aria-hidden="true"
             className="absolute -bottom-6 left-6 size-40 rounded-full border border-brand/25 max-[560px]:size-24"
           />
-          <div className="absolute top-0 right-10 bottom-14 left-0 overflow-hidden rounded-[32px_32px_32px_110px] shadow-[0_30px_70px_rgba(11,27,77,.16)] max-[560px]:right-6 max-[560px]:bottom-10 max-[560px]:rounded-[24px_24px_24px_70px]">
+          <div className="absolute top-0 right-10 bottom-14 left-0 max-[560px]:right-6 max-[560px]:bottom-10">
             <Image
-              src="/illustrations/about-team.jpg"
+              src="/illustrations/about-team.png"
               alt="Illustration of three consultants collaborating over documents and a compliance checklist"
 
-              className="size-full object-cover"
+              className="size-full object-contain"
               width={900}
               height={900}
               sizes="(max-width: 900px) 100vw, 640px"
             />
           </div>
-          <div className="absolute right-0 bottom-0 h-[210px] w-[44%] overflow-hidden rounded-[22px] border-[6px] border-white shadow-[0_24px_50px_rgba(11,27,77,.2)] max-[560px]:h-[130px] max-[560px]:border-4">
+          <div className="absolute right-0 bottom-0 h-[210px] w-[44%] max-[560px]:h-[130px]">
             <Image
-              src="/illustrations/about-documents.jpg"
+              src="/illustrations/about-documents.png"
               alt="Illustration of a signed document with a seal, pen and magnifying glass"
 
-              className="size-full animate-float object-cover"
+              className="size-full animate-float object-contain drop-shadow-[0_18px_22px_rgba(11,27,77,.22)]"
               width={700}
               height={516}
               sizes="(max-width: 900px) 100vw, 640px"
             />
           </div>
-          <div className="absolute top-8 -left-4 flex items-center gap-3 rounded-2xl bg-sun px-4 py-3 shadow-[0_18px_36px_rgba(11,27,77,.14)] max-[560px]:top-4 max-[560px]:-left-1 max-[560px]:px-3 max-[560px]:py-2.5">
+          <div className="absolute top-8 -left-4 flex items-center gap-3 rounded-lg bg-sun px-4 py-3 shadow-[0_18px_36px_rgba(11,27,77,.14)] max-[560px]:top-4 max-[560px]:-left-1 max-[560px]:px-3 max-[560px]:py-2.5">
             <strong className="text-[32px] leading-none font-extrabold max-[560px]:text-2xl">
               7
             </strong>
@@ -731,7 +731,7 @@ export default function Page() {
               under one roof
             </span>
           </div>
-          <div className="absolute bottom-24 -left-3 hidden items-center gap-2.5 rounded-2xl border border-line bg-white/95 px-3.5 py-3 shadow-[0_18px_36px_rgba(11,27,77,.14)] backdrop-blur min-[561px]:flex">
+          <div className="absolute bottom-24 -left-3 hidden items-center gap-2.5 rounded-lg border border-line bg-white/95 px-3.5 py-3 shadow-[0_18px_36px_rgba(11,27,77,.14)] backdrop-blur min-[561px]:flex">
             <span className="grid size-8 place-items-center rounded-full bg-brand text-white">
               <Check size={16} />
             </span>
@@ -785,9 +785,9 @@ export default function Page() {
               return (
                 <div
                   key={title as string}
-                  className="group flex items-center gap-4 rounded-2xl border border-line bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_14px_30px_rgba(63,109,246,.1)] motion-reduce:transition-none"
+                  className="group flex items-center gap-4 rounded-lg border border-line bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_14px_30px_rgba(63,109,246,.1)] motion-reduce:transition-none"
                 >
-                  <span className="grid size-14 shrink-0 place-items-center rounded-xl bg-[#eaf3ff] transition-transform duration-200 group-hover:scale-105">
+                  <span className="grid size-14 shrink-0 place-items-center rounded-lg bg-[#eaf3ff] transition-transform duration-200 group-hover:scale-105">
                     <ColorIcon name={Icon as string} size={44} />
                   </span>
                   <div className="min-w-0">
@@ -834,7 +834,7 @@ export default function Page() {
                   <article
                     key={title}
                     className={cn(
-                      "group relative flex min-h-[200px] flex-col justify-between overflow-hidden rounded-[22px] border border-line p-[26px] transition duration-[250ms] hover:-translate-y-[5px] hover:shadow-[0_18px_35px_rgba(63,109,246,.12)] motion-reduce:transition-none max-[560px]:min-h-[185px]",
+                      "group relative flex min-h-[200px] flex-col justify-between overflow-hidden rounded-lg border border-line p-[26px] transition duration-[250ms] hover:-translate-y-[5px] hover:shadow-[0_18px_35px_rgba(63,109,246,.12)] motion-reduce:transition-none max-[560px]:min-h-[185px]",
                       tones[tone].card,
                       className,
                     )}
@@ -857,8 +857,8 @@ export default function Page() {
                     )}
                     <div
                       className={cn(
-                        "relative grid place-items-center rounded-xl",
-                        featured ? "size-[92px] rounded-3xl" : "size-[64px]",
+                        "relative grid place-items-center rounded-lg",
+                        featured ? "size-[92px] rounded-xl" : "size-[64px]",
                         "shadow-[0_8px_20px_rgba(11,27,77,.16)]",
                         tones[tone].icon,
                       )}
@@ -955,7 +955,7 @@ export default function Page() {
                   >
                     <ColorIcon name={stepIcon} size={42} />
                   </span>
-                  <div className="group relative mt-5 overflow-hidden rounded-[24px] border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(63,109,246,.12)] motion-reduce:transition-none">
+                  <div className="group relative mt-5 overflow-hidden rounded-xl border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(63,109,246,.12)] motion-reduce:transition-none">
                     <span
                       aria-hidden="true"
                       className="absolute -top-3 right-3 text-[84px] leading-none font-black tracking-[-0.06em] text-brand/[.07] transition-colors duration-300 group-hover:text-brand/[.14]"
@@ -1007,7 +1007,7 @@ export default function Page() {
             />
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 rounded-xl border border-white/25 px-5 py-3 text-[14px] font-bold text-white transition hover:border-sun hover:bg-sun hover:text-ink"
+              className="inline-flex items-center gap-2 rounded-lg border border-white/25 px-5 py-3 text-[14px] font-bold text-white transition hover:border-sun hover:bg-sun hover:text-ink"
             >
               Not sure? Ask an expert <ArrowUpRight size={16} />
             </a>
@@ -1037,7 +1037,7 @@ export default function Page() {
                     aria-selected={active}
                     onClick={() => setActiveCategory(category)}
                     className={cn(
-                      "relative flex items-center gap-3.5 overflow-hidden rounded-2xl px-4 py-3.5 text-left text-[15px] font-semibold transition-colors duration-300 max-[900px]:shrink-0 max-[900px]:snap-center max-[900px]:rounded-full max-[900px]:border max-[900px]:px-4 max-[900px]:py-2.5 max-[900px]:text-[14px] max-[900px]:whitespace-nowrap",
+                      "relative flex items-center gap-3.5 overflow-hidden rounded-lg px-4 py-3.5 text-left text-[15px] font-semibold transition-colors duration-300 max-[900px]:shrink-0 max-[900px]:snap-center max-[900px]:rounded-full max-[900px]:border max-[900px]:px-4 max-[900px]:py-2.5 max-[900px]:text-[14px] max-[900px]:whitespace-nowrap",
                       active
                         ? "text-white max-[900px]:border-transparent"
                         : "text-white/60 hover:text-white max-[900px]:border-white/20",
@@ -1056,7 +1056,7 @@ export default function Page() {
                     )}
                     <span
                       className={cn(
-                        "relative grid size-10 shrink-0 place-items-center rounded-xl transition-colors duration-300 max-[900px]:hidden",
+                        "relative grid size-10 shrink-0 place-items-center rounded-lg transition-colors duration-300 max-[900px]:hidden",
                         "bg-white shadow-[0_4px_12px_rgba(0,0,0,.18)]",
                       )}
                     >
@@ -1096,7 +1096,7 @@ export default function Page() {
               })}
             </div>
 
-            <div className="relative min-h-[420px] rounded-[28px] border border-white/10 bg-white/[.04] p-6 backdrop-blur-sm max-[560px]:min-h-0 max-[560px]:rounded-[22px] max-[560px]:p-4">
+            <div className="relative min-h-[420px] rounded-xl border border-white/10 bg-white/[.04] p-6 backdrop-blur-sm max-[560px]:min-h-0 max-[560px]:rounded-lg max-[560px]:p-4">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={activeCategory}
@@ -1139,10 +1139,10 @@ export default function Page() {
                           duration: 0.4,
                           ease: [0.22, 1, 0.36, 1],
                         }}
-                        className="group relative flex min-h-[150px] flex-col justify-between overflow-hidden rounded-[20px] border border-white/[.12] bg-white/[.06] p-5 transition duration-300 hover:-translate-y-1 hover:border-brand hover:bg-white/10 hover:shadow-[0_20px_40px_rgba(63,109,246,.25)] motion-reduce:transition-none max-[560px]:min-h-0 max-[560px]:gap-3"
+                        className="group relative flex min-h-[150px] flex-col justify-between overflow-hidden rounded-lg border border-white/[.12] bg-white/[.06] p-5 transition duration-300 hover:-translate-y-1 hover:border-brand hover:bg-white/10 hover:shadow-[0_20px_40px_rgba(63,109,246,.25)] motion-reduce:transition-none max-[560px]:min-h-0 max-[560px]:gap-3"
                       >
                         <div className="flex items-start justify-between gap-3">
-                          <span className="grid size-10 place-items-center rounded-xl bg-brand text-[13px] font-extrabold text-white">
+                          <span className="grid size-10 place-items-center rounded-lg bg-brand text-[13px] font-extrabold text-white">
                             {String(i + 1).padStart(2, "0")}
                           </span>
                           <span className="grid size-9 place-items-center rounded-full border border-white/20 text-sun transition group-hover:border-sun group-hover:bg-sun group-hover:text-ink">
@@ -1169,7 +1169,7 @@ export default function Page() {
 
       <section className="bg-pale py-[100px] max-[560px]:py-16">
         <div className={cn(wrap, "grid grid-cols-[1.15fr_1fr] gap-5 max-[900px]:grid-cols-1")}>
-          <article className="relative overflow-hidden rounded-xl bg-ink p-9 text-white max-[560px]:p-6">
+          <article className="relative overflow-hidden rounded-lg bg-ink p-9 text-white max-[560px]:p-6">
             <div aria-hidden="true" className="absolute -top-20 -right-20 size-64 rounded-full bg-brand/40 blur-3xl" />
             <Eyebrow className="relative text-sun">FINANCE ADVISORY</Eyebrow>
             <h2 className="relative max-w-[520px] text-[clamp(26px,3vw,38px)] leading-[1.1] font-extrabold tracking-[-0.03em]">
@@ -1191,7 +1191,7 @@ export default function Page() {
               ))}
             </ul>
           </article>
-          <article id="outsourcing" className="relative scroll-mt-28 overflow-hidden rounded-xl border border-line bg-white p-9 max-[560px]:p-6">
+          <article id="outsourcing" className="relative scroll-mt-28 overflow-hidden rounded-lg border border-line bg-white p-9 max-[560px]:p-6">
             <Eyebrow>OUTSOURCING TO INDIA</Eyebrow>
             <h2 className="text-[clamp(26px,3vw,38px)] leading-[1.1] font-extrabold tracking-[-0.03em]">
               Operating outside India? Work with us.
@@ -1276,19 +1276,18 @@ export default function Page() {
           />
           <div
             aria-hidden="true"
-            className="absolute -bottom-5 -left-5 size-44 rounded-[32px] bg-sun max-[560px]:size-28 max-[560px]:rounded-3xl"
+            className="absolute -bottom-5 -left-5 size-44 rounded-xl bg-sun max-[560px]:size-28 max-[560px]:rounded-xl"
           />
-          <div className="relative min-h-[460px] overflow-hidden rounded-[32px] shadow-[0_30px_70px_rgba(11,27,77,.2)] max-[900px]:min-h-[380px] max-[560px]:min-h-[300px] max-[560px]:rounded-[24px]">
+          <div className="relative min-h-[460px] max-[900px]:min-h-[380px] max-[560px]:min-h-[300px]">
             <Image
-              src="/illustrations/story-process.jpg"
+              src="/illustrations/story-process.png"
               alt="Illustration of a team presenting a step-by-step process on a board"
 
-              className="absolute inset-0 size-full object-cover"
+              className="absolute inset-0 size-full object-contain"
               width={1400}
               height={910}
               sizes="(max-width: 900px) 100vw, 640px"
             />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_55%,rgba(11,27,77,.35))]" />
             <button
               onClick={() => setVideoOpen(true)}
               aria-label="Open brand story"
@@ -1304,7 +1303,7 @@ export default function Page() {
                 className="relative ml-1 transition-transform group-hover:scale-110"
               />
             </button>
-            <span className="absolute bottom-5 left-1/2 -translate-x-1/2 rounded-full border border-white/30 bg-white/15 px-4 py-2 text-[13px] font-bold whitespace-nowrap text-white backdrop-blur-md">
+            <span className="absolute bottom-5 left-1/2 -translate-x-1/2 rounded-full bg-ink/85 px-4 py-2 text-[13px] font-bold whitespace-nowrap text-white shadow-[0_10px_24px_rgba(11,27,77,.25)]">
               Watch our process
             </span>
           </div>
@@ -1346,7 +1345,7 @@ export default function Page() {
               <motion.article
                 key={title}
                 className={cn(
-                  "group relative flex min-h-[210px] flex-col justify-between overflow-hidden rounded-[24px] border p-6 transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_22px_44px_rgba(11,27,77,.14)] motion-reduce:transition-none",
+                  "group relative flex min-h-[210px] flex-col justify-between overflow-hidden rounded-xl border p-6 transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_22px_44px_rgba(11,27,77,.14)] motion-reduce:transition-none",
                   tone.card,
                   i === features.length - 1 &&
                     "col-span-2 max-[560px]:col-span-1",
@@ -1367,7 +1366,7 @@ export default function Page() {
                 </span>
                 <span
                   className={cn(
-                    "relative grid size-16 place-items-center rounded-2xl",
+                    "relative grid size-16 place-items-center rounded-lg",
                     tone.icon,
                   )}
                 >
@@ -1463,7 +1462,7 @@ export default function Page() {
           onMouseEnter={() => setTestimonialPaused(true)}
           onMouseLeave={() => setTestimonialPaused(false)}
         >
-          <article className="relative flex min-h-[380px] flex-col justify-between overflow-hidden rounded-[28px] bg-brand p-10 text-white max-[560px]:min-h-[340px] max-[560px]:rounded-[22px] max-[560px]:p-6">
+          <article className="relative flex min-h-[380px] flex-col justify-between overflow-hidden rounded-xl bg-brand p-10 text-white max-[560px]:min-h-[340px] max-[560px]:rounded-lg max-[560px]:p-6">
             <div
               aria-hidden="true"
               className="absolute -top-20 -right-20 size-72 rounded-full border border-white/20"
@@ -1477,7 +1476,7 @@ export default function Page() {
               className="absolute -bottom-10 -left-10 size-56 rounded-full bg-white/10 blur-2xl"
             />
             <div className="relative flex items-center justify-between">
-              <span className="grid size-12 place-items-center rounded-2xl bg-white/15">
+              <span className="grid size-12 place-items-center rounded-lg bg-white/15">
                 <Quote size={24} className="text-sun" />
               </span>
               <span className="flex gap-0.5 text-sun" aria-label="5 out of 5">
@@ -1549,7 +1548,7 @@ export default function Page() {
                   aria-label={`Show review from ${item.name}`}
                   aria-current={active}
                   className={cn(
-                    "relative overflow-hidden rounded-[20px] border p-5 text-left transition duration-300 motion-reduce:transition-none",
+                    "relative overflow-hidden rounded-lg border p-5 text-left transition duration-300 motion-reduce:transition-none",
                     active
                       ? "border-brand bg-white shadow-[0_18px_40px_rgba(63,109,246,.14)]"
                       : "border-line bg-white/60 hover:border-brand/40 hover:bg-white",
@@ -1607,7 +1606,7 @@ export default function Page() {
             />
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 rounded-xl border border-line bg-white px-5 py-3 text-[14px] font-bold text-ink transition hover:border-brand hover:text-brand"
+              className="inline-flex items-center gap-2 rounded-lg border border-line bg-white px-5 py-3 text-[14px] font-bold text-ink transition hover:border-brand hover:text-brand"
             >
               Ask us a question <ArrowUpRight size={16} />
             </a>
@@ -1621,7 +1620,7 @@ export default function Page() {
                   key={article.title}
                   href="/contact-us"
                   className={cn(
-                    "group relative overflow-hidden rounded-[26px] transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_26px_54px_rgba(11,27,77,.16)] motion-reduce:transition-none max-[560px]:rounded-[20px]",
+                    "group relative overflow-hidden rounded-xl transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_26px_54px_rgba(11,27,77,.16)] motion-reduce:transition-none max-[560px]:rounded-lg",
                     featured
                       ? "row-span-2 flex min-h-[520px] flex-col justify-end max-[900px]:row-span-1 max-[900px]:min-h-[440px]"
                       : "flex min-h-[250px] border border-line bg-white max-[560px]:flex-col",
@@ -1633,11 +1632,12 @@ export default function Page() {
                 >
                   {featured ? (
                     <>
+                      <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(160deg,#eaf3ff,#cfe5ff)]" />
                       <Image
                         src={article.image}
                         alt={article.title}
 
-                        className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none"
+                        className="absolute inset-0 size-full object-contain p-8 pb-64 transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none max-[560px]:pb-56"
                         width={1000}
                         height={650}
                         sizes="(max-width: 900px) 100vw, 640px"
@@ -1663,12 +1663,12 @@ export default function Page() {
                     </>
                   ) : (
                     <>
-                      <div className="relative w-[42%] shrink-0 overflow-hidden max-[560px]:h-[190px] max-[560px]:w-full">
+                      <div className="relative w-[42%] shrink-0 overflow-hidden bg-[linear-gradient(160deg,#eaf3ff,#cfe5ff)] max-[560px]:h-[190px] max-[560px]:w-full">
                         <Image
                           src={article.image}
                           alt={article.title}
 
-                          className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-110 motion-reduce:transition-none"
+                          className="absolute inset-0 size-full object-contain p-3 transition-transform duration-500 group-hover:scale-110 motion-reduce:transition-none"
                           width={1000}
                           height={650}
                           sizes="(max-width: 900px) 100vw, 640px"
@@ -1778,7 +1778,7 @@ export default function Page() {
 const modalBackdrop =
   "fixed inset-0 z-[100] grid animate-modal-in place-items-center bg-ink/70 p-5 backdrop-blur-[8px]"
 const modalCard =
-  "relative w-[min(500px,100%)] animate-card-in rounded-[20px] bg-white p-[35px] shadow-[0_30px_90px_rgba(0,0,0,.3)]"
+  "relative w-[min(500px,100%)] animate-card-in rounded-lg bg-white p-[35px] shadow-[0_30px_90px_rgba(0,0,0,.3)]"
 const modalClose =
   "absolute top-[13px] right-[13px] grid size-[31px] place-items-center rounded-full bg-[#f1f5ff]"
 const modalTitle = "text-[32px] leading-none font-bold tracking-[-0.03em]"

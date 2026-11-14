@@ -28,7 +28,7 @@ const culture = [
       "Recreational activities",
       "Team off-sites",
     ],
-    image: "/illustrations/about-team.jpg",
+    image: "/illustrations/about-team.png",
     alt: "Illustration of a team collaborating around a table",
     w: 900,
     h: 900,
@@ -38,7 +38,7 @@ const culture = [
     title: "Holistic Learning Opportunities",
     text: "Learning never stops. We encourage peer learning at every level, with regular training, meetups and career counselling to help you grow.",
     points: ["Regular training", "Meetups", "Career counselling"],
-    image: "/illustrations/story-process.jpg",
+    image: "/illustrations/story-process.png",
     alt: "Illustration of a team learning together in front of a process board",
     w: 1400,
     h: 910,
@@ -48,7 +48,7 @@ const culture = [
     title: "Community Exposure",
     text: "We host events and encourage our people to attend industry events, meet peers and share what they know on bigger stages.",
     points: ["Industry events", "Speaking opportunities", "Networking"],
-    image: "/illustrations/about-dashboard.jpg",
+    image: "/illustrations/about-dashboard.png",
     alt: "Illustration of a compliance dashboard",
     w: 1200,
     h: 884,
@@ -118,7 +118,7 @@ export function WorkContent() {
           }
           chips={["Learning", "Inclusive culture", "Growth"]}
           image={{
-            src: "/illustrations/story-process.jpg",
+            src: "/illustrations/story-process.png",
             alt: "Illustration of a team presenting a process to colleagues",
             width: 1400,
             height: 910,
@@ -156,15 +156,15 @@ export function WorkContent() {
                 aria-hidden="true"
                 className={cn("absolute -top-5 -right-5 size-36", dots)}
               />
-              <div className="relative overflow-hidden rounded-[32px] border border-line bg-white shadow-[0_30px_70px_rgba(11,27,77,.14)]">
+              <div className="relative">
                 <Image
-                  src="/illustrations/hero.jpg"
+                  src="/illustrations/hero.png"
                   alt="Illustration of a consultant presenting a dashboard to the team"
                   width={1400}
                   height={1032}
                   sizes="(max-width: 900px) 100vw, 520px"
                   loading="lazy"
-                  className="aspect-[4/3] w-full object-cover"
+                  className="aspect-[4/3] w-full object-contain drop-shadow-[0_24px_30px_rgba(11,27,77,.16)]"
                 />
               </div>
             </motion.div>
@@ -184,13 +184,13 @@ export function WorkContent() {
                   key={c.title}
                   {...reveal()}
                   className={cn(
-                    "grid grid-cols-2 items-center gap-10 rounded-[32px] bg-white p-8 shadow-[0_24px_60px_rgba(11,27,77,.1)] max-[900px]:grid-cols-1 max-[560px]:rounded-[24px] max-[560px]:p-5",
+                    "grid grid-cols-2 items-center gap-10 rounded-xl bg-white p-8 shadow-[0_24px_60px_rgba(11,27,77,.1)] max-[900px]:grid-cols-1 max-[560px]:rounded-xl max-[560px]:p-5",
                     i % 2 === 1 &&
                       "[&>div:first-child]:order-2 max-[900px]:[&>div:first-child]:order-1",
                   )}
                 >
                   <div>
-                    <span className="grid size-16 place-items-center rounded-2xl bg-[#eaf3ff]">
+                    <span className="grid size-16 place-items-center rounded-lg bg-[#eaf3ff]">
                       <ColorIcon name={c.icon} size={44} />
                     </span>
                     <h3 className="mt-5 text-2xl font-bold tracking-[-0.02em]">
@@ -210,7 +210,7 @@ export function WorkContent() {
                       ))}
                     </ul>
                   </div>
-                  <div className="overflow-hidden rounded-[24px] border border-line bg-white">
+                  <div>
                     <Image
                       src={c.image}
                       alt={c.alt}
@@ -218,7 +218,7 @@ export function WorkContent() {
                       height={c.h}
                       sizes="(max-width: 900px) 100vw, 520px"
                       loading="lazy"
-                      className="aspect-[4/3] w-full object-cover"
+                      className="aspect-[4/3] w-full object-contain drop-shadow-[0_18px_24px_rgba(11,27,77,.14)]"
                     />
                   </div>
                 </motion.article>
@@ -238,9 +238,9 @@ export function WorkContent() {
               <motion.article
                 key={b.title}
                 {...reveal(i)}
-                className="group rounded-[24px] border border-line bg-white p-6 text-center transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(63,109,246,.12)] motion-reduce:transition-none"
+                className="group rounded-xl border border-line bg-white p-6 text-center transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(63,109,246,.12)] motion-reduce:transition-none"
               >
-                <span className="mx-auto grid size-[76px] place-items-center rounded-2xl bg-[#eaf3ff]">
+                <span className="mx-auto grid size-[76px] place-items-center rounded-lg bg-[#eaf3ff]">
                   <ColorIcon name={b.icon} size={50} />
                 </span>
                 <h3 className="mt-5 text-lg font-bold">{b.title}</h3>
@@ -266,9 +266,9 @@ export function WorkContent() {
                 <motion.article
                   key={m.title}
                   {...reveal(i)}
-                  className="rounded-[24px] border border-white/10 bg-white/[.06] p-7 transition duration-300 hover:-translate-y-1.5 hover:border-brand hover:bg-white/10 motion-reduce:transition-none"
+                  className="rounded-xl border border-white/10 bg-white/[.06] p-7 transition duration-300 hover:-translate-y-1.5 hover:border-brand hover:bg-white/10 motion-reduce:transition-none"
                 >
-                  <span className="grid size-14 place-items-center rounded-2xl bg-white">
+                  <span className="grid size-14 place-items-center rounded-lg bg-white">
                     <ColorIcon name={m.icon} size={38} />
                   </span>
                   <h3 className="mt-5 text-xl font-bold">{m.title}</h3>

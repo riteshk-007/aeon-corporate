@@ -108,7 +108,7 @@ export function ReviewsContent() {
             "Compliance",
           ]}
           image={{
-            src: "/illustrations/about-team.jpg",
+            src: "/illustrations/about-team.png",
             alt: "Illustration of clients and consultants reviewing documents together",
             width: 900,
             height: 900,
@@ -127,7 +127,7 @@ export function ReviewsContent() {
         >
           <motion.div
             {...reveal()}
-            className="mb-10 flex flex-wrap items-center gap-3 rounded-2xl border border-line bg-[#f2f8ff] px-5 py-4"
+            className="mb-10 flex flex-wrap items-center gap-3 rounded-lg border border-line bg-[#f2f8ff] px-5 py-4"
           >
             <span className="size-2.5 rounded-full bg-sun ring-4 ring-[#e6bd00]/30" />
             <p className="text-[13px] font-semibold text-mute">
@@ -175,7 +175,7 @@ export function ReviewsContent() {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.96 }}
                   transition={{ duration: 0.3 }}
-                  className="group flex flex-col rounded-[24px] border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(63,109,246,.12)] motion-reduce:transition-none"
+                  className="group flex flex-col rounded-xl border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(63,109,246,.12)] motion-reduce:transition-none"
                 >
                   <Quote size={28} className="text-brand/30" />
                   <p className="mt-3 flex-1 text-[15px] leading-[1.7] text-ink/85">
@@ -201,7 +201,7 @@ export function ReviewsContent() {
           </div>
 
           {visible.length === 0 && (
-            <p className="mt-10 rounded-2xl bg-pale p-6 text-center text-[14px] text-mute">
+            <p className="mt-10 rounded-lg bg-pale p-6 text-center text-[14px] text-mute">
               No reviews for this service yet.
             </p>
           )}
@@ -244,9 +244,9 @@ export function ReviewsContent() {
               ].map((x) => (
                 <div
                   key={x.t}
-                  className="flex flex-col items-center gap-3 rounded-[22px] bg-white p-6 text-center shadow-[0_18px_40px_rgba(11,27,77,.1)]"
+                  className="flex flex-col items-center gap-3 rounded-lg bg-white p-6 text-center shadow-[0_18px_40px_rgba(11,27,77,.1)]"
                 >
-                  <span className="grid size-16 place-items-center rounded-2xl bg-[#eaf3ff]">
+                  <span className="grid size-16 place-items-center rounded-lg bg-[#eaf3ff]">
                     <ColorIcon name={x.icon} size={44} />
                   </span>
                   <b className="text-[14px]">{x.t}</b>

@@ -34,7 +34,7 @@ export function SectionNav({ tabs }: { tabs: Tab[] }) {
 
   return (
     <nav aria-label="On this page" className="min-w-0 sticky top-[76px] z-20 -mx-1 min-[1025px]:top-28 min-[1025px]:mx-0">
-      <ul className="flex gap-1.5 overflow-x-auto rounded-2xl border border-line bg-white/95 p-1.5 shadow-[0_10px_30px_rgba(11,27,77,.08)] backdrop-blur [scrollbar-width:none] min-[1025px]:grid min-[1025px]:gap-0.5 min-[1025px]:p-2 [&::-webkit-scrollbar]:hidden">
+      <ul className="flex gap-1.5 overflow-x-auto rounded-lg border border-line bg-white/95 p-1.5 shadow-[0_10px_30px_rgba(11,27,77,.08)] backdrop-blur [scrollbar-width:none] min-[1025px]:grid min-[1025px]:gap-0.5 min-[1025px]:p-2 [&::-webkit-scrollbar]:hidden">
         {tabs.map((t, i) => (
           <li key={t.id} className="shrink-0">
             <a
@@ -42,7 +42,7 @@ export function SectionNav({ tabs }: { tabs: Tab[] }) {
               data-tab={t.id}
               aria-current={active === t.id ? "true" : undefined}
               className={cn(
-                "flex items-center gap-2.5 rounded-xl px-4 py-2.5 text-[13px] font-bold whitespace-nowrap transition min-[1025px]:py-2.5",
+                "flex items-center gap-2.5 rounded-lg px-4 py-2.5 text-[13px] font-bold whitespace-nowrap transition min-[1025px]:py-2.5",
                 active === t.id ? "bg-brand text-white shadow-[0_6px_16px_rgba(63,109,246,.25)]" : "text-ink/75 hover:bg-pale hover:text-brand",
               )}
             >

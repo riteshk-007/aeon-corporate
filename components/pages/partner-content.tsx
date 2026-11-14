@@ -141,7 +141,7 @@ export function PartnerContent() {
           }
           chips={["Advocates", "CAs & CSs", "Tax experts", "Investors", "CXOs"]}
           image={{
-            src: "/illustrations/about-team.jpg",
+            src: "/illustrations/about-team.png",
             alt: "Illustration of consultants partnering on a compliance project",
             width: 900,
             height: 900,
@@ -163,7 +163,7 @@ export function PartnerContent() {
               <motion.li
                 key={item}
                 {...reveal(i % 4)}
-                className="group flex items-center gap-3.5 rounded-2xl border border-line bg-white p-5 transition duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-[0_18px_36px_rgba(63,109,246,.12)] motion-reduce:transition-none"
+                className="group flex items-center gap-3.5 rounded-lg border border-line bg-white p-5 transition duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-[0_18px_36px_rgba(63,109,246,.12)] motion-reduce:transition-none"
               >
                 <AeBullet className="size-9" />
                 <b className="text-[15px] leading-snug">{item}</b>
@@ -209,22 +209,22 @@ export function PartnerContent() {
                   </li>
                 ))}
               </ul>
-              <div className="relative mt-8 hidden max-w-[460px] overflow-hidden rounded-[24px] bg-white p-3 shadow-[0_24px_50px_rgba(11,27,77,.12)] min-[901px]:block">
+              <div className="relative mt-8 hidden max-w-[460px] min-[901px]:block">
                 <Image
-                  src="/illustrations/about-dashboard.jpg"
+                  src="/illustrations/about-dashboard.png"
                   alt="Illustration of a compliance dashboard with shield and documents"
                   width={1200}
                   height={884}
                   sizes="460px"
                   loading="lazy"
-                  className="h-auto w-full rounded-2xl"
+                  className="h-auto w-full drop-shadow-[0_20px_26px_rgba(11,27,77,.14)]"
                 />
               </div>
             </motion.div>
 
             <motion.div
               {...reveal(1)}
-              className="rounded-[28px] bg-white p-8 shadow-[0_30px_70px_rgba(11,27,77,.14)] max-[560px]:rounded-[22px] max-[560px]:p-5"
+              className="rounded-xl bg-white p-8 shadow-[0_30px_70px_rgba(11,27,77,.14)] max-[560px]:rounded-lg max-[560px]:p-5"
             >
               <h3 className="mb-6 text-2xl font-bold tracking-[-0.02em]">
                 Become a partner
@@ -275,9 +275,9 @@ export function PartnerContent() {
                 <motion.article
                   key={c.title}
                   {...reveal(i % 3)}
-                  className="rounded-[22px] border border-white/10 bg-white/[.06] p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand hover:bg-white/10 motion-reduce:transition-none"
+                  className="rounded-lg border border-white/10 bg-white/[.06] p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand hover:bg-white/10 motion-reduce:transition-none"
                 >
-                  <span className="grid size-14 place-items-center rounded-2xl bg-white shadow-[0_8px_20px_rgba(0,0,0,.2)]">
+                  <span className="grid size-14 place-items-center rounded-lg bg-white shadow-[0_8px_20px_rgba(0,0,0,.2)]">
                     <ColorIcon name={c.icon} size={40} />
                   </span>
                   <h3 className="mt-5 text-[17px] leading-snug font-bold">

@@ -49,7 +49,7 @@ export function SiteFooter({ menu }: { menu: MenuTop[] }) {
           className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,.07)_1px,transparent_1.5px)] [background-size:22px_22px] [mask-image:linear-gradient(to_bottom,black,transparent_60%)]"
         />
         <div className={cn(wrap, "relative")}>
-          <div className="relative overflow-hidden rounded-[28px] bg-sun p-9 text-ink max-[560px]:rounded-[22px] max-[560px]:p-6">
+          <div className="relative overflow-hidden rounded-xl bg-sun p-9 text-ink max-[560px]:rounded-lg max-[560px]:p-6">
             <div
               aria-hidden="true"
               className="absolute -top-24 -right-16 size-72 rounded-full border border-ink/10"
@@ -76,7 +76,7 @@ export function SiteFooter({ menu }: { menu: MenuTop[] }) {
               <div>
                 <form
                   id="newsletter-form"
-                  className="flex gap-2 rounded-2xl bg-white p-2 shadow-[0_14px_34px_rgba(11,27,77,.14)] max-[560px]:flex-col"
+                  className="flex gap-2 rounded-lg bg-white p-2 shadow-[0_14px_34px_rgba(11,27,77,.14)] max-[560px]:flex-col"
                   onSubmit={async (e) => {
                     e.preventDefault()
                     const form = e.currentTarget
@@ -244,7 +244,7 @@ export function SiteFooter({ menu }: { menu: MenuTop[] }) {
               </Link>
             ))}
           </nav>
-          <p className="rounded-2xl border border-white/10 bg-white/[.04] p-4 text-[12px] leading-[1.7] text-white/60">
+          <p className="rounded-lg border border-white/10 bg-white/[.04] p-4 text-[12px] leading-[1.7] text-white/60">
             <b className="text-white/80">Legal disclaimer:</b> The information
             on this website describes our corporate and business advisory
             services to people who want to know more about us. It is not

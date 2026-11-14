@@ -109,7 +109,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
       >
         <div
           className={cn(
-            "relative mx-auto flex w-full max-w-7xl items-center justify-between px-4 transition-[height] duration-300 sm:px-6 lg:px-8",
+            "relative mx-auto flex w-full max-w-[1440px] items-center justify-between gap-8 px-4 transition-[height] duration-300 sm:px-6 lg:px-8",
             scrolled ? "h-[68px]" : "h-[84px]",
             "max-[560px]:h-[64px]",
           )}
@@ -322,7 +322,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
                     </summary>
                     <div className="grid gap-1 pb-3">
                       {categories.map((c, ci) => (
-                        <details key={c.label + ci} className="group/cat rounded-xl bg-[#f6faff]">
+                        <details key={c.label + ci} className="group/cat rounded-lg bg-[#f6faff]">
                           <summary className="flex cursor-pointer list-none items-center gap-2 px-3 py-3 text-[14px] font-semibold [&::-webkit-details-marker]:hidden">
                             <span className="flex-1">{c.label}</span>
                             <ChevronRight size={16} className="shrink-0 text-mute transition-transform duration-200 group-open/cat:rotate-90" />
@@ -388,7 +388,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
                 role="dialog"
                 aria-modal="true"
                 aria-label="Site menu"
-                className="fixed top-0 right-0 bottom-0 z-[70] flex w-[min(420px,100%)] flex-col overflow-y-auto rounded-l-xl bg-white p-6 shadow-[0_30px_90px_rgba(11,27,77,.35)] max-[1024px]:hidden"
+                className="fixed top-0 right-0 bottom-0 z-[70] flex w-[min(420px,100%)] flex-col overflow-y-auto rounded-l-lg bg-white p-6 shadow-[0_30px_90px_rgba(11,27,77,.35)] max-[1024px]:hidden"
                 initial={{ opacity: 0, x: 48 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 48 }}
@@ -400,7 +400,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
                     type="button"
                     onClick={() => setPanelOpen(false)}
                     aria-label="Close menu"
-                    className="grid size-10 place-items-center rounded-xl border border-line hover:border-brand hover:text-brand"
+                    className="grid size-10 place-items-center rounded-lg border border-line hover:border-brand hover:text-brand"
                   >
                     <X size={20} />
                   </button>
@@ -423,7 +423,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
                           pathname === item.href && "bg-[#eaf3ff] text-brand",
                         )}
                       >
-                        <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-white shadow-[0_4px_12px_rgba(11,27,77,.12)] ring-1 ring-line">
+                        <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-white shadow-[0_4px_12px_rgba(11,27,77,.12)] ring-1 ring-line">
                           <ColorIcon
                             name={companyIcons[item.label] ?? "company"}
                             size={30}
