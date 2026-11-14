@@ -22,6 +22,7 @@ import {
 import { Highlight, PageHero } from "@/components/site/page-hero"
 import { LeadForm, type LeadField } from "@/components/site/lead-form"
 import { STATES } from "@/lib/states"
+import { contactInfo } from "@/lib/site-data"
 
 const fields: LeadField[] = [
   {
@@ -67,7 +68,9 @@ const channels = [
     icon: MessageCircle,
     label: "Quick enquiries",
     lines: [
-      { text: "Call +91 00000 00000", href: "tel:+910000000000" },
+      { text: `Call ${contactInfo.phoneDisplay}`, href: `tel:+${contactInfo.phone}` },
+      { text: "WhatsApp us", href: `https://wa.me/${contactInfo.whatsapp}` },
+      { text: "Our team gets back to you within 24 hours", href: "#quick-support" },
     ],
   },
   {
@@ -75,8 +78,8 @@ const channels = [
     label: "Email",
     lines: [
       {
-        text: "Sales: hello@aeoncorporate.com",
-        href: "mailto:hello@aeoncorporate.com",
+        text: "Sales: support@aeoncorporate.com",
+        href: "mailto:support@aeoncorporate.com",
       },
       {
         text: "Support: help@aeoncorporate.com",
@@ -177,7 +180,7 @@ export function ContactContent() {
                 <motion.div
                   key={c.label}
                   {...reveal(i)}
-                  className="flex gap-4 rounded-[24px] border border-line bg-[#f2f8ff] p-6 transition hover:border-brand/40 hover:bg-white hover:shadow-[0_18px_40px_rgba(11,106,224,.1)]"
+                  className="flex gap-4 rounded-[24px] border border-line bg-[#f2f8ff] p-6 transition hover:border-brand/40 hover:bg-white hover:shadow-[0_18px_40px_rgba(63,109,246,.1)]"
                 >
                   <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-brand text-white">
                     <c.icon size={21} />
@@ -213,9 +216,9 @@ export function ContactContent() {
         <section className="bg-sky py-[100px] max-[560px]:py-16">
           <div className={wrap}>
             <SectionHeading
-              eyebrow="VISIT US"
-              title="Our office."
-              description="Drop in by appointment. Please reach out before visiting."
+              eyebrow="OUR PRESENCE"
+              title="Online ease, local reach."
+              description="Our in-house team and network of independent professionals serve clients across India's key business centres. Please reach out before visiting."
             />
             <motion.article
               {...reveal()}
@@ -225,20 +228,17 @@ export function ContactContent() {
                 <MapPin size={26} />
               </span>
               <div>
-                <h3 className="text-xl font-bold">Head Office</h3>
-                <address className="mt-2 text-[14px] leading-[1.7] text-mute not-italic">
-                  Office address placeholder
-                  <br />
-                  City, State, India
-                </address>
-                <a
-                  href="https://www.google.com/maps"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-4 inline-flex items-center gap-1.5 py-1 text-[14px] font-bold text-brand hover:underline"
-                >
-                  Get Direction <ArrowUpRight size={15} />
-                </a>
+                <h3 className="text-xl font-bold">Where we are</h3>
+                <ul className="mt-3 flex flex-wrap gap-2">
+                  {["Delhi", "Mumbai", "Bangalore", "Raipur", "Dehradun"].map((c) => (
+                    <li key={c} className="rounded-md bg-[#eaf3ff] px-3 py-1.5 text-[14px] font-bold text-ink">
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+                <p className="mt-3 text-[14px] leading-[1.7] text-mute">
+                  With professionals in more than 15 cities and towns across India.
+                </p>
               </div>
             </motion.article>
           </div>

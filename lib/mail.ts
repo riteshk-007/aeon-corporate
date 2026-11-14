@@ -37,7 +37,7 @@ const C = {
   mute: "#4a5a7a",
   line: "#d6e2f5",
   tint: "#f3f8ff",
-  brand: "#0b6ae0",
+  brand: "#3f6df6",
   sun: "#ffbe0b",
 }
 

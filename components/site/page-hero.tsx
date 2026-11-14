@@ -71,7 +71,7 @@ export function PageHero({
           {/* decoration */}
           <div
             aria-hidden="true"
-            className="absolute inset-0 bg-[radial-gradient(circle,rgba(11,106,224,.22)_1.4px,transparent_2px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_55%_90%_at_88%_40%,black,transparent_75%)]"
+            className="absolute inset-0 bg-[radial-gradient(circle,rgba(63,109,246,.22)_1.4px,transparent_2px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_55%_90%_at_88%_40%,black,transparent_75%)]"
           />
           <div
             aria-hidden="true"
@@ -130,7 +130,7 @@ export function PageHero({
                   {chips.map((chip) => (
                     <li
                       key={chip}
-                      className="rounded-full border border-brand/15 bg-white px-3.5 py-1.5 text-[12px] font-bold text-brand shadow-[0_4px_12px_rgba(11,106,224,.08)]"
+                      className="rounded-full border border-brand/15 bg-white px-3.5 py-1.5 text-[12px] font-bold text-brand shadow-[0_4px_12px_rgba(63,109,246,.08)]"
                     >
                       {chip}
                     </li>

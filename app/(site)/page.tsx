@@ -1,6 +1,7 @@
 "use client"
 
 import Image from "next/image"
+import { AeBullet } from "@/components/site/ae-bullet"
 import { useEffect, useMemo, useRef, useState } from "react"
 import {
   ArrowRight,
@@ -27,33 +28,108 @@ import {
   btnWhite,
   wrap,
 } from "@/components/site/ui"
-import { categoryServices } from "@/lib/site-data"
 import { useMenuLinks } from "@/components/site/menu-links"
 import { HeroBackdrop } from "@/components/ui/hero-backdrop"
 import { HandDrawnFrame } from "@/components/ui/hand-writing-text"
 
-const categories = [
-  "Business Registration",
-  "Government Registration",
-  "Government Licenses",
-  "RBI Regulatory",
-  "Environment Laws",
-  "Tax Filing",
-  "Intellectual Property",
+const explorerServices: Record<string, { title: string; description: string }[]> = {
+  "Start Your Business": [
+    { title: "Company Registration", description: "Private limited company incorporation, start to finish." },
+    { title: "LLP Registration", description: "A flexible structure for professional partnerships." },
+    { title: "One Person Company Registration", description: "A company with a single founder and limited liability." },
+    { title: "Startup India Registration", description: "DPIIT recognition and the benefits that come with it." },
+    { title: "MSME Registration", description: "Udyam registration for small and medium businesses." },
+    { title: "Indian Subsidiary Company Registration", description: "Set up the Indian arm of a foreign company." },
+  ],
+  "Startup Support": [
+    { title: "Startup Legal Support", description: "Governance and legal support: founder, investor and employee agreements." },
+    { title: "Virtual CFO Services", description: "Finance leadership without a full-time CFO." },
+    { title: "Tax Structuring", description: "Structure the business and transactions tax-efficiently." },
+    { title: "ESOP & Advisor Equity", description: "Design and document employee and advisor equity." },
+    { title: "Cap Table Management", description: "An accurate record of who owns what." },
+    { title: "Securities Valuation Support", description: "Valuations for fundraises, ESOPs and transfers." },
+  ],
+  "Legal Support": [
+    { title: "Shareholder’s Agreement", description: "Rights and duties of the shareholders, in writing." },
+    { title: "Share Purchase Agreement", description: "Buy or sell shares with clear terms." },
+    { title: "Joint Venture Agreement", description: "Partner with another business on agreed terms." },
+    { title: "Franchise Agreement", description: "Grow through franchisees with a sound contract." },
+    { title: "POSH Compliance", description: "Policy, committee and training under the POSH Act." },
+    { title: "Commercial Rental Agreement", description: "Lease terms for offices, shops and warehouses." },
+  ],
+  "Corporate Laws & Secretarial": [
+    { title: "Company Secretarial Services", description: "Registers, minutes and filings kept up to date." },
+    { title: "Annual Compliance of a Pvt. Ltd. Company", description: "Yearly ROC filings and board requirements." },
+    { title: "Board and General Meeting Support", description: "Notices, agendas, minutes and resolutions." },
+    { title: "FEMA Compliance", description: "Foreign investment reporting and approvals." },
+    { title: "Secretarial Audit", description: "Independent review of secretarial compliance." },
+    { title: "Dematerialisation of Shares and Debentures", description: "Convert physical securities to demat form." },
+  ],
+  "Finance & Accounts": [
+    { title: "Accounting & Tax Compliance", description: "Books, GST and income tax handled together." },
+    { title: "Payroll Management", description: "Salaries, statutory deductions and payslips." },
+    { title: "MIS Reporting", description: "Monthly reports that show how the business is doing." },
+    { title: "Financial Modelling", description: "Projections and models for planning and funding." },
+    { title: "Due Diligence", description: "Financial and legal review before a deal." },
+    { title: "Business Plan", description: "A clear plan for investors and lenders." },
+  ],
+  "Regulatory (SEBI & IRDAI)": [
+    { title: "Alternative Investment Fund Registration", description: "Register a Category I, II or III AIF with SEBI." },
+    { title: "PMS registration SEBI", description: "Portfolio manager registration with SEBI." },
+    { title: "Investment Adviser Registration with SEBI", description: "Registration for investment advisers." },
+    { title: "Stock Broker License", description: "Membership and SEBI registration for brokers." },
+    { title: "Insurance Broker License", description: "IRDAI licence for direct and composite brokers." },
+    { title: "Corporate Agency License", description: "IRDAI registration as a corporate agent." },
+  ],
+  "Finance Advisory": [
+    { title: "Project Finance & Term Loan Structuring", description: "Debt structured around the project's cash flows." },
+    { title: "Working Capital Solutions", description: "Limits that match your operating cycle." },
+    { title: "Co-lending Arrangements", description: "Partnerships between banks and NBFCs." },
+    { title: "Asset Finance and Operational Lease", description: "Finance or lease the assets you need." },
+  ],
+  "Global & GIFT IFSC": [
+    { title: "Choosing a Jurisdiction for Foreign Business", description: "Compare countries before you set up abroad." },
+    { title: "Foreign Entity Incorporation and Local Setup", description: "Incorporate and set up outside India." },
+    { title: "India Entry: Entity Incorporation and Setup", description: "Start operations in India the right way." },
+    { title: "GIFT IFSC Setup Assistance", description: "Set up a unit or fund at GIFT City." },
+    { title: "GIFT City Regulatory & Tax Advisory", description: "IFSCA rules and tax benefits explained." },
+    { title: "Parent-Subsidiary Structuring and Transfer Pricing", description: "Group structure and inter-company pricing." },
+  ],
+}
+const categories = Object.keys(explorerServices)
+/** Main services highlighted by the client in the landing-page brief: [label, page title in the menu]. */
+const quickServices: [string, string][] = [
+  ["Company Registration", "Company Registration"],
+  ["Startup India Registration", "Startup India Registration"],
+  ["Contracts and Agreements", "Service Level Agreement"],
+  ["Fundraising and M&A", "Fundraising Services"],
+  ["Joint Venture Agreement", "Joint Venture Agreement"],
+  ["Intellectual Property Rights", "Trademark Registration"],
+  ["POSH Compliance", "POSH Compliance"],
+  ["FEMA Compliance", "FEMA Compliance"],
+  ["Company Secretarial Services", "Company Secretarial Services"],
+  ["Virtual CFO Services", "Virtual CFO Services"],
+  ["AIF Registration", "Alternative Investment Fund Registration"],
+  ["Finance Advisory", "Project Finance & Term Loan Structuring"],
+  ["MIS and Budgeting", "MIS Reporting"],
+  ["Financial Modelling", "Financial Modelling"],
+  ["Due Diligence", "Due Diligence"],
+  ["Business Plan", "Business Plan"],
+  ["ISO Certifications", "ISO Registration"],
+  ["Trademark Registration", "Trademark Registration"],
+  ["ESOP & Advisor Equity", "ESOP & Advisor Equity"],
+  ["Securities Valuation Support", "Securities Valuation Support"],
+  ["Reverse Merger in India", "Reverse Merger"],
+  ["Insurance Broker License", "Insurance Broker License"],
+  ["Insurance Broker Compliances", "Insurance Broker Compliances"],
+  ["Due Diligence for Investors", "Due Diligence for Investors"],
+  ["Foreign Entity Incorporation", "Foreign Entity Incorporation and Local Setup"],
+  ["GIFT City Regulatory & Tax Advisory", "GIFT City Regulatory & Tax Advisory"],
+  ["Working Capital Solutions", "Working Capital Solutions"],
+  ["Outsourcing to India", ""],
 ]
-const quickServices = [
-  "Company Registration",
-  "GST Registration",
-  "ISO Certification",
-  "NGO Registration",
-  "Trademark Registration",
-  "PSARA License",
-  "CDSCO Registration",
-  "Environmental Compliance",
-  "EPR Registration",
-  "E-Waste EPR",
-  "Plastic Waste EPR",
-]
+/** Chips shown before "More +" is pressed. */
+const QUICK_FIRST = 12
 
 const tones = {
   blue: { card: "bg-brand text-white", icon: "bg-white" },
@@ -63,12 +139,15 @@ const tones = {
   yellow: { card: "bg-sun", icon: "bg-white" },
 } as const
 
-const cardTarget: Record<string, [kind: "section" | "service", name: string]> = {
-  "Startup Registration": ["section", "Startup"],
-  "Tax and Auditing": ["service", "GST Registration"],
-  "Environmental Consultancy": ["section", "Environmental"],
-  "Regulatory Compliance": ["section", "Regulatory"],
-  Licensing: ["service", "FSSAI License"],
+const cardTarget: Record<string, string> = {
+  "Legal Support": "Startup Legal Support",
+  "Corporate Laws & Secretarial": "Company Secretarial Services",
+  "Finance & Accounts": "Virtual CFO Services",
+  "Regulatory Services": "Alternative Investment Fund Registration",
+  "AIF Registration": "AIF Application Process",
+  "Setting Up Foreign Business": "Choosing a Jurisdiction for Foreign Business",
+  "India Entry Services": "India Entry: Entity Incorporation and Setup",
+  "GIFT IFSC Set Up": "GIFT IFSC Setup Assistance",
 }
 
 const serviceCards: {
@@ -78,67 +157,14 @@ const serviceCards: {
   tone: keyof typeof tones
   className: string
 }[] = [
-  {
-    icon: "rocket",
-    title: "Startup Registration",
-    description:
-      "Company incorporation, LLP setup, startup recognition, and more.",
-    tone: "blue",
-    className: "col-span-2 min-[901px]:row-span-2",
-  },
-  {
-    icon: "tax",
-    title: "Tax and Auditing",
-    description:
-      "GST, income tax, accounting, and recurring compliance support.",
-    tone: "yellow",
-    className: "",
-  },
-  {
-    icon: "eco",
-    title: "Environmental Consultancy",
-    description:
-      "Practical guidance for permits, waste, and sustainability obligations.",
-    tone: "pale",
-    className: "",
-  },
-  {
-    icon: "advisory",
-    title: "Advisory and Consultancy",
-    description:
-      "Clear advice for contracts, documentation, and business decisions.",
-    tone: "navy",
-    className: "col-span-2",
-  },
-  {
-    icon: "shield",
-    title: "Regulatory Compliance",
-    description: "BIS, CDSCO, ISO, and industry-specific regulatory support.",
-    tone: "white",
-    className: "",
-  },
-  {
-    icon: "license",
-    title: "Licensing",
-    description: "FSSAI, PSARA, trade, factory, and other business licenses.",
-    tone: "pale",
-    className: "",
-  },
-  {
-    icon: "accountant",
-    title: "On-Demand CA/CS Services",
-    description:
-      "Flexible access to accounting and company secretarial expertise.",
-    tone: "white",
-    className: "",
-  },
-  {
-    icon: "templates",
-    title: "Business Resources and Templates",
-    description: "Templates, guides, and helpful compliance resources.",
-    tone: "yellow",
-    className: "",
-  },
+  { icon: "briefcase", title: "Legal Support", description: "Contracts and agreements, fundraising and M&A documents, IP rights and POSH compliance.", tone: "blue", className: "col-span-2 min-[901px]:row-span-2" },
+  { icon: "company", title: "Corporate Laws & Secretarial", description: "Incorporation, recurring and event-based compliance, meetings and secretarial audit.", tone: "yellow", className: "" },
+  { icon: "accountant", title: "Finance & Accounts", description: "Accounting, payroll, MIS, financial modelling and virtual CFO services.", tone: "pale", className: "" },
+  { icon: "government", title: "Regulatory Services", description: "SEBI and IRDAI registrations, licences and the compliance that follows.", tone: "navy", className: "col-span-2" },
+  { icon: "bank", title: "AIF Registration", description: "Fund structuring, documentation and the SEBI application.", tone: "white", className: "" },
+  { icon: "network", title: "Setting Up Foreign Business", description: "Choose the jurisdiction, incorporate and structure the group.", tone: "pale", className: "" },
+  { icon: "target", title: "India Entry Services", description: "Entity setup, tax, legal and accounting advice for India.", tone: "white", className: "" },
+  { icon: "chip", title: "GIFT IFSC Set Up", description: "Setup, regulatory and tax advice for GIFT City.", tone: "yellow", className: "" },
 ]
 const articles = [
   {
@@ -193,23 +219,14 @@ const industries = [
   { label: "Professional Services", icon: "briefcase" },
   { label: "Consumer Brands", icon: "bag" },
 ]
-const processSteps = [
-  [
-    "01",
-    "Fill Up Application Form",
-    "Share the context, goals, and requirements that matter.",
-  ],
-  [
-    "02",
-    "Complete Service Formalities",
-    "Finish the agreed documentation or payment requirements where applicable.",
-  ],
-  [
-    "03",
-    "Executive Will Process Application",
-    "We organize the details and keep work moving.",
-  ],
-  ["04", "Get Confirmation on Mail", "Stay informed through every milestone."],
+const processSteps: [string, string, string, string[]][] = [
+  ["01", "Discover & Connect", "Explore services and connect with our experts.", ["Browse service categories", "Submit an online enquiry", "Schedule a consultation"]],
+  ["02", "Assess & Analyse", "Understand the requirement and identify the right solution.", ["Requirement assessment", "Legal and financial review", "Risk and compliance assessment"]],
+  ["03", "Propose & Engage", "A structured and transparent service engagement.", ["Scope of work and action plan", "Professional fee proposal"]],
+  ["04", "Execute & Implement", "Professional execution of the agreed assignment.", ["Documentation and drafting", "Regulatory filings and registrations", "Advisory and implementation"]],
+  ["05", "Track & Monitor", "Stay informed at every stage of delivery.", ["Live assignment status", "Important deadlines and reminders", "Transparent progress updates"]],
+  ["06", "Deliver & Complete", "Secure delivery of completed work and documents.", ["Final drafts and documents", "Assignment closure and feedback"]],
+  ["07", "Support & Grow", "A long-term relationship with continuous support.", ["Annual compliance management", "Ongoing legal and financial advice", "Business expansion and strategic support"]],
 ]
 const featureIcons = ["bolt", "chip", "approved", "expert", "network"]
 const featureTones = [
@@ -244,36 +261,16 @@ const featureTones = [
     text: "text-white/65",
   },
 ]
-const categoryIcons = [
-  "company",
-  "government",
-  "license",
-  "bank",
-  "eco",
-  "tax",
-  "trademark",
-]
-const processIcons = ["form", "folder", "workflow", "mail"]
+const categoryIcons = ["company", "rocket", "briefcase", "government", "accountant", "bank", "tax", "network"]
+const processIcons = ["target", "checklist", "form", "workflow", "steps", "approved", "network"]
 const features = [
-  [
-    "Quick Responses",
-    "We aim to acknowledge every enquiry promptly and keep you informed.",
-  ],
-  [
-    "Technology-Enabled Service",
-    "Processes shaped around how modern teams work.",
-  ],
-  [
-    "Hassle-Free Registration Assistance",
-    "Clear checklists and organized paperwork for registrations and licenses.",
-  ],
-  ["Expert Guidance", "Advice that keeps your business context in view."],
-  [
-    "Broad Service Coverage",
-    "One connected partner across your business journey.",
-  ],
+  ["Professional Excellence", "Multidisciplinary expertise from teams with long corporate and practice experience."],
+  ["Personalised Attention", "Advice shaped around your business realities, stage and goals."],
+  ["Proactive Support", "We flag what is coming up so nothing catches you by surprise."],
+  ["Relevant, Result-Oriented Solutions", "Practical answers that lead to clear decisions and outcomes."],
+  ["A Partner in Your Progress", "From setting up to growing, we work with you at every stage of the journey."],
 ]
-/* Shared style tokens (Tailwind utilities) */
+
 const circlePath =
   "M 1090 110 C 1190 330, 950 565, 560 565 C 190 565, 25 430, 45 290 C 65 130, 320 35, 620 35 C 920 35, 1150 150, 1135 300"
 
@@ -281,18 +278,15 @@ const floatCard =
   "absolute animate-float motion-reduce:animate-none flex items-center gap-2.5 rounded-[13px] border border-[rgba(220,229,245,.9)] bg-white/90 px-[15px] py-[13px] shadow-[0_15px_35px_rgba(11,27,77,.14)] backdrop-blur-[12px] max-[560px]:p-[9px]"
 const chipTones = ["bg-[#dcebff]", "bg-sun/70", "bg-[#eef0f6]", "bg-[#c9defc]"]
 const scrollbarThin =
-  "[scrollbar-width:thin] [scrollbar-color:rgba(11,106,224,.5)_transparent]"
+  "[scrollbar-width:thin] [scrollbar-color:rgba(63,109,246,.5)_transparent]"
 const index = "text-[13px] font-black text-brand"
 
 export default function Page() {
   const menuLinks = useMenuLinks()
-  const cardHref = (title: string) => {
-    const t = cardTarget[title]
-    if (!t) return "/contact-us"
-    return t[0] === "section" ? menuLinks.section(t[1]) : menuLinks.service(t[1])
-  }
+  const cardHref = (title: string) => menuLinks.service(cardTarget[title] ?? title)
   const reduceMotion = useReducedMotion()
   const [query, setQuery] = useState("")
+  const [showAllQuick, setShowAllQuick] = useState(false)
   const [activeCategory, setActiveCategory] = useState(categories[0])
   const [testimonial, setTestimonial] = useState(0)
   const [testimonialPaused, setTestimonialPaused] = useState(false)
@@ -374,7 +368,7 @@ export default function Page() {
       return
     }
     if (searchFocused || query) return
-    const phrases = quickServices
+    const phrases = quickServices.slice(0, QUICK_FIRST).map(([label]) => label)
     let phrase = 0
     let chars = 0
     let deleting = false
@@ -419,7 +413,7 @@ export default function Page() {
 
   return (
     <main id="top" className="overflow-hidden">
-      <section className="relative flex min-h-[calc(100svh+50px)] items-center bg-[linear-gradient(135deg,#3b8cf5_0%,#0b6ae0_48%,#0a44b8_100%)] pt-[140px] pb-[150px] max-[900px]:block max-[900px]:min-h-0 max-[900px]:pt-[120px] max-[900px]:pb-[100px] max-[560px]:pt-[104px] max-[560px]:pb-[70px]">
+      <section className="relative flex min-h-[calc(100svh+50px)] items-center bg-[linear-gradient(135deg,#3b8cf5_0%,#3f6df6_48%,#0a44b8_100%)] pt-[140px] pb-[150px] max-[900px]:block max-[900px]:min-h-0 max-[900px]:pt-[120px] max-[900px]:pb-[100px] max-[560px]:pt-[104px] max-[560px]:pb-[70px]">
         <div className="absolute inset-0 animate-drift bg-[radial-gradient(circle,rgba(255,255,255,.42)_1px,transparent_1.5px),radial-gradient(circle,rgba(255,190,11,.75)_1px,transparent_1.5px)] [background-position:0_0,42px_33px] [background-size:21px_21px,83px_83px] opacity-65 [mask-image:radial-gradient(ellipse_55%_75%_at_68%_45%,black_0%,transparent_75%)] after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_72%_43%,rgba(255,255,255,.16),transparent_36%)] after:content-[''] motion-reduce:animate-none" />
         <HeroBackdrop />
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-sky" />
@@ -432,13 +426,13 @@ export default function Page() {
           )}
         >
           <div>
-            <Eyebrow className="text-sun">
-              CORPORATE SERVICES, REIMAGINED
+            <Eyebrow className="w-fit rounded bg-white px-3 py-1.5 text-flame shadow-[0_8px_20px_rgba(11,27,77,.15)]">
+              LEGAL AND FINANCIAL SERVICES, REIMAGINED
             </Eyebrow>
-            <h1 className="max-w-[640px] text-[clamp(44px,5.4vw,78px)] leading-[1.02] font-black tracking-[-0.04em] text-white animate-glow [paint-order:stroke_fill] [-webkit-text-stroke:0.07em_rgba(6,36,128,.95)] motion-reduce:animate-none max-[900px]:text-[clamp(46px,10vw,72px)] max-[560px]:text-[clamp(42px,13vw,60px)]">
-              Your Business.
+            <h1 className="max-w-[640px] text-[clamp(40px,4.4vw,66px)] leading-[1.02] font-black tracking-[-0.04em] text-white animate-glow [paint-order:stroke_fill] [-webkit-text-stroke:0.07em_rgba(6,36,128,.95)] motion-reduce:animate-none max-[900px]:text-[clamp(46px,10vw,72px)] max-[560px]:text-[clamp(42px,13vw,60px)]">
+              Offload the Process.
               <br />
-              <span className="text-[#e3f0ff]">Without the</span>{" "}
+              <span className="text-[#e3f0ff]">Own the</span>{" "}
               <HandDrawnFrame
                 inline
                 d={circlePath}
@@ -448,9 +442,24 @@ export default function Page() {
                 className="inline-block px-4"
                 svgClassName="-inset-x-5 -inset-y-4 h-[calc(100%+2rem)] w-[calc(100%+2.5rem)]"
               >
-                <span className="text-white">Complexity.</span>
+                <span className="text-white">Progress.</span>
               </HandDrawnFrame>
             </h1>
+            <p className="mt-7 max-w-[560px] text-[17px] leading-[1.7] text-white/90 max-[560px]:text-[15px]">
+              Aeon, your{" "}
+              <span className="rounded bg-white px-1.5 font-bold text-brand [box-decoration-break:clone]">
+                trusted partner for legal and financial services
+              </span>
+              . We absorb your day-to-day procedural stress and make you free to focus on strategic growth and long-term sustainability.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3 max-[560px]:grid max-[560px]:grid-cols-1">
+              <a className={btnYellow} href="#contact">
+                Talk to an expert <ArrowRight size={16} />
+              </a>
+              <a className={btnWhite} href="#services">
+                Explore services
+              </a>
+            </div>
           </div>
           <div className="relative flex items-center justify-center py-6 max-[900px]:py-4">
             {/* Whole illustration is shown (no cropping); cards sit on the frame edges, never on the subject. */}
@@ -530,11 +539,11 @@ export default function Page() {
               </h2>
             </div>
             <p className="max-w-[300px] text-[13px] leading-relaxed text-mute">
-              Find the right registration, license, or compliance service.
+              Find the right legal, corporate, finance or regulatory service.
             </p>
           </div>
 
-          <div className="mt-6 flex items-center gap-2 rounded-2xl border border-line bg-[#f2f8ff] p-2 transition focus-within:border-brand focus-within:bg-white focus-within:shadow-[0_0_0_4px_rgba(11,106,224,.12)] max-[560px]:flex-col max-[560px]:items-stretch">
+          <div className="mt-6 flex items-center gap-2 rounded-2xl border border-line bg-[#f2f8ff] p-2 transition focus-within:border-brand focus-within:bg-white focus-within:shadow-[0_0_0_4px_rgba(63,109,246,.12)] max-[560px]:flex-col max-[560px]:items-stretch">
             <div className="flex h-12 flex-1 items-center gap-3 px-3.5 text-mute">
               <Search size={20} className="shrink-0" />
               <div className="relative min-w-0 flex-1">
@@ -610,7 +619,11 @@ export default function Page() {
           <div className="flex flex-wrap gap-2.5">
             {(term.length >= 2
               ? results.map((r) => ({ label: r.title, href: `/services/${r.slug}`, hint: r.category }))
-              : quickServices.map((s) => ({ label: s, href: menuLinks.service(s), hint: "" }))
+              : (showAllQuick ? quickServices : quickServices.slice(0, QUICK_FIRST)).map(([label, page]) => ({
+                  label,
+                  href: page ? menuLinks.service(page) : "/#outsourcing",
+                  hint: "",
+                }))
             ).map((item, i) => (
               <a
                 key={item.href + item.label}
@@ -625,12 +638,15 @@ export default function Page() {
               </a>
             ))}
             {term.length < 2 && (
-              <a
-                href="#explorer"
+              <button
+                type="button"
+                onClick={() => setShowAllQuick((v) => !v)}
+                aria-expanded={showAllQuick}
                 className="inline-flex items-center gap-1.5 rounded-xl bg-ink px-4 py-2.5 text-[13px] font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-brand motion-reduce:transition-none"
               >
-                More <span aria-hidden="true">+</span>
-              </a>
+                {showAllQuick ? "Less" : `More (${quickServices.length - QUICK_FIRST})`}{" "}
+                <span aria-hidden="true">{showAllQuick ? "−" : "+"}</span>
+              </button>
             )}
             {term.length >= 2 && searching && results.length === 0 && (
               <span className="py-2.5 text-[13px] text-mute">Searching…</span>
@@ -677,7 +693,7 @@ export default function Page() {
         <div className="relative mx-auto min-h-[560px] w-full max-w-[560px] max-[900px]:min-h-[480px] max-[560px]:min-h-[380px]">
           <div
             aria-hidden="true"
-            className="absolute -top-5 -left-5 size-44 bg-[radial-gradient(circle,rgba(11,106,224,.45)_1.6px,transparent_2.2px)] [background-size:16px_16px] max-[560px]:size-28"
+            className="absolute -top-5 -left-5 size-44 bg-[radial-gradient(circle,rgba(63,109,246,.45)_1.6px,transparent_2.2px)] [background-size:16px_16px] max-[560px]:size-28"
           />
           <div
             aria-hidden="true"
@@ -731,21 +747,21 @@ export default function Page() {
         <div>
           <Eyebrow>ABOUT AEON CORPORATE</Eyebrow>
           <h2 className="max-w-[560px] text-[clamp(30px,3.7vw,48px)] leading-[1.06] font-extrabold tracking-[-0.035em]">
-            More Than Compliance. A{" "}
+            Proactive Advice. Dedicated{" "}
             <span className="bg-[linear-gradient(transparent_62%,#ffbe0b_62%)] px-1">
-              Partner
-            </span>{" "}
-            in Your Growth.
+              Handholding.
+            </span>
           </h2>
           <p className="mt-5 max-w-[540px] text-[15px] leading-[1.75] text-mute">
-            Aeon Corporate helps startups, entrepreneurs, and established
-            organizations navigate business registrations, licensing, taxation,
-            intellectual property, and regulatory requirements.
+            Aeon Corporate is an AI and tech-enabled corporate and business
+            advisory platform. We provide proactive advisory and dedicated
+            handholding as a value integrator, for future-thinkers who are in it
+            for the long game, not just for now.
           </p>
           <p className="mt-3 max-w-[540px] text-[15px] leading-[1.75] text-mute">
-            With a structured, business-focused approach, we help clients
-            understand their options, organize documentation, and move forward
-            with greater clarity.
+            From corporate consultancy and regulatory compliance to business
+            registrations, outsourcing, fundraising and capital structuring, we
+            deliver solutions aligned with your strategic and long-term goals.
           </p>
 
           <div className="mt-7 grid gap-3">
@@ -769,7 +785,7 @@ export default function Page() {
               return (
                 <div
                   key={title as string}
-                  className="group flex items-center gap-4 rounded-2xl border border-line bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_14px_30px_rgba(11,106,224,.1)] motion-reduce:transition-none"
+                  className="group flex items-center gap-4 rounded-2xl border border-line bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_14px_30px_rgba(63,109,246,.1)] motion-reduce:transition-none"
                 >
                   <span className="grid size-14 shrink-0 place-items-center rounded-xl bg-[#eaf3ff] transition-transform duration-200 group-hover:scale-105">
                     <ColorIcon name={Icon as string} size={44} />
@@ -806,7 +822,7 @@ export default function Page() {
       <section id="services" className="bg-sky py-28 max-[560px]:py-20">
         <div className={wrap}>
           <SectionHeading
-            eyebrow="OUR SERVICES"
+            eyebrow="OUR EXPERTISE"
             title="Everything Your Business Needs. All in One Place."
             description="Explore a broad range of services designed to support every stage of your business journey."
           />
@@ -818,7 +834,7 @@ export default function Page() {
                   <article
                     key={title}
                     className={cn(
-                      "group relative flex min-h-[200px] flex-col justify-between overflow-hidden rounded-[22px] border border-line p-[26px] transition duration-[250ms] hover:-translate-y-[5px] hover:shadow-[0_18px_35px_rgba(11,106,224,.12)] motion-reduce:transition-none max-[560px]:min-h-[185px]",
+                      "group relative flex min-h-[200px] flex-col justify-between overflow-hidden rounded-[22px] border border-line p-[26px] transition duration-[250ms] hover:-translate-y-[5px] hover:shadow-[0_18px_35px_rgba(63,109,246,.12)] motion-reduce:transition-none max-[560px]:min-h-[185px]",
                       tones[tone].card,
                       className,
                     )}
@@ -893,17 +909,17 @@ export default function Page() {
       >
         <div
           aria-hidden="true"
-          className="absolute -top-10 -right-10 size-80 bg-[radial-gradient(circle,rgba(11,106,224,.3)_1.6px,transparent_2.2px)] [background-size:18px_18px] [mask-image:radial-gradient(circle,black,transparent_70%)]"
+          className="absolute -top-10 -right-10 size-80 bg-[radial-gradient(circle,rgba(63,109,246,.3)_1.6px,transparent_2.2px)] [background-size:18px_18px] [mask-image:radial-gradient(circle,black,transparent_70%)]"
         />
         <div className={cn(wrap, "relative")}>
           <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
             <SectionHeading
               eyebrow="OUR WORKING PROCESS"
               title="Your Journey, Clearly Mapped Out."
-              description="A considered process that keeps requirements, documentation, and progress visible."
+              description="Plan • Protect • Grow. A seamless journey from your first interaction to continuous business support."
             />
             <a className={btnBlue} href="#contact">
-              Start your application <ArrowRight size={16} />
+              Talk to us <ArrowRight size={16} />
             </a>
           </div>
 
@@ -914,13 +930,13 @@ export default function Page() {
             />
             <motion.div
               aria-hidden="true"
-              className="absolute top-[27px] right-[27px] left-[27px] h-0.5 origin-left rounded-full bg-[linear-gradient(90deg,#0b6ae0,#ffbe0b)] max-[900px]:hidden"
+              className="absolute top-[27px] right-[27px] left-[27px] h-0.5 origin-left rounded-full bg-[linear-gradient(90deg,#3f6df6,#ffbe0b)] max-[900px]:hidden"
               initial={reduceMotion ? false : { scaleX: 0 }}
               whileInView={{ scaleX: 1 }}
               viewport={{ once: true, amount: 0.6 }}
               transition={{ duration: 1.8, ease: "easeInOut" }}
             />
-            {processSteps.map(([num, title, description], i) => {
+            {processSteps.map(([num, title, description, points], i) => {
               const stepIcon = processIcons[i]
               return (
                 <motion.li
@@ -933,13 +949,13 @@ export default function Page() {
                 >
                   <span
                     className={cn(
-                      "relative z-10 grid size-16 place-items-center rounded-full border-4 bg-white shadow-[0_10px_24px_rgba(11,106,224,.22)]",
+                      "relative z-10 grid size-16 place-items-center rounded-full border-4 bg-white shadow-[0_10px_24px_rgba(63,109,246,.22)]",
                       i % 2 === 1 ? "border-sun" : "border-brand",
                     )}
                   >
                     <ColorIcon name={stepIcon} size={42} />
                   </span>
-                  <div className="group relative mt-5 overflow-hidden rounded-[24px] border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(11,106,224,.12)] motion-reduce:transition-none">
+                  <div className="group relative mt-5 overflow-hidden rounded-[24px] border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(63,109,246,.12)] motion-reduce:transition-none">
                     <span
                       aria-hidden="true"
                       className="absolute -top-3 right-3 text-[84px] leading-none font-black tracking-[-0.06em] text-brand/[.07] transition-colors duration-300 group-hover:text-brand/[.14]"
@@ -955,9 +971,14 @@ export default function Page() {
                     <p className="relative mt-2.5 text-[13px] leading-[1.65] text-mute">
                       {description}
                     </p>
+                    <ul className="ae-list relative mt-4 grid gap-1.5 text-[13px] leading-[1.5] font-semibold text-ink/85">
+                      {points.map((pt) => (
+                        <li key={pt}>{pt}</li>
+                      ))}
+                    </ul>
                     <span
                       aria-hidden="true"
-                      className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-[linear-gradient(90deg,#0b6ae0,#ffbe0b)] transition-transform duration-300 group-hover:scale-x-100"
+                      className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-[linear-gradient(90deg,#3f6df6,#ffbe0b)] transition-transform duration-300 group-hover:scale-x-100"
                     />
                   </div>
                 </motion.li>
@@ -970,7 +991,7 @@ export default function Page() {
       <section
         id="explorer"
         ref={explorerRef}
-        className="relative overflow-hidden bg-ink [background:radial-gradient(circle_at_80%_20%,rgba(11,106,224,.3),transparent_32%),radial-gradient(circle_at_8%_90%,rgba(255,190,11,.08),transparent_30%),#0b1b4d] py-[110px] text-white max-[560px]:py-16"
+        className="relative overflow-hidden bg-ink [background:radial-gradient(circle_at_80%_20%,rgba(63,109,246,.3),transparent_32%),radial-gradient(circle_at_8%_90%,rgba(255,190,11,.08),transparent_30%),#0b1b4d] py-[110px] text-white max-[560px]:py-16"
       >
         <div
           aria-hidden="true"
@@ -1025,7 +1046,7 @@ export default function Page() {
                     {active && (
                       <motion.span
                         layoutId="explorer-active"
-                        className="absolute inset-0 rounded-[inherit] bg-brand shadow-[0_14px_30px_rgba(11,106,224,.4)]"
+                        className="absolute inset-0 rounded-[inherit] bg-brand shadow-[0_14px_30px_rgba(63,109,246,.4)]"
                         transition={{
                           type: "spring",
                           stiffness: 340,
@@ -1101,11 +1122,11 @@ export default function Page() {
                       {activeCategory}
                     </h3>
                     <span className="rounded-full bg-sun px-3 py-1 text-xs font-extrabold text-ink">
-                      {categoryServices[activeCategory].length} services
+                      {explorerServices[activeCategory].length} services
                     </span>
                   </motion.div>
                   <div className="grid grid-cols-2 gap-3 max-[640px]:grid-cols-1">
-                    {categoryServices[activeCategory].map((item, i) => (
+                    {explorerServices[activeCategory].map((item, i) => (
                       <motion.a
                         key={item.title}
                         href={menuLinks.service(item.title)}
@@ -1118,7 +1139,7 @@ export default function Page() {
                           duration: 0.4,
                           ease: [0.22, 1, 0.36, 1],
                         }}
-                        className="group relative flex min-h-[150px] flex-col justify-between overflow-hidden rounded-[20px] border border-white/[.12] bg-white/[.06] p-5 transition duration-300 hover:-translate-y-1 hover:border-brand hover:bg-white/10 hover:shadow-[0_20px_40px_rgba(11,106,224,.25)] motion-reduce:transition-none max-[560px]:min-h-0 max-[560px]:gap-3"
+                        className="group relative flex min-h-[150px] flex-col justify-between overflow-hidden rounded-[20px] border border-white/[.12] bg-white/[.06] p-5 transition duration-300 hover:-translate-y-1 hover:border-brand hover:bg-white/10 hover:shadow-[0_20px_40px_rgba(63,109,246,.25)] motion-reduce:transition-none max-[560px]:min-h-0 max-[560px]:gap-3"
                       >
                         <div className="flex items-start justify-between gap-3">
                           <span className="grid size-10 place-items-center rounded-xl bg-brand text-[13px] font-extrabold text-white">
@@ -1146,6 +1167,45 @@ export default function Page() {
         </div>
       </section>
 
+      <section className="bg-pale py-[100px] max-[560px]:py-16">
+        <div className={cn(wrap, "grid grid-cols-[1.15fr_1fr] gap-5 max-[900px]:grid-cols-1")}>
+          <article className="relative overflow-hidden rounded-xl bg-ink p-9 text-white max-[560px]:p-6">
+            <div aria-hidden="true" className="absolute -top-20 -right-20 size-64 rounded-full bg-brand/40 blur-3xl" />
+            <Eyebrow className="relative text-sun">FINANCE ADVISORY</Eyebrow>
+            <h2 className="relative max-w-[520px] text-[clamp(26px,3vw,38px)] leading-[1.1] font-extrabold tracking-[-0.03em]">
+              Capital advisory, from mandate to close.
+            </h2>
+            <p className="relative mt-4 max-w-[560px] text-[15px] leading-[1.75] text-white/75">
+              End-to-end capital advisory for companies and financial institutions, from structuring the mandate to closing with the right lender, across banks, NBFCs and alternative credit.
+            </p>
+            <ul className="ae-list relative mt-6 grid grid-cols-2 gap-x-6 gap-y-3 text-[15px] font-semibold max-[560px]:grid-cols-1">
+              {[
+                "Project Finance & Term Loan Structuring",
+                "Working Capital Solutions",
+                "Co-lending Arrangements",
+                "Asset Finance and Operational Lease",
+              ].map((s) => (
+                <li key={s}>
+                  <a href={menuLinks.service(s)} className="hover:text-sun">{s}</a>
+                </li>
+              ))}
+            </ul>
+          </article>
+          <article id="outsourcing" className="relative scroll-mt-28 overflow-hidden rounded-xl border border-line bg-white p-9 max-[560px]:p-6">
+            <Eyebrow>OUTSOURCING TO INDIA</Eyebrow>
+            <h2 className="text-[clamp(26px,3vw,38px)] leading-[1.1] font-extrabold tracking-[-0.03em]">
+              Operating outside India? Work with us.
+            </h2>
+            <p className="mt-4 text-[15px] leading-[1.75] text-mute">
+              If you are operating out of India and would like to assign or outsource any project or work to Aeon Corporate, share your details and brief requirements and our team will get in touch with you immediately. Even if you are not yet ready to outsource, you are always welcome to talk to us and find out more about outsourcing to India. Concerned about moving your project? Ask us about our transition management process.
+            </p>
+            <a className={cn(btnBlue, "mt-7")} href="/contact-us">
+              Share your requirement <ArrowRight size={16} />
+            </a>
+          </article>
+        </div>
+      </section>
+
       <section
         id="story"
         className={cn(
@@ -1154,40 +1214,38 @@ export default function Page() {
         )}
       >
         <div className="max-[900px]:order-2">
-          <Eyebrow>WHO WE ARE</Eyebrow>
+          <Eyebrow>ONLINE EASE, LOCAL REACH</Eyebrow>
           <h2 className="text-[clamp(30px,3.9vw,50px)] leading-[1.06] font-extrabold tracking-[-0.035em]">
-            Clarity in Complexity.{" "}
+            Technology with a{" "}
             <span className="bg-[linear-gradient(transparent_62%,#ffbe0b_62%)] px-1">
-              Confidence
+              Personal
             </span>{" "}
-            in Every Decision.
+            Touch.
           </h2>
           <p className="mt-5 max-w-[500px] text-[15px] leading-[1.75] text-mute">
-            Aeon Corporate pairs experienced guidance with a technology-enabled
-            experience, so startups and established businesses can understand
-            their options, organize documentation, and move forward with
-            confidence.
+            We combine technology with a personalised human approach to deliver
+            business and professional services across India and select
+            international jurisdictions, backed by a network of independent
+            professionals in more than 15 cities and towns.
           </p>
 
           <ul className="mt-7 grid gap-3">
             {[
               [
-                "Business-Focused Guidance",
-                "Advice shaped around your goals and stage.",
+                "Presence across India",
+                "Delhi, Mumbai, Bangalore, Raipur and Dehradun.",
               ],
               [
-                "Technology-Enabled Experience",
-                "A smooth, digital-first way to work with us.",
+                "40+ professional experts",
+                "Our in-house team works with experienced independent professionals.",
               ],
               [
-                "Clear and Structured Processes",
-                "Defined steps from first enquiry to completion.",
+                "Just a call away",
+                "Our team gets back to you promptly, within 24 hours.",
               ],
             ].map(([title, description]) => (
               <li key={title} className="flex items-start gap-3.5">
-                <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-full bg-brand text-white shadow-[0_6px_14px_rgba(11,106,224,.3)]">
-                  <Check size={15} />
-                </span>
+                <AeBullet className="mt-0.5 size-7" />
                 <span>
                   <b className="block text-[15px]">{title}</b>
                   <span className="mt-0.5 block text-[13px] leading-[1.6] text-mute">
@@ -1214,7 +1272,7 @@ export default function Page() {
         <div className="relative max-[900px]:order-1">
           <div
             aria-hidden="true"
-            className="absolute -top-5 -right-5 size-40 bg-[radial-gradient(circle,rgba(11,106,224,.45)_1.6px,transparent_2.2px)] [background-size:16px_16px] max-[560px]:size-24"
+            className="absolute -top-5 -right-5 size-40 bg-[radial-gradient(circle,rgba(63,109,246,.45)_1.6px,transparent_2.2px)] [background-size:16px_16px] max-[560px]:size-24"
           />
           <div
             aria-hidden="true"
@@ -1262,14 +1320,16 @@ export default function Page() {
         <div className="self-start min-[901px]:sticky min-[901px]:top-28">
           <Eyebrow>THE AEON DIFFERENCE</Eyebrow>
           <h2 className="text-[clamp(30px,3.7vw,48px)] leading-[1.06] font-extrabold tracking-[-0.035em]">
-            Better Clarity. Better Decisions.{" "}
+            Beyond Advice.{" "}
             <span className="bg-[linear-gradient(transparent_62%,#ffbe0b_62%)] px-1">
-              Better Business.
+              Building Business Confidence.
             </span>
           </h2>
           <p className="mt-5 max-w-[440px] text-[15px] leading-[1.75] text-mute">
-            A thoughtful experience designed to make complex requirements feel
-            more manageable.
+            Exceptional advisory goes beyond providing answers. It is about
+            creating clarity, enabling informed decisions and delivering
+            meaningful outcomes. With Aeon, you gain more than an advisor: a
+            partner invested in your progress.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3">
             <a className={btnBlue} href="#contact">
@@ -1335,7 +1395,7 @@ export default function Page() {
       <section className="relative overflow-hidden border-y border-line bg-[linear-gradient(180deg,#f2f8ff,#ffffff_55%,#f2f8ff)] py-16 max-[560px]:py-12">
         <div
           aria-hidden="true"
-          className="absolute top-0 left-1/2 h-px w-2/3 -translate-x-1/2 bg-[linear-gradient(90deg,transparent,#0b6ae0,transparent)] opacity-40"
+          className="absolute top-0 left-1/2 h-px w-2/3 -translate-x-1/2 bg-[linear-gradient(90deg,transparent,#3f6df6,transparent)] opacity-40"
         />
         <div className={cn(wrap, "text-center")}>
           <Eyebrow className="mb-3 justify-center">
@@ -1365,7 +1425,7 @@ export default function Page() {
                       <span
                         key={`${copy}-${label}`}
                         aria-hidden={copy === 1}
-                        className="inline-flex shrink-0 items-center gap-3 rounded-full border border-line bg-white py-2.5 pr-6 pl-2.5 text-[15px] font-bold whitespace-nowrap text-ink shadow-[0_8px_20px_rgba(11,27,77,.05)] transition duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_12px_26px_rgba(11,106,224,.14)] max-[560px]:text-[13px]"
+                        className="inline-flex shrink-0 items-center gap-3 rounded-full border border-line bg-white py-2.5 pr-6 pl-2.5 text-[15px] font-bold whitespace-nowrap text-ink shadow-[0_8px_20px_rgba(11,27,77,.05)] transition duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_12px_26px_rgba(63,109,246,.14)] max-[560px]:text-[13px]"
                       >
                         <span className="grid size-11 place-items-center rounded-full bg-[#eaf3ff] max-[560px]:size-9">
                           <ColorIcon name={IndustryIcon} size={34} />
@@ -1491,7 +1551,7 @@ export default function Page() {
                   className={cn(
                     "relative overflow-hidden rounded-[20px] border p-5 text-left transition duration-300 motion-reduce:transition-none",
                     active
-                      ? "border-brand bg-white shadow-[0_18px_40px_rgba(11,106,224,.14)]"
+                      ? "border-brand bg-white shadow-[0_18px_40px_rgba(63,109,246,.14)]"
                       : "border-line bg-white/60 hover:border-brand/40 hover:bg-white",
                   )}
                 >
@@ -1527,7 +1587,7 @@ export default function Page() {
                             ? "paused"
                             : "running",
                       }}
-                      className="absolute inset-x-0 bottom-0 h-1 origin-left animate-progress bg-[linear-gradient(90deg,#0b6ae0,#ffbe0b)] motion-reduce:animate-none"
+                      className="absolute inset-x-0 bottom-0 h-1 origin-left animate-progress bg-[linear-gradient(90deg,#3f6df6,#ffbe0b)] motion-reduce:animate-none"
                     />
                   )}
                 </button>
@@ -1541,7 +1601,7 @@ export default function Page() {
         <div className={wrap}>
           <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
             <SectionHeading
-              eyebrow="MEDIA & INSIGHTS"
+              eyebrow="MEDIA & PUBLICATIONS"
               title="Insights for Businesses Moving Forward."
               description="Practical ideas for teams building with more structure, clarity, and confidence."
             />
@@ -1644,7 +1704,7 @@ export default function Page() {
 
       <section
         id="contact"
-        className="relative overflow-hidden bg-[linear-gradient(135deg,#0b6ae0,#0a44b8)] py-[87px] text-white"
+        className="relative overflow-hidden bg-[linear-gradient(135deg,#3f6df6,#0a44b8)] py-[87px] text-white"
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle,white_1px,transparent_1.5px)] [background-size:21px_21px] opacity-[.33] [mask-image:linear-gradient(90deg,transparent,black,transparent)]" />
         <div
@@ -1666,7 +1726,7 @@ export default function Page() {
             </p>
           </div>
           <div className="flex min-w-[205px] flex-col items-stretch gap-[9px] max-[900px]:w-full max-[900px]:flex-row max-[560px]:flex-col">
-            <a className={btnYellow} href="mailto:hello@aeoncorporate.com">
+            <a className={btnYellow} href="mailto:support@aeoncorporate.com">
               Request a consultation <ArrowRight size={16} />
             </a>
             <a className={btnWhite} href="#services">
@@ -1689,7 +1749,7 @@ export default function Page() {
             >
               <X />
             </button>
-            <div className="relative mx-auto mb-[25px] grid size-[68px] place-items-center rounded-full bg-white text-brand shadow-[0_0_0_11px_rgba(11,106,224,.12)]">
+            <div className="relative mx-auto mb-[25px] grid size-[68px] place-items-center rounded-full bg-white text-brand shadow-[0_0_0_11px_rgba(63,109,246,.12)]">
               <Play fill="currentColor" size={19} />
             </div>
             <Eyebrow className="justify-center">THE AEON APPROACH</Eyebrow>

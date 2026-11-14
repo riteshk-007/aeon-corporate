@@ -67,12 +67,12 @@ export const organizationLd = {
   url: SITE_URL,
   logo: `${SITE_URL}/brand/aeon-logo.png`,
   description: SITE_DESCRIPTION,
-  email: "hello@aeoncorporate.com",
+  email: "support@aeoncorporate.com",
   contactPoint: [
     {
       "@type": "ContactPoint",
       contactType: "customer support",
-      email: "hello@aeoncorporate.com",
+      email: "support@aeoncorporate.com",
       areaServed: "IN",
       availableLanguage: ["English", "Hindi"],
     },

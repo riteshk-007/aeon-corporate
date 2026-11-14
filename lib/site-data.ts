@@ -133,6 +133,19 @@ export const categoryServices: Record<
   ],
 }
 
+/**
+ * Contact channels shown in the header and elsewhere. Fill in phone and WhatsApp
+ * (digits with country code, e.g. "919876543210") once the client shares them;
+ * while empty, those buttons open the contact page instead.
+ */
+export const contactInfo = {
+  email: "support@aeoncorporate.com",
+  phone: "919873269737",
+  whatsapp: "919873269737",
+  phoneDisplay: "+91 98732 69737",
+  cities: ["Delhi", "Mumbai", "Bangalore", "Raipur", "Dehradun"],
+}
+
 export const companyLinks = [
   { label: "About Us", href: "/about" },
   { label: "Partner With Us", href: "/partner-with-us" },

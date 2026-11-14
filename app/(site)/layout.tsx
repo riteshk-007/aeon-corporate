@@ -2,6 +2,7 @@ import { ScrollToTop } from "@/components/ui/scroll-to-top"
 import { SiteHeader } from "@/components/site/site-header"
 import { SiteFooter } from "@/components/site/site-footer"
 import { MenuLinksProvider } from "@/components/site/menu-links"
+import { SiteGuards } from "@/components/site/site-guards"
 import { JsonLd } from "@/components/site/json-ld"
 import { getMenu } from "@/lib/menu"
 import { organizationLd, websiteLd } from "@/lib/seo"
@@ -17,6 +18,7 @@ export default async function SiteLayout({
       {children}
       <SiteFooter menu={menu} />
       <ScrollToTop />
+      <SiteGuards />
       <JsonLd data={[organizationLd, websiteLd]} />
     </MenuLinksProvider>
   )

@@ -7,6 +7,7 @@ import { REGULATORY_CATEGORY_ICON } from "@/lib/regulatory-data"
 import { buildRegulatoryContent } from "@/lib/regulatory-content"
 import { ENVIRONMENTAL_CATEGORY_ICON } from "@/lib/environmental-data"
 import { buildEnvironmentalContent } from "@/lib/environmental-content"
+import { ADVISORY_CATEGORY_ICON, buildAdvisoryContent } from "@/lib/advisory-content"
 
 type Content = Pick<ServiceInput, "summary" | "highlights" | "sections" | "faqs" | "seoTitle" | "seoDescription">
 type Key = ServiceInput["sections"][number]["key"]
@@ -126,6 +127,7 @@ export function buildContent(category: string, title: string): Content {
   if (category in COMPLIANCE_CATEGORY_ICON) return buildComplianceContent(category, title)
   if (category in REGULATORY_CATEGORY_ICON) return buildRegulatoryContent(category, title)
   if (category in ENVIRONMENTAL_CATEGORY_ICON) return buildEnvironmentalContent(category, title)
+  if (category in ADVISORY_CATEGORY_ICON || title === "Startup Legal Support") return buildAdvisoryContent(category, title)
   const p = PROFILES[category] ?? PROFILES["Government Registration"]
   const iso = category === "ISO Certifications" ? isoNumber(title) : undefined
   const topic = iso ? ISO_TOPIC[iso] : undefined

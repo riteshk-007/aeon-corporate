@@ -168,7 +168,7 @@ const sections: LegalSection[] = [
         </p>
         <p>
           Questions? Email{" "}
-          <a href="mailto:hello@aeoncorporate.com">hello@aeoncorporate.com</a> or
+          <a href="mailto:support@aeoncorporate.com">support@aeoncorporate.com</a> or
           write to {LEGAL.address}.
         </p>
       </>

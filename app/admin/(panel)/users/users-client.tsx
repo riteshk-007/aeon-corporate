@@ -321,7 +321,7 @@ function CreateUserModal({
           <label className="flex items-center gap-2.5">
             <input
               type="checkbox"
-              className="size-4 accent-[#0b6ae0]"
+              className="size-4 accent-[#3f6df6]"
               checked={mustChange}
               onChange={(e) => setMustChange(e.target.checked)}
             />
@@ -525,7 +525,7 @@ function EditUserModal({
           <label className="flex items-center gap-2.5">
             <input
               type="checkbox"
-              className="size-4 accent-[#0b6ae0]"
+              className="size-4 accent-[#3f6df6]"
               checked={isActive}
               onChange={(e) => setIsActive(e.target.checked)}
               disabled={isSelf || readOnly}

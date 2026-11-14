@@ -8,12 +8,13 @@ import {
   ChevronRight,
   Mail,
   MapPin,
+  MessageCircle,
   Phone,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { ConsentCheckbox } from "@/components/site/consent-checkbox"
 import { Eyebrow, Logo, btnBlueFlat, wrap } from "@/components/site/ui"
-import { footerLinks } from "@/lib/site-data"
+import { contactInfo, footerLinks } from "@/lib/site-data"
 import type { MenuTop } from "@/lib/menu"
 
 const footerHref: Record<string, string> = {
@@ -59,13 +60,17 @@ export function SiteFooter({ menu }: { menu: MenuTop[] }) {
             />
             <div className="relative grid grid-cols-[1.1fr_1fr] items-center gap-8 max-[900px]:grid-cols-1 max-[900px]:gap-6">
               <div>
-                <Eyebrow className="text-ink">THE AEON BRIEF</Eyebrow>
+                <Eyebrow className="text-ink">OUR NEWSLETTER: AEON EXPRESS</Eyebrow>
                 <h2 className="max-w-[520px] text-[clamp(24px,2.8vw,32px)] leading-[1.15] font-extrabold tracking-[-0.03em]">
-                  Useful thinking for ambitious businesses.
+                  Insights that keep you ahead.
                 </h2>
                 <p className="mt-3 max-w-[480px] text-[14px] leading-[1.6] text-ink/75">
-                  Compliance updates and practical business insights, delivered
-                  to your inbox.
+                  Curated insights on the latest legal developments, regulatory
+                  changes, corporate updates and business trends, delivered to
+                  your inbox. Subscribe to Aeon Express. It&apos;s complimentary.
+                </p>
+                <p className="mt-2 text-[13px] font-bold text-ink">
+                  Stay informed. Stay prepared. Stay ahead.
                 </p>
               </div>
               <div>
@@ -131,7 +136,7 @@ export function SiteFooter({ menu }: { menu: MenuTop[] }) {
                 <div className="mt-3">
                   <ConsentCheckbox
                     light
-                    purpose="to send me the Aeon Brief newsletter by email"
+                    purpose="to send me the Aeon Express newsletter by email"
                     name="consent"
                     form="newsletter-form"
                   />
@@ -152,18 +157,23 @@ export function SiteFooter({ menu }: { menu: MenuTop[] }) {
             <div className="max-[900px]:col-span-2">
               <Logo light />
               <p className="mt-5 max-w-[300px] text-[14px] leading-[1.7] text-white/70">
-                Technology-enabled guidance for businesses navigating
-                complexity.
+                Aeon Corporate provides integrated business advisory and
+                professional support services to clients across diverse
+                industries and geographies. Our expertise spans corporate laws,
+                legal and financial advisory, regulatory compliance and
+                outsourced business support, delivered through flexible
+                engagement models, including retainership arrangements.
               </p>
               <address className="mt-6 grid gap-3 not-italic max-[900px]:grid-cols-3 max-[900px]:gap-4 max-[640px]:grid-cols-1">
                 {[
                   [
                     Mail,
-                    "hello@aeoncorporate.com",
-                    "mailto:hello@aeoncorporate.com",
+                    "support@aeoncorporate.com",
+                    "mailto:support@aeoncorporate.com",
                   ],
-                  [Phone, "+91 00000 00000", "tel:+910000000000"],
-                  [MapPin, "Office address placeholder, India", undefined],
+                  [Phone, contactInfo.phoneDisplay, `tel:+${contactInfo.phone}`],
+                  [MessageCircle, "WhatsApp us", `https://wa.me/${contactInfo.whatsapp}`],
+                  [MapPin, contactInfo.cities.join(" · "), undefined],
                 ].map(([Icon, text, href]) => {
                   const ContactIcon = Icon as typeof Mail
                   const content = (
@@ -235,11 +245,15 @@ export function SiteFooter({ menu }: { menu: MenuTop[] }) {
             ))}
           </nav>
           <p className="rounded-2xl border border-white/10 bg-white/[.04] p-4 text-[12px] leading-[1.7] text-white/60">
-            <b className="text-white/80">Disclaimer:</b> Aeon Corporate is a
-            private advisory and facilitation service. It is not affiliated with
-            any government body, and information on this site is general
-            guidance, not legal advice. Outcomes depend on the relevant
-            authorities.
+            <b className="text-white/80">Legal disclaimer:</b> The information
+            on this website describes our corporate and business advisory
+            services to people who want to know more about us. It is not
+            intended to solicit work or advertise our capabilities. It is
+            general in nature and should not be used for decisions without
+            further professional and legal advice. Links to third-party sites
+            are for reference only; we do not control their content and take no
+            responsibility for it. Aeon Corporate is not affiliated with any
+            government body.
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-between gap-4 text-[13px] text-white/60">
             <span>© 2026 Aeon Corporate. All rights reserved.</span>
@@ -255,7 +269,7 @@ export function SiteFooter({ menu }: { menu: MenuTop[] }) {
 
       <Link
         data-floater="mail" className="fixed right-[22px] bottom-[22px] z-30 grid size-[43px] place-items-center rounded-full bg-[#27b95a] text-white shadow-[0_8px_18px_rgba(11,27,77,.2)] max-[560px]:right-3.5 max-[560px]:bottom-3.5"
-        href="mailto:hello@aeoncorporate.com"
+        href="mailto:support@aeoncorporate.com"
         aria-label="Email Aeon Corporate"
       >
         <Mail size={19} />

@@ -24,6 +24,7 @@ import {
   wrap,
 } from "@/components/site/ui"
 import { companyLinks } from "@/lib/site-data"
+import { HeaderContact } from "@/components/site/header-contact"
 import type { MenuTop } from "@/lib/menu"
 
 const companyIcons: Record<string, string> = {
@@ -102,7 +103,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
     <>
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 border-b border-line/80 bg-white/95 backdrop-blur-xl transition-shadow duration-300",
+          "fixed inset-x-0 top-0 z-50 border-b border-line/80 bg-white transition-shadow duration-300",
           scrolled ? "shadow-[0_8px_30px_rgba(11,27,77,.10)]" : "shadow-none",
         )}
       >
@@ -123,8 +124,8 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
               href="/"
               aria-current={pathname === "/" ? "page" : undefined}
               className={cn(
-                "inline-flex items-center rounded-md px-3 py-2 text-[13px] font-bold whitespace-nowrap transition-colors duration-200 hover:bg-[#dcebff] hover:text-brand",
-                pathname === "/" ? "bg-[#dcebff] text-brand" : "text-mute",
+                "relative inline-flex items-center px-2.5 py-2 text-[13.5px] font-extrabold tracking-[.04em] whitespace-nowrap uppercase transition-colors duration-200 hover:text-brand hover:after:scale-x-100 after:absolute after:inset-x-2.5 after:-bottom-[3px] after:h-[3px] after:origin-left after:rounded-full after:bg-sun after:transition-transform after:duration-200",
+                pathname === "/" ? "text-brand after:scale-x-100" : "text-ink/80 after:scale-x-0",
               )}
             >
               Home
@@ -149,17 +150,10 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
                   aria-haspopup="true"
                   aria-expanded={openNav === label}
                   className={cn(
-                    "relative inline-flex items-center gap-1 rounded-md px-3 py-2 text-[13px] font-bold whitespace-nowrap transition-colors duration-200",
-                    openNav === label ? "text-brand" : "text-mute",
+                    "relative inline-flex items-center gap-1 px-2.5 py-2 text-[13.5px] font-extrabold tracking-[.04em] whitespace-nowrap uppercase transition-colors duration-200 after:absolute after:inset-x-2.5 after:-bottom-[3px] after:h-[3px] after:origin-left after:rounded-full after:bg-sun after:transition-transform after:duration-200",
+                    openNav === label || hoverNav === label ? "text-brand after:scale-x-100" : "text-ink/80 after:scale-x-0",
                   )}
                 >
-                  {hoverNav === label && (
-                    <motion.span
-                      layoutId="nav-pill"
-                      className="absolute inset-0 rounded-md bg-[#dcebff]"
-                      transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                    />
-                  )}
                   <span className="relative">{label}</span>
                   <ChevronDown
                     size={14}
@@ -170,6 +164,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
             ))}
           </nav>
           <div className="flex items-center gap-2">
+            <HeaderContact />
             <Link
               className={cn(
                 btnBlue,
@@ -229,7 +224,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
                               onClick={() => setCatIdx(i)}
                               className={cn(
                                 "flex w-full items-center justify-between gap-2 rounded-md px-3.5 py-2.5 text-left text-[14px] font-semibold transition-colors",
-                                catIdx === i ? "bg-brand text-white shadow-[0_8px_18px_rgba(11,106,224,.25)]" : "text-ink hover:bg-pale",
+                                catIdx === i ? "bg-brand text-white shadow-[0_8px_18px_rgba(63,109,246,.25)]" : "text-ink hover:bg-pale",
                               )}
                             >
                               <span className="min-w-0 leading-snug">{c.label}</span>
@@ -281,7 +276,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
             aria-hidden="true"
             style={{ scaleX: scrollProgress }}
             className={cn(
-              "absolute inset-x-0 bottom-[-1px] h-[3px] origin-left bg-[linear-gradient(90deg,#0b6ae0,#ffbe0b)] transition-opacity duration-300",
+              "absolute inset-x-0 bottom-[-1px] h-[3px] origin-left bg-[linear-gradient(90deg,#3f6df6,#ffbe0b)] transition-opacity duration-300",
               scrolled ? "opacity-100" : "opacity-0",
             )}
           />
@@ -351,13 +346,14 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
                 ))}
                 <div className="mt-3 grid grid-cols-2 gap-2">
                   <Link
-                    href="tel:+910000000000"
+                    href="/contact-us"
+                    onClick={() => setMenuOpen(false)}
                     className={cn(btnOutline, "gap-2")}
                   >
-                    <Phone size={15} /> Call us
+                    <Phone size={15} /> Contact us
                   </Link>
                   <Link
-                    href="mailto:hello@aeoncorporate.com"
+                    href="mailto:support@aeoncorporate.com"
                     className={cn(btnOutline, "gap-2")}
                   >
                     <Mail size={15} /> Email
@@ -446,13 +442,13 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
                 <div className="mt-auto pt-6">
                   <div className="grid grid-cols-3 gap-2">
                     <Link
-                      href="tel:+910000000000"
+                      href="/contact-us"
                       className="flex flex-col items-center gap-1.5 rounded-lg bg-[#eaf3ff] px-2 py-3.5 text-[12px] font-bold hover:bg-[#dcebff]"
                     >
-                      <Phone size={18} className="text-brand" /> Call
+                      <Phone size={18} className="text-brand" /> Contact
                     </Link>
                     <Link
-                      href="mailto:hello@aeoncorporate.com"
+                      href="mailto:support@aeoncorporate.com"
                       className="flex flex-col items-center gap-1.5 rounded-lg bg-[#eaf3ff] px-2 py-3.5 text-[12px] font-bold hover:bg-[#dcebff]"
                     >
                       <Mail size={18} className="text-brand" /> Email

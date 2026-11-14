@@ -238,7 +238,7 @@ export function WorkContent() {
               <motion.article
                 key={b.title}
                 {...reveal(i)}
-                className="group rounded-[24px] border border-line bg-white p-6 text-center transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(11,106,224,.12)] motion-reduce:transition-none"
+                className="group rounded-[24px] border border-line bg-white p-6 text-center transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(63,109,246,.12)] motion-reduce:transition-none"
               >
                 <span className="mx-auto grid size-[76px] place-items-center rounded-2xl bg-[#eaf3ff]">
                   <ColorIcon name={b.icon} size={50} />
@@ -254,7 +254,7 @@ export function WorkContent() {
 
         {/* Moments */}
         <section className="relative overflow-hidden bg-ink py-[100px] text-white max-[560px]:py-16">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_10%,rgba(11,106,224,.4),transparent_35%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_10%,rgba(63,109,246,.4),transparent_35%)]" />
           <div className={cn(wrap, "relative")}>
             <SectionHeading
               light
@@ -282,7 +282,7 @@ export function WorkContent() {
         </section>
 
         {/* CTA */}
-        <section className="relative overflow-hidden bg-[linear-gradient(135deg,#0b6ae0,#0a44b8)] py-20 text-white max-[560px]:py-14">
+        <section className="relative overflow-hidden bg-[linear-gradient(135deg,#3f6df6,#0a44b8)] py-20 text-white max-[560px]:py-14">
           <div className="absolute inset-0 bg-[radial-gradient(circle,white_1px,transparent_1.5px)] [background-size:22px_22px] opacity-[.2] [mask-image:linear-gradient(90deg,transparent,black,transparent)]" />
           <div
             className={cn(

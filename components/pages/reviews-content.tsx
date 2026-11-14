@@ -156,7 +156,7 @@ export function ReviewsContent() {
                 className={cn(
                   "rounded-full border px-4 py-2.5 text-[13px] font-bold transition",
                   active === f
-                    ? "border-brand bg-brand text-white shadow-[0_10px_22px_rgba(11,106,224,.28)]"
+                    ? "border-brand bg-brand text-white shadow-[0_10px_22px_rgba(63,109,246,.28)]"
                     : "border-line bg-white text-ink hover:border-brand hover:text-brand",
                 )}
               >
@@ -175,7 +175,7 @@ export function ReviewsContent() {
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.96 }}
                   transition={{ duration: 0.3 }}
-                  className="group flex flex-col rounded-[24px] border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(11,106,224,.12)] motion-reduce:transition-none"
+                  className="group flex flex-col rounded-[24px] border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(63,109,246,.12)] motion-reduce:transition-none"
                 >
                   <Quote size={28} className="text-brand/30" />
                   <p className="mt-3 flex-1 text-[15px] leading-[1.7] text-ink/85">

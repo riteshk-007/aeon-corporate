@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import { AeBullet } from "@/components/site/ae-bullet"
 import { MotionConfig, motion } from "framer-motion"
 import { ArrowRight, Check, ShieldCheck } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -162,11 +163,9 @@ export function PartnerContent() {
               <motion.li
                 key={item}
                 {...reveal(i % 4)}
-                className="group flex items-center gap-3.5 rounded-2xl border border-line bg-white p-5 transition duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-[0_18px_36px_rgba(11,106,224,.12)] motion-reduce:transition-none"
+                className="group flex items-center gap-3.5 rounded-2xl border border-line bg-white p-5 transition duration-300 hover:-translate-y-1 hover:border-brand/40 hover:shadow-[0_18px_36px_rgba(63,109,246,.12)] motion-reduce:transition-none"
               >
-                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-brand text-white shadow-[0_6px_14px_rgba(11,106,224,.3)]">
-                  <Check size={18} />
-                </span>
+                <AeBullet className="size-9" />
                 <b className="text-[15px] leading-snug">{item}</b>
               </motion.li>
             ))}
@@ -264,7 +263,7 @@ export function PartnerContent() {
 
         {/* Why choose */}
         <section className="relative overflow-hidden bg-ink py-[100px] text-white max-[560px]:py-16">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_10%,rgba(11,106,224,.4),transparent_35%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_10%,rgba(63,109,246,.4),transparent_35%)]" />
           <div className={cn(wrap, "relative")}>
             <SectionHeading
               light
@@ -294,7 +293,7 @@ export function PartnerContent() {
         </section>
 
         {/* CTA */}
-        <section className="relative overflow-hidden bg-[linear-gradient(135deg,#0b6ae0,#0a44b8)] py-20 text-white max-[560px]:py-14">
+        <section className="relative overflow-hidden bg-[linear-gradient(135deg,#3f6df6,#0a44b8)] py-20 text-white max-[560px]:py-14">
           <div className="absolute inset-0 bg-[radial-gradient(circle,white_1px,transparent_1.5px)] [background-size:22px_22px] opacity-[.2] [mask-image:linear-gradient(90deg,transparent,black,transparent)]" />
           <div
             className={cn(

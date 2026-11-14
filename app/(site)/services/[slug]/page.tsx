@@ -1,11 +1,13 @@
 import type { Metadata } from "next"
 import Link from "next/link"
+import { AeBullet } from "@/components/site/ae-bullet"
 import { notFound } from "next/navigation"
 import {
   ArrowRight, BadgeCheck, Check, ChevronRight, ClipboardCheck, FileSearch, Headphones,
   Lock, Mail, Phone, ShieldCheck, UserRoundCheck,
 } from "lucide-react"
 import { db } from "@/lib/db"
+import { getMenu } from "@/lib/menu"
 import { JsonLd } from "@/components/site/json-ld"
 import { LeadForm, type LeadField } from "@/components/site/lead-form"
 import { SectionNav } from "@/components/site/section-nav"
@@ -104,6 +106,21 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   const processHtml = sections.find((x) => x.key === "process")?.html ?? ""
   const url = `${SITE_URL}/services/${s.slug}`
 
+  // Path shown above the title: Home > menu > category > service (from the admin-edited menu).
+  const menu = await getMenu()
+  const here = `/services/${s.slug}`
+  let trail: { label: string; href: string }[] = []
+  for (const t of menu) {
+    const c = t.categories.find((x) => x.links.some((l) => l.href === here))
+    if (c) {
+      trail = [
+        { label: t.label, href: t.href || t.categories[0]?.links[0]?.href || "/" },
+        { label: c.label, href: c.href || c.links[0]?.href || "/" },
+      ]
+      break
+    }
+  }
+
   let similar: { slug: string; title: string }[] = []
   try {
     similar = await db.service.findMany({
@@ -125,6 +142,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         data={[
           breadcrumbLd([
             { name: "Home", path: "/" },
+            ...trail.map((t) => ({ name: t.label, path: t.href })),
             { name: s.title, path: `/services/${s.slug}` },
           ]),
           {
@@ -161,6 +179,12 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             <nav aria-label="Breadcrumb" className="mb-5 flex w-fit max-w-full flex-wrap items-center gap-1.5 rounded-full bg-white/80 px-4 py-2 text-[13px] font-semibold text-mute">
               <Link href="/" className="hover:text-brand">Home</Link>
               <ChevronRight size={14} className="shrink-0 text-brand/50" />
+              {trail.map((t) => (
+                <span key={t.label} className="contents">
+                  <Link href={t.href} className="hover:text-brand">{t.label}</Link>
+                  <ChevronRight size={14} className="shrink-0 text-brand/50" />
+                </span>
+              ))}
               <span className="min-w-0 truncate text-brand" aria-current="page">{s.title}</span>
             </nav>
             {s.icon && (
@@ -177,7 +201,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 <ul className="mt-3 grid grid-cols-2 gap-2.5 max-[640px]:grid-cols-1">
                   {s.highlights.map((h) => (
                     <li key={h} className="flex items-center gap-3 rounded-xl bg-white px-3 py-2.5 text-[14px] leading-[1.4] font-semibold text-ink/90 ring-1 ring-line">
-                      <span className="grid size-7 shrink-0 place-items-center rounded-full bg-brand text-white"><Check size={15} strokeWidth={3} /></span>
+                      <AeBullet className="size-7" />
                       {h}
                     </li>
                   ))}
@@ -200,7 +224,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           </div>
 
           <aside id="enquire" className="relative scroll-mt-28 overflow-hidden rounded-[26px] border border-white bg-white shadow-[0_22px_54px_rgba(11,27,77,.16)]">
-            <div className="relative bg-[linear-gradient(135deg,#0b6ae0,#0a44b8)] px-6 py-5 text-white max-[560px]:px-5">
+            <div className="relative bg-[linear-gradient(135deg,#3f6df6,#0a44b8)] px-6 py-5 text-white max-[560px]:px-5">
               <div aria-hidden="true" className="absolute -top-10 -right-10 size-32 rounded-full border border-white/20" />
               <span className="mb-2 grid size-10 place-items-center rounded-xl bg-white/15"><Headphones size={20} /></span>
               <b className="block text-[19px] tracking-[-0.02em]">Get free expert consultation</b>
@@ -252,7 +276,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 const Icon = iconFor(look.icon)
                 return (
                   <section key={sec.key} id={sec.key} className="relative scroll-mt-40 overflow-hidden rounded-[24px] border border-line bg-white p-7 pl-8 shadow-[0_10px_30px_rgba(11,27,77,.05)] max-[560px]:rounded-[20px] max-[560px]:p-5 max-[560px]:pl-6">
-                    <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-[linear-gradient(to_bottom,#0b6ae0,#ffbe0b)]" />
+                    <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-[linear-gradient(to_bottom,#3f6df6,#ffbe0b)]" />
                     <span aria-hidden="true" className="pointer-events-none absolute -top-3 right-5 text-[84px] leading-none font-black text-brand/[.06] select-none">{String(i + 1).padStart(2, "0")}</span>
                     <div className="relative mb-5 flex flex-wrap items-center gap-3 border-b border-line pb-4">
                       <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-[linear-gradient(135deg,#eaf3ff,#cfe5ff)] text-brand ring-1 ring-white"><Icon size={24} /></span>
@@ -319,7 +343,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               </div>
               <div className="flex flex-wrap gap-2">
                 <Link href="#enquire" className={btnYellow}>Request a call back <ArrowRight size={15} /></Link>
-                <Link href="mailto:hello@aeoncorporate.com" className="inline-flex h-12 items-center gap-2 rounded-xl border border-white/30 px-5 text-[14px] font-bold hover:bg-white/10"><Mail size={16} /> Email us</Link>
+                <Link href="mailto:support@aeoncorporate.com" className="inline-flex h-12 items-center gap-2 rounded-xl border border-white/30 px-5 text-[14px] font-bold hover:bg-white/10"><Mail size={16} /> Email us</Link>
               </div>
             </div>
 

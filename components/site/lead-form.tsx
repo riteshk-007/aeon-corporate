@@ -174,7 +174,7 @@ export function LeadForm({
           className,
         )}
       >
-        <span className="grid size-14 place-items-center rounded-full bg-brand text-white shadow-[0_10px_24px_rgba(11,106,224,.3)]">
+        <span className="grid size-14 place-items-center rounded-full bg-brand text-white shadow-[0_10px_24px_rgba(63,109,246,.3)]">
           <Check size={26} />
         </span>
         <h3 className="mt-5 text-xl font-bold tracking-[-0.02em]">
@@ -328,7 +328,7 @@ export function LeadForm({
           type="submit"
           disabled={busy}
           className={cn(
-            "h-12 rounded-xl bg-brand px-8 text-[15px] font-bold text-white shadow-[0_10px_24px_rgba(11,106,224,.28)] hover:bg-brand/90",
+            "h-12 rounded-xl bg-brand px-8 text-[15px] font-bold text-white shadow-[0_10px_24px_rgba(63,109,246,.28)] hover:bg-brand/90",
             columns === 1 ? "w-full" : "w-full sm:w-auto",
           )}
         >
