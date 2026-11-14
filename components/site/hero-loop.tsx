@@ -15,7 +15,7 @@ export function HeroLoop() {
         "[-webkit-mask-composite:source-in] [mask-composite:intersect] " +
         "[-webkit-mask-image:linear-gradient(to_right,transparent_0%,#000_42%),linear-gradient(to_bottom,transparent_0%,#000_16%,#000_78%,transparent_100%)] " +
         "[mask-image:linear-gradient(to_right,transparent_0%,#000_42%),linear-gradient(to_bottom,transparent_0%,#000_16%,#000_78%,transparent_100%)] " +
-        "max-[900px]:relative max-[900px]:top-auto max-[900px]:right-auto max-[900px]:mx-auto max-[900px]:-mb-7 max-[900px]:h-auto max-[900px]:w-[min(100%,760px)] " +
+        "max-[900px]:relative max-[900px]:order-last max-[900px]:top-auto max-[900px]:right-auto max-[900px]:mx-auto max-[900px]:mt-8 max-[900px]:-mb-6 max-[900px]:h-auto max-[900px]:w-[min(100%,760px)] " +
         "max-[900px]:[-webkit-mask-image:linear-gradient(to_right,transparent_0%,#000_9%,#000_91%,transparent_100%),linear-gradient(to_bottom,transparent_0%,#000_14%,#000_62%,transparent_100%)] max-[900px]:[mask-image:linear-gradient(to_right,transparent_0%,#000_9%,#000_91%,transparent_100%),linear-gradient(to_bottom,transparent_0%,#000_14%,#000_62%,transparent_100%)]"
       }
     >
