@@ -14,7 +14,7 @@ export function HeroLoop() {
   return (
     <div
       aria-hidden={false}
-      className="pointer-events-none absolute inset-y-0 right-0 w-[66%] max-[900px]:w-full max-[900px]:opacity-45"
+      className="pointer-events-none absolute top-[2%] -right-[4%] aspect-[4/3] h-[90%] max-[900px]:inset-x-0 max-[900px]:aspect-auto max-[900px]:w-full max-[900px]:opacity-45"
       style={{
         WebkitMaskImage: FADE,
         maskImage: FADE,
@@ -26,7 +26,7 @@ export function HeroLoop() {
         src="/video/hero-infinity.mp4"
         poster="/video/hero-infinity-poster.jpg"
         alt="A glass infinity-loop of city towers rising from the water at sunrise"
-        className="size-full object-cover object-[60%_55%]"
+        className="size-full object-cover object-center"
         eager
       />
     </div>
