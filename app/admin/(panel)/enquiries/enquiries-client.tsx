@@ -36,7 +36,7 @@ const KIND_LABEL: Record<string, string> = {
   contact: "Contact", partner: "Partner", career: "Career", newsletter: "Newsletter",
 }
 const DETAIL_LABEL: Record<string, string> = {
-  service: "Service page", callTime: "Best time to call", city: "City", resumeUrl: "Resume (file)", resumeName: "Resume file name", job: "Job applied for", jobId: "Job ID", experience: "Experience", occupation: "Occupation",
+  service: "Service page", resumeUrl: "Resume (file)", resumeName: "Resume file name", job: "Job applied for", jobId: "Job ID", experience: "Experience", occupation: "Occupation",
 }
 
 function Info({ label, value, wide }: { label: string; value: string | null; wide?: boolean }) {

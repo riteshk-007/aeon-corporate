@@ -26,6 +26,8 @@ export type LeadField = {
   autoComplete?: string
   /** span both columns */
   full?: boolean
+  /** visible lines of a textarea (default 4) */
+  rows?: number
 }
 
 type LeadFormProps = {
@@ -271,10 +273,10 @@ export function LeadForm({
               <Textarea
                 id={id}
                 name={f.name}
-                rows={4}
+                rows={f.rows ?? 4}
                 placeholder={f.placeholder}
                 aria-invalid={!!error}
-                className={cn(inputBase, "h-auto min-h-28 resize-y py-3")}
+                className={cn(inputBase, "h-auto resize-y py-3", f.rows ? "min-h-0" : "min-h-28")}
               />
             ) : (
               <Input
@@ -302,7 +304,7 @@ export function LeadForm({
       })}
       <div
         className={cn(
-          "grid gap-3 rounded-lg bg-[#f6faff] p-4 ring-1 ring-line",
+          "grid gap-3 rounded-lg bg-[#f6faff] p-3 ring-1 ring-line",
           columns === 2 && "col-span-2 max-[560px]:col-span-1",
         )}
       >

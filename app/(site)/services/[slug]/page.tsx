@@ -18,7 +18,6 @@ import { SITE_URL, breadcrumbLd, pageMetadata } from "@/lib/seo"
 import { autoSeoDescription, autoSeoTitle } from "@/lib/seo-auto"
 import { readFaqs, readSections, sectionLook } from "@/lib/services"
 import { iconFor } from "@/lib/icons"
-import { STATES } from "@/lib/states"
 
 // Pages are built on first visit and refreshed when saved in the admin panel.
 export const revalidate = 300
@@ -62,13 +61,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 const fields: LeadField[] = [
   { name: "name", label: "Full name", required: true, autoComplete: "name", placeholder: "Your name" },
-  { name: "email", label: "Email ID", type: "email", required: true, autoComplete: "email", placeholder: "you@example.com" },
   { name: "phone", label: "Mobile number", type: "tel", required: true, autoComplete: "tel", placeholder: "10-digit mobile number" },
-  { name: "state", label: "State", type: "select", required: true, options: STATES },
-  { name: "city", label: "City", autoComplete: "address-level2", placeholder: "Your city" },
-  { name: "callTime", label: "Best time to call", type: "select", options: ["Morning (9 am - 12 pm)", "Afternoon (12 pm - 4 pm)", "Evening (4 pm - 7 pm)", "Any time"], placeholder: "Select a time" },
-  { name: "message", label: "Your requirement", type: "textarea", placeholder: "Tell us briefly what you need (optional)" },
+  { name: "email", label: "Email ID", type: "email", required: true, autoComplete: "email", placeholder: "you@example.com", full: true },
+  { name: "message", label: "Your requirement", type: "textarea", rows: 2, placeholder: "Tell us briefly what you need (optional)", full: true },
 ]
+
+/** Coloured icons (public/icons) for the "What is included" cards, chosen by what the line says. */
+function includedIcon(text: string, i: number) {
+  const t = text.toLowerCase()
+  if (/eligib|check|assess|search|class/.test(t)) return "svc-eligibility"
+  if (/review|document|verify/.test(t)) return "svc-review"
+  if (/filing|file|application|prepar|regist/.test(t)) return "svc-registration"
+  if (/follow|complete|support|track|monitor/.test(t)) return "svc-approval"
+  return ["svc-eligibility", "svc-review", "svc-registration", "svc-approval"][i % 4]
+}
 
 const trust = [
   { icon: UserRoundCheck, text: "Guided by experts" },
@@ -137,7 +143,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   ]
 
   return (
-    <main id="top" className="overflow-x-clip pt-[124px] pb-28 max-[1024px]:pt-[110px] max-[560px]:pt-[92px]">
+    <main id="top" className="overflow-x-clip pt-[100px] pb-28 max-[1024px]:pt-[110px] max-[560px]:pt-[92px]">
       <JsonLd
         data={[
           breadcrumbLd([
@@ -172,11 +178,11 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
       <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Top: title + what is included, with the enquiry form beside it */}
-        <header className="relative grid grid-cols-[minmax(0,1fr)_600px] items-center gap-10 max-[1280px]:grid-cols-[minmax(0,1fr)_520px] overflow-hidden rounded-xl bg-[linear-gradient(135deg,#eaf3ff,#cfe5ff_60%,#dcebff)] p-10 max-[1100px]:grid-cols-[minmax(0,1fr)] max-[900px]:gap-8 max-[900px]:p-6 max-[560px]:rounded-xl max-[560px]:p-5">
+        <header className="relative grid grid-cols-[minmax(0,1fr)_500px] items-center gap-8 overflow-hidden rounded-xl bg-[linear-gradient(135deg,#eaf3ff,#cfe5ff_60%,#dcebff)] p-6 max-[1100px]:grid-cols-[minmax(0,1fr)] max-[900px]:p-6 max-[560px]:rounded-xl max-[560px]:p-5">
           <div aria-hidden="true" className="pointer-events-none absolute -top-24 -left-20 size-72 rounded-full bg-white/50 blur-3xl" />
           <div aria-hidden="true" className="pointer-events-none absolute -right-16 -bottom-24 size-72 rounded-full bg-sun/25 blur-3xl" />
           <div className="relative min-w-0">
-            <nav aria-label="Breadcrumb" className="mb-5 flex w-fit max-w-full flex-wrap items-center gap-1.5 rounded-full bg-white/80 px-4 py-2 text-[13px] font-semibold text-mute">
+            <nav aria-label="Breadcrumb" className="mb-3 flex w-fit max-w-full flex-wrap items-center gap-1.5 rounded-full bg-white/80 px-3.5 py-1.5 text-[12.5px] font-semibold text-mute">
               <Link href="/" className="hover:text-brand">Home</Link>
               <ChevronRight size={14} className="shrink-0 text-brand/50" />
               {trail.map((t) => (
@@ -187,35 +193,28 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               ))}
               <span className="min-w-0 truncate text-brand" aria-current="page">{s.title}</span>
             </nav>
-            {s.icon && (
-              <span className="mb-4 grid size-14 place-items-center rounded-lg bg-white text-brand shadow-[0_10px_24px_rgba(11,27,77,.12)] ring-1 ring-line">
-                {(() => { const PageIcon = iconFor(s.icon); return <PageIcon size={28} /> })()}
-              </span>
-            )}
-            {s.category && <Eyebrow>{s.category.toUpperCase()}</Eyebrow>}
-            <h1 className="text-[clamp(28px,3.6vw,46px)] leading-[1.08] font-extrabold tracking-[-0.04em] [overflow-wrap:anywhere]">{s.title}</h1>
-            {s.summary && <p className="mt-4 text-[16px] leading-[1.75] text-mute max-[560px]:text-[15px]">{s.summary}</p>}
+            <div className="flex items-center gap-3">
+              {s.icon && (
+                <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-white text-brand shadow-[0_8px_20px_rgba(11,27,77,.12)] ring-1 ring-line">
+                  {(() => { const PageIcon = iconFor(s.icon); return <PageIcon size={22} /> })()}
+                </span>
+              )}
+              {s.category && <Eyebrow className="mb-0">{s.category.toUpperCase()}</Eyebrow>}
+            </div>
+            <h1 className="mt-3 text-[clamp(26px,3.2vw,40px)] leading-[1.08] font-extrabold tracking-[-0.04em] [overflow-wrap:anywhere]">{s.title}</h1>
+            {s.summary && <p className="mt-3 line-clamp-2 text-[15px] leading-[1.65] text-mute">{s.summary}</p>}
             {s.highlights.length > 0 && (
-              <div className="mt-6 rounded-lg bg-white/80 p-5 shadow-[0_10px_30px_rgba(11,27,77,.06)] ring-1 ring-white">
-                <b className="flex items-center gap-2 text-[14px] text-brand"><ShieldCheck size={18} /> What is included</b>
-                <ul className="mt-3 grid grid-cols-2 gap-2.5 max-[640px]:grid-cols-1">
-                  {s.highlights.map((h) => (
-                    <li key={h} className="flex items-center gap-3 rounded-lg bg-white px-3 py-2.5 text-[14px] leading-[1.4] font-semibold text-ink/90 ring-1 ring-line">
-                      <AeBullet className="size-7" />
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <ul className="mt-5 grid grid-cols-2 gap-2.5 max-[640px]:grid-cols-1">
+                {s.highlights.slice(0, 4).map((h, i) => (
+                  <li key={h} className="flex items-center gap-3 rounded-lg bg-white/85 p-2.5 pr-3 text-[13.5px] leading-[1.35] font-bold text-ink/90 shadow-[0_6px_18px_rgba(11,27,77,.05)] ring-1 ring-white">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={`/icons/${includedIcon(h, i)}.svg`} alt="" aria-hidden="true" width={40} height={40} className="size-10 shrink-0" />
+                    {h}
+                  </li>
+                ))}
+              </ul>
             )}
-            <ul className="mt-5 flex flex-wrap gap-2">
-              {trust.map(({ icon: TI, text }) => (
-                <li key={text} className="inline-flex items-center gap-2 rounded-full bg-white/80 px-3.5 py-2 text-[13px] font-bold text-ink/80 ring-1 ring-white">
-                  <TI size={16} className="text-brand" /> {text}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6 flex flex-wrap gap-3 max-[560px]:grid max-[560px]:grid-cols-1">
+            <div className="mt-5 flex flex-wrap gap-3 max-[560px]:grid max-[560px]:grid-cols-1">
               <Link href="#enquire" className={`${btnBlue} max-[560px]:w-full`}>
                 Schedule a call <ArrowRight size={16} />
               </Link>
@@ -224,26 +223,27 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           </div>
 
           <aside id="enquire" className="relative scroll-mt-28 overflow-hidden rounded-xl border border-white bg-white shadow-[0_22px_54px_rgba(11,27,77,.16)]">
-            <div className="relative bg-[linear-gradient(135deg,#3f6df6,#0a44b8)] px-6 py-5 text-white max-[560px]:px-5">
+            <div className="relative flex items-center gap-3 bg-[linear-gradient(135deg,#3f6df6,#0a44b8)] px-5 py-3.5 text-white">
               <div aria-hidden="true" className="absolute -top-10 -right-10 size-32 rounded-full border border-white/20" />
-              <span className="mb-2 grid size-10 place-items-center rounded-lg bg-white/15"><Headphones size={20} /></span>
-              <b className="block text-[19px] tracking-[-0.02em]">Get free expert consultation</b>
-              <p className="mt-1 text-[13px] text-white/80 [overflow-wrap:anywhere]">About {s.title}</p>
+              <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-white">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/icons/svc-support.svg" alt="" aria-hidden="true" width={30} height={30} className="size-[30px]" />
+              </span>
+              <div className="min-w-0">
+                <b className="block text-[17px] leading-tight tracking-[-0.02em]">Get free expert consultation</b>
+                <p className="mt-0.5 truncate text-[12.5px] text-white/80">About {s.title}</p>
+              </div>
             </div>
-            <div className="p-6 max-[560px]:p-5">
+            <div className="p-5 max-[560px]:p-4">
             <LeadForm
               fields={fields}
               kind="contact"
-              marketing
               extra={{ service: s.title }}
+              className="gap-3"
               submitLabel="Get started"
               successTitle="Thanks, we got your request"
               successText="Our team will contact you shortly."
             />
-            <p className="mt-4 flex items-start gap-2 text-[12px] leading-[1.6] text-mute">
-              <Lock size={14} className="mt-0.5 shrink-0 text-brand" />
-              <span>Your details are used only to reply to this request. See our <Link href="/privacy-policy" className="font-bold text-brand">Privacy Policy</Link>.</span>
-            </p>
             </div>
           </aside>
         </header>
