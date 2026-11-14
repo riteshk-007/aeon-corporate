@@ -12,14 +12,17 @@ export function LoopVideo({
   poster,
   alt,
   className,
+  eager = false,
 }: {
   src: string
   poster: string
   alt: string
   className?: string
+  /** above the fold: start downloading straight away */
+  eager?: boolean
 }) {
   const ref = useRef<HTMLVideoElement>(null)
-  const [started, setStarted] = useState(false)
+  const [started, setStarted] = useState(eager)
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -53,7 +56,7 @@ export function LoopVideo({
       muted
       loop
       playsInline
-      preload="none"
+      preload={eager ? "auto" : "none"}
       aria-label={alt}
       src={started ? src : undefined}
       autoPlay={started}

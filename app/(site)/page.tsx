@@ -9,12 +9,18 @@ import {
   BarChart3,
   Check,
   ChevronRight,
+  Compass,
+  Globe2,
   Mail,
   Play,
   Quote,
+  Rocket,
+  Scale,
   Search,
+  ShieldCheck,
   Sparkles,
   Star,
+  TrendingUp,
   X,
 } from "lucide-react"
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion"
@@ -23,6 +29,7 @@ import {
   ColorIcon,
   Eyebrow,
   SectionHeading,
+  btn,
   btnBlue,
   btnYellow,
   btnWhite,
@@ -30,8 +37,8 @@ import {
 } from "@/components/site/ui"
 import { useMenuLinks } from "@/components/site/menu-links"
 import { ProcessWizard } from "@/components/site/process-wizard"
+import { HeroLoop } from "@/components/site/hero-loop"
 import { StatsStrip } from "@/components/site/stats-strip"
-import { HeroBackdrop } from "@/components/ui/hero-backdrop"
 import { HandDrawnFrame } from "@/components/ui/hand-writing-text"
 
 const explorerServices: Record<string, { title: string; description: string }[]> = {
@@ -273,6 +280,14 @@ const features = [
   ["A Partner in Your Progress", "From setting up to growing, we work with you at every stage of the journey."],
 ]
 
+const heroLines = [
+  { icon: Scale, label: "Legal & Regulatory", href: "#services" },
+  { icon: ShieldCheck, label: "Compliance Management", href: "#services" },
+  { icon: TrendingUp, label: "Financial Advisory", href: "#services" },
+  { icon: Rocket, label: "Startup Enablement", href: "#services" },
+  { icon: Compass, label: "Strategic Advisory", href: "#services" },
+  { icon: Globe2, label: "Global Business", href: "#services" },
+]
 const circlePath =
   "M 1090 110 C 1190 330, 950 565, 560 565 C 190 565, 25 430, 45 290 C 65 130, 320 35, 620 35 C 920 35, 1150 150, 1135 300"
 
@@ -415,118 +430,67 @@ export default function Page() {
 
   return (
     <main id="top" className="overflow-hidden">
-      <section className="relative flex min-h-[calc(100svh+50px)] items-center bg-[linear-gradient(135deg,#3b8cf5_0%,#3f6df6_48%,#0a44b8_100%)] pt-[140px] pb-[150px] max-[900px]:block max-[900px]:min-h-0 max-[900px]:pt-[120px] max-[900px]:pb-[100px] max-[560px]:pt-[104px] max-[560px]:pb-[70px]">
-        <div className="absolute inset-0 animate-drift bg-[radial-gradient(circle,rgba(255,255,255,.42)_1px,transparent_1.5px),radial-gradient(circle,rgba(255,190,11,.75)_1px,transparent_1.5px)] [background-position:0_0,42px_33px] [background-size:21px_21px,83px_83px] opacity-65 [mask-image:radial-gradient(ellipse_55%_75%_at_68%_45%,black_0%,transparent_75%)] after:absolute after:inset-0 after:bg-[radial-gradient(circle_at_72%_43%,rgba(255,255,255,.16),transparent_36%)] after:content-[''] motion-reduce:animate-none" />
-        <HeroBackdrop />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-b from-transparent to-sky" />
-        <div className="pointer-events-none absolute top-[245px] -right-[100px] h-[280px] w-[600px] -rotate-[20deg] rounded-full border border-white/25" />
-        <div className="pointer-events-none absolute top-[280px] right-10 h-[190px] w-[450px] rotate-[28deg] rounded-full border border-sun/40" />
-        <div
-          className={cn(
-            wrap,
-            "relative z-[1] grid grid-cols-[0.95fr_1.05fr] items-center gap-[74px] max-[900px]:grid-cols-1 max-[900px]:gap-[45px]",
-          )}
-        >
-          <div>
-            <Eyebrow className="w-fit rounded bg-white px-3 py-1.5 text-flame shadow-[0_8px_20px_rgba(11,27,77,.15)]">
-              LEGAL AND FINANCIAL SERVICES, REIMAGINED
-            </Eyebrow>
-            <h1 className="max-w-[640px] text-[clamp(40px,4.4vw,66px)] leading-[1.02] font-black tracking-[-0.04em] text-white animate-glow [paint-order:stroke_fill] [-webkit-text-stroke:0.07em_rgba(6,36,128,.95)] motion-reduce:animate-none max-[900px]:text-[clamp(46px,10vw,72px)] max-[560px]:text-[clamp(42px,13vw,60px)]">
-              Offload the Process.
-              <br />
-              <span className="text-[#e3f0ff]">Own the</span>{" "}
-              <HandDrawnFrame
-                inline
-                d={circlePath}
-                strokeWidth={2.5}
-                duration={4}
-                strokeClassName="text-sun"
-                className="inline-block px-4"
-                svgClassName="-inset-x-5 -inset-y-4 h-[calc(100%+2rem)] w-[calc(100%+2.5rem)]"
-              >
-                <span className="text-white">Progress.</span>
-              </HandDrawnFrame>
-            </h1>
-            <p className="mt-7 max-w-[560px] text-[17px] leading-[1.7] text-white/90 max-[560px]:text-[15px]">
-              Aeon, your{" "}
-              <span className="rounded bg-white px-1.5 font-bold text-brand [box-decoration-break:clone]">
-                trusted partner for legal and financial services
-              </span>
-              . We absorb your day-to-day procedural stress and make you free to focus on strategic growth and long-term sustainability.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3 max-[560px]:grid max-[560px]:grid-cols-1">
-              <a className={btnYellow} href="#contact">
-                Talk to an expert <ArrowRight size={16} />
-              </a>
-              <a className={btnWhite} href="#services">
-                Explore services
-              </a>
+      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#9fc8fb_0%,#d3e6fd_42%,#f6efe0_100%)] flex min-h-[calc(100svh+10px)] flex-col pt-[108px] pb-24 max-[900px]:min-h-0 max-[900px]:pt-[104px] max-[900px]:pb-24 max-[560px]:pt-[92px] max-[560px]:pb-20">
+        {/* sunrise glow and soft clouds, like the brand artwork */}
+        <div aria-hidden="true" className="pointer-events-none absolute -bottom-40 -left-32 size-[520px] rounded-full bg-sun/45 blur-[120px]" />
+        <div aria-hidden="true" className="pointer-events-none absolute -top-32 right-[8%] size-[460px] rounded-full bg-white/70 blur-[110px]" />
+        <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,.55)_1px,transparent_1.5px)] [background-size:26px_26px] [mask-image:linear-gradient(100deg,transparent,black_60%,transparent)] opacity-60" />
+        <HeroLoop />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(214,232,254,.92)_0%,rgba(214,232,254,.55)_34%,transparent_62%)] max-[900px]:bg-[linear-gradient(180deg,rgba(214,232,254,.85),rgba(214,232,254,.55))]" />
+        <div className={cn(wrap, "relative z-[1] my-auto")}>
+          <div className="grid grid-cols-1">
+            <div className="max-w-[660px]">
+              <Eyebrow className="w-fit rounded bg-white px-3 py-1.5 text-flame shadow-[0_8px_20px_rgba(11,27,77,.12)]">
+                LEGAL AND FINANCIAL SERVICES, REIMAGINED
+              </Eyebrow>
+              <h1 className="text-[clamp(36px,3.7vw,58px)] leading-[1.05] font-black tracking-[-0.04em] text-ink max-[900px]:text-[clamp(40px,9vw,60px)] max-[560px]:text-[clamp(34px,10.5vw,48px)]">
+                Offload the Process.
+                <br />
+                Own the{" "}
+                <HandDrawnFrame
+                  inline
+                  d={circlePath}
+                  strokeWidth={2.5}
+                  duration={4}
+                  strokeClassName="text-flame"
+                  className="inline-block px-4"
+                  svgClassName="-inset-x-5 -inset-y-4 h-[calc(100%+2rem)] w-[calc(100%+2.5rem)]"
+                >
+                  <span className="text-brand">Progress.</span>
+                </HandDrawnFrame>
+              </h1>
+              <p className="mt-5 max-w-[560px] text-[16.5px] leading-[1.7] text-ink/80 max-[560px]:text-[15px]">
+                Aeon, your{" "}
+                <span className="rounded bg-brand px-1.5 font-bold text-white [box-decoration-break:clone]">
+                  trusted partner for legal and financial services
+                </span>
+                . We absorb your day-to-day procedural stress and make you free to focus on strategic growth and long-term sustainability.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3 max-[560px]:grid max-[560px]:grid-cols-1">
+                <a className={btnBlue} href="#contact">
+                  Talk to an expert <ArrowRight size={16} />
+                </a>
+                <a className={cn(btn, "border border-ink/20 bg-white/70 text-ink hover:bg-white")} href="#services">
+                  Explore services
+                </a>
+              </div>
             </div>
           </div>
-          <div className="relative flex items-center justify-center py-6 max-[900px]:py-4">
-            {/* Whole illustration is shown (no cropping, no frame); cards sit on its edges. */}
-            <div className="relative aspect-[4/3] h-[clamp(300px,52svh,460px)] max-w-full max-[900px]:h-auto max-[900px]:w-full max-[900px]:max-w-[560px]">
-              <Image
-                src="/illustrations/hero.png"
-                alt="Illustration of a consultant presenting a compliance dashboard with a shield, calendar and documents"
 
-                className="size-full object-contain drop-shadow-[0_26px_34px_rgba(6,36,128,.35)]"
-                width={1400}
-                height={1032}
-                sizes="(max-width: 900px) 100vw, 560px"
-                priority
-              />
-            </div>
-
-            <div
-              className={cn(
-                floatCard,
-                "top-0 right-3 max-[560px]:right-0 max-[560px]:-top-1",
-              )}
-            >
-              <span className="size-[9px] shrink-0 rounded-full bg-brand" />
-              <div>
-                <small className="block text-[11px] text-mute">
-                  Compliance Overview
-                </small>
-                <strong className="mt-1 block text-xs">In Progress</strong>
-              </div>
-              <BarChart3 size={18} className="ml-2.5 text-brand" />
-            </div>
-
-            <div
-              style={{ animationDelay: "-2s" }}
-              className={cn(
-                floatCard,
-                "bottom-0 left-2 max-[560px]:left-0 max-[560px]:-bottom-1",
-              )}
-            >
-              <span className="size-[9px] shrink-0 rounded-full bg-[#e6bd00]" />
-              <div>
-                <small className="block text-[11px] text-mute">
-                  Registration
-                </small>
-                <strong className="mt-1 block text-xs">
-                  Documents reviewed
-                </strong>
-              </div>
-              <Check size={18} className="ml-2.5 text-brand" />
-            </div>
-
-            <div
-              style={{ animationDelay: "-4s" }}
-              className={cn(
-                floatCard,
-                "top-[7%] -left-20 block px-[18px] py-[13px] max-[1100px]:-left-8 max-[900px]:hidden",
-              )}
-            >
-              <small className="block text-[11px] text-mute">
-                Business growth
-              </small>
-              <strong className="mt-1 block text-xs">
-                On track <span className="text-[#26a269]">↗</span>
-              </strong>
-            </div>
+          {/* The six service lines and the 360 degree promise, as in the brand artwork */}
+          <div className="mt-8 rounded-xl border border-white/70 bg-white/60 px-5 py-3 shadow-[0_18px_44px_rgba(11,27,77,.1)] backdrop-blur-sm max-[560px]:mt-6 max-[560px]:p-3">
+            <ul className="grid grid-cols-6 gap-2 max-[900px]:grid-cols-3 max-[480px]:grid-cols-2">
+              {heroLines.map(({ icon: LineIcon, label, href }) => (
+                <li key={label}>
+                  <a href={href} className="group flex flex-col items-center gap-1.5 rounded-lg px-1 py-1 text-center transition hover:-translate-y-0.5">
+                    <span className="grid size-11 place-items-center rounded-full border-2 border-[#d4a31c] bg-white/80 text-[#b8860b] transition group-hover:bg-[#d4a31c] group-hover:text-white">
+                      <LineIcon size={20} />
+                    </span>
+                    <span className="text-[12px] leading-tight font-bold text-ink">{label}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </section>
