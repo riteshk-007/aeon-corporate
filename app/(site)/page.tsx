@@ -582,7 +582,7 @@ export default function Page() {
           <p className="mt-6 mb-3 text-[13px] font-black tracking-[.16em] text-brand">
             {term.length >= 2 ? "MATCHING SERVICES" : "RECOMMENDED SERVICES"}
           </p>
-          <div className="flex flex-wrap gap-2.5">
+          <div className="flex flex-wrap gap-2.5 max-[560px]:grid max-[560px]:grid-cols-2 max-[560px]:gap-2">
             {(term.length >= 2
               ? results.map((r) => ({ label: r.title, href: `/services/${r.slug}`, hint: r.category }))
               : (showAllQuick ? quickServices : quickServices.slice(0, QUICK_FIRST)).map(([label, page]) => ({
@@ -596,7 +596,7 @@ export default function Page() {
                 href={item.href}
                 title={item.hint || undefined}
                 className={cn(
-                  "rounded-lg px-4 py-2.5 text-[13px] font-semibold text-ink transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(11,27,77,.1)] motion-reduce:transition-none",
+                  "rounded-lg px-4 py-2.5 text-[13px] font-semibold text-ink transition duration-200 max-[560px]:flex max-[560px]:items-center max-[560px]:justify-center max-[560px]:px-2.5 max-[560px]:text-center max-[560px]:text-[12.5px] max-[560px]:leading-tight hover:-translate-y-0.5 hover:shadow-[0_8px_18px_rgba(11,27,77,.1)] motion-reduce:transition-none",
                   chipTones[i % chipTones.length],
                 )}
               >
@@ -608,7 +608,7 @@ export default function Page() {
                 type="button"
                 onClick={() => setShowAllQuick((v) => !v)}
                 aria-expanded={showAllQuick}
-                className="inline-flex items-center gap-1.5 rounded-lg bg-ink px-4 py-2.5 text-[13px] font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-brand motion-reduce:transition-none"
+                className="inline-flex items-center justify-center gap-1.5 max-[560px]:col-span-2 rounded-lg bg-ink px-4 py-2.5 text-[13px] font-bold text-white transition duration-200 hover:-translate-y-0.5 hover:bg-brand motion-reduce:transition-none"
               >
                 {showAllQuick ? "Less" : `More (${quickServices.length - QUICK_FIRST})`}{" "}
                 <span aria-hidden="true">{showAllQuick ? "−" : "+"}</span>
