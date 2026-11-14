@@ -68,11 +68,12 @@ export function AboutContent() {
           description="An AI and tech-enabled corporate and business advisory platform, offering curated services and solutions tailored to the unique needs of each client across industries and sectors."
           chips={focusAreas}
           image={{
-            src: "/illustrations/about-team.png",
-            alt: "Illustration of consultants working together on a client checklist",
-            width: 900,
-            height: 900,
-            position: "object-top",
+            src: "/photos/consulting.jpg",
+            alt: "An Aeon advisor going through a document with a client",
+            width: 1400,
+            height: 933,
+            position: "object-center",
+            photo: true,
           }}
           note={{ title: "Plan • Protect • Grow", sub: "From first call to ongoing support" }}
           icons={["advisory", "shield", "accountant"]}

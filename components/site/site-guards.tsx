@@ -6,7 +6,8 @@ import { Clock, Mail, MapPin, Phone, X } from "lucide-react"
 import { contactInfo } from "@/lib/site-data"
 import { LeadForm, type LeadField } from "@/components/site/lead-form"
 
-const EXIT_KEY = "aeon-exit-offer"
+const EXIT_KEY = "aeon-exit-offer-at"
+const COOLDOWN_MS = 90_000
 
 const fields: LeadField[] = [
   { name: "name", label: "Name", required: true, autoComplete: "name", placeholder: "Your name" },
@@ -35,23 +36,23 @@ export function SiteGuards() {
     return () => document.removeEventListener("copy", onCopy)
   }, [])
 
+  // Shown each time a visitor moves to leave (towards the tab bar / address bar), with a short
+  // pause between two showings so it never nags. Not on the contact page.
   useEffect(() => {
     if (pathname.startsWith("/contact-us")) return
     if (!window.matchMedia("(pointer: fine)").matches) return
-    try {
-      if (sessionStorage.getItem(EXIT_KEY)) return
-    } catch {}
     const armedAt = Date.now()
     const onLeave = (e: MouseEvent) => {
-      if (e.relatedTarget || e.clientY > 0 || Date.now() - armedAt < 8000) return
+      if (e.clientY > 8 || Date.now() - armedAt < 3000) return
       try {
-        sessionStorage.setItem(EXIT_KEY, "1")
+        const last = Number(sessionStorage.getItem(EXIT_KEY) ?? 0)
+        if (Date.now() - last < COOLDOWN_MS) return
+        sessionStorage.setItem(EXIT_KEY, String(Date.now()))
       } catch {}
       setOpen(true)
-      document.removeEventListener("mouseout", onLeave)
     }
-    document.addEventListener("mouseout", onLeave)
-    return () => document.removeEventListener("mouseout", onLeave)
+    document.documentElement.addEventListener("mouseleave", onLeave)
+    return () => document.documentElement.removeEventListener("mouseleave", onLeave)
   }, [pathname])
 
   useEffect(() => {

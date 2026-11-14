@@ -30,6 +30,8 @@ type PageHeroProps = {
     width: number
     height: number
     position?: string
+    /** A real photograph: shown cropped inside a rounded frame instead of as a cut-out. */
+    photo?: boolean
   }
   /** Small floating confirmation card on the picture. */
   note?: { title: string; sub: string }
@@ -145,7 +147,12 @@ export function PageHero({
               transition={{ duration: 0.55, delay: 0.12 }}
               className="relative mx-auto w-full max-w-[540px]"
             >
-              <div className="relative aspect-[4/3]">
+              <div
+                className={cn(
+                  "relative aspect-[4/3]",
+                  image.photo && "overflow-hidden rounded-xl border-[6px] border-white bg-white shadow-[0_30px_70px_rgba(11,27,77,.22)]",
+                )}
+              >
                 <Image
                   src={image.src}
                   alt={image.alt}
@@ -154,7 +161,10 @@ export function PageHero({
                   priority
                   sizes="(max-width: 900px) 100vw, 540px"
                   className={cn(
-                    "size-full animate-float-slow object-contain drop-shadow-[0_24px_30px_rgba(11,27,77,.18)]",
+                    "size-full",
+                    image.photo
+                      ? cn("object-cover", image.position)
+                      : "animate-float-slow object-contain drop-shadow-[0_24px_30px_rgba(11,27,77,.18)]",
                   )}
                 />
               </div>

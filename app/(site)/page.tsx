@@ -699,31 +699,31 @@ export default function Page() {
             aria-hidden="true"
             className="absolute -bottom-6 left-6 size-40 rounded-full border border-brand/25 max-[560px]:size-24"
           />
-          <div className="absolute top-0 right-10 bottom-14 left-0 max-[560px]:right-6 max-[560px]:bottom-10">
+          <div className="absolute top-0 right-10 bottom-14 left-0 overflow-hidden rounded-xl shadow-[0_30px_70px_rgba(11,27,77,.18)] max-[560px]:right-6 max-[560px]:bottom-10">
             <Image
-              src="/illustrations/about-team.png"
-              alt="Illustration of three consultants collaborating over documents and a compliance checklist"
+              src="/photos/legal-expert.jpg"
+              alt="An Aeon advisor explaining a document to a client"
 
-              className="size-full object-contain"
-              width={900}
-              height={900}
+              className="size-full object-cover object-[35%_50%]"
+              width={1400}
+              height={933}
               sizes="(max-width: 900px) 100vw, 640px"
             />
           </div>
-          <div className="absolute right-0 bottom-0 h-[210px] w-[44%] max-[560px]:h-[130px]">
+          <div className="absolute right-0 bottom-0 h-[210px] w-[44%] overflow-hidden rounded-lg border-[6px] border-white shadow-[0_24px_50px_rgba(11,27,77,.22)] max-[560px]:h-[130px] max-[560px]:border-4">
             <Image
-              src="/illustrations/about-documents.png"
-              alt="Illustration of a signed document with a seal, pen and magnifying glass"
+              src="/photos/consulting.jpg"
+              alt="Two professionals reviewing a contract together"
 
-              className="size-full animate-float object-contain drop-shadow-[0_18px_22px_rgba(11,27,77,.22)]"
-              width={700}
-              height={516}
+              className="size-full object-cover"
+              width={1400}
+              height={933}
               sizes="(max-width: 900px) 100vw, 640px"
             />
           </div>
           <div className="absolute top-8 -left-4 flex items-center gap-3 rounded-lg bg-sun px-4 py-3 shadow-[0_18px_36px_rgba(11,27,77,.14)] max-[560px]:top-4 max-[560px]:-left-1 max-[560px]:px-3 max-[560px]:py-2.5">
             <strong className="text-[32px] leading-none font-extrabold max-[560px]:text-2xl">
-              7
+              8
             </strong>
             <span className="text-xs leading-[1.3] font-bold">
               service areas
@@ -1278,16 +1278,17 @@ export default function Page() {
             aria-hidden="true"
             className="absolute -bottom-5 -left-5 size-44 rounded-xl bg-sun max-[560px]:size-28 max-[560px]:rounded-xl"
           />
-          <div className="relative min-h-[460px] max-[900px]:min-h-[380px] max-[560px]:min-h-[300px]">
+          <div className="relative min-h-[460px] overflow-hidden rounded-xl shadow-[0_30px_70px_rgba(11,27,77,.2)] max-[900px]:min-h-[380px] max-[560px]:min-h-[300px]">
             <Image
-              src="/illustrations/story-process.png"
-              alt="Illustration of a team presenting a step-by-step process on a board"
+              src="/photos/team-meeting.jpg"
+              alt="A team of professionals working together around a laptop"
 
-              className="absolute inset-0 size-full object-contain"
+              className="absolute inset-0 size-full object-cover"
               width={1400}
-              height={910}
+              height={932}
               sizes="(max-width: 900px) 100vw, 640px"
             />
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,transparent_50%,rgba(11,27,77,.55))]" />
             <button
               onClick={() => setVideoOpen(true)}
               aria-label="Open brand story"
@@ -1303,7 +1304,7 @@ export default function Page() {
                 className="relative ml-1 transition-transform group-hover:scale-110"
               />
             </button>
-            <span className="absolute bottom-5 left-1/2 -translate-x-1/2 rounded-full bg-ink/85 px-4 py-2 text-[13px] font-bold whitespace-nowrap text-white shadow-[0_10px_24px_rgba(11,27,77,.25)]">
+            <span className="absolute bottom-5 left-1/2 -translate-x-1/2 rounded-full border border-white/30 bg-white/15 px-4 py-2 text-[13px] font-bold whitespace-nowrap text-white backdrop-blur-md">
               Watch our process
             </span>
           </div>
