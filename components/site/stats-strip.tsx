@@ -1,67 +1,86 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import NumberFlow from "@number-flow/react"
 import { Clock, Layers, MapPin, Users, type LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { Eyebrow, wrap } from "@/components/site/ui"
 
-type Stat = { value: number; suffix?: string; label: string; hint: string; icon: LucideIcon; tone: string }
+type Stat = { value: number; suffix: string; label: string; hint: string; icon: LucideIcon; tone: string; glow: string }
 
 // Figures from the client's brief and the site's own content.
 const stats: Stat[] = [
-  { value: 40, suffix: "+", label: "Professional experts", hint: "In-house team and partner network", icon: Users, tone: "bg-brand text-white" },
-  { value: 15, suffix: "+", label: "Cities and towns", hint: "Independent professionals across India", icon: MapPin, tone: "bg-sun text-ink" },
-  { value: 550, suffix: "+", label: "Services covered", hint: "Registrations, licences, compliance, advisory", icon: Layers, tone: "bg-flame text-white" },
-  { value: 24, suffix: " hrs", label: "To hear back", hint: "Our team replies promptly", icon: Clock, tone: "bg-white text-brand" },
+  { value: 40, suffix: "+", label: "Professional experts", hint: "In-house team and partner network", icon: Users, tone: "bg-brand text-white", glow: "rgba(63,109,246,.35)" },
+  { value: 15, suffix: "+", label: "Cities and towns", hint: "Independent professionals across India", icon: MapPin, tone: "bg-sun text-ink", glow: "rgba(255,190,11,.3)" },
+  { value: 550, suffix: "+", label: "Services covered", hint: "Registrations, licences, compliance, advisory", icon: Layers, tone: "bg-flame text-white", glow: "rgba(249,87,1,.3)" },
+  { value: 24, suffix: " hrs", label: "To hear back", hint: "Our team replies promptly", icon: Clock, tone: "bg-white text-brand", glow: "rgba(255,255,255,.25)" },
 ]
 
-function useCountUp(target: number, run: boolean, ms = 1500) {
+/**
+ * Rolling-digit counters (NumberFlow, the library used by the 21st.dev "Number Ticker" component)
+ * on cards with a light that follows the pointer. The numbers roll up when the section scrolls into view.
+ */
+function Card({ stat, run, i }: { stat: Stat; run: boolean; i: number }) {
   const [n, setN] = useState(0)
+  const ref = useRef<HTMLLIElement>(null)
+  const Icon = stat.icon
+
   useEffect(() => {
     if (!run) return
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setN(target)
-      return
-    }
-    let raf = 0
-    const t0 = performance.now()
-    const tick = (t: number) => {
-      const p = Math.min(1, (t - t0) / ms)
-      setN(Math.round(target * (1 - Math.pow(1 - p, 3))))
-      if (p < 1) raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [run, target, ms])
-  return n
-}
+    const t = setTimeout(() => setN(stat.value), 250 + i * 160)
+    return () => clearTimeout(t)
+  }, [run, stat.value, i])
 
-function Card({ stat, run, i }: { stat: Stat; run: boolean; i: number }) {
-  const n = useCountUp(stat.value, run)
-  const Icon = stat.icon
+  const onMove = (e: React.PointerEvent<HTMLLIElement>) => {
+    const el = ref.current
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    el.style.setProperty("--mx", `${e.clientX - r.left}px`)
+    el.style.setProperty("--my", `${e.clientY - r.top}px`)
+  }
+
   return (
     <li
+      ref={ref}
+      onPointerMove={onMove}
+      style={{ transitionDelay: `${i * 90}ms`, ["--glow" as string]: stat.glow }}
       className={cn(
-        "group relative overflow-hidden rounded-lg border border-white/10 bg-white/[.06] p-6 transition duration-700 hover:-translate-y-1 hover:border-white/25 hover:bg-white/10",
+        "group relative overflow-hidden rounded-lg border border-white/10 bg-white/[.06] p-6 transition duration-700 hover:-translate-y-1.5 hover:border-white/30",
         run ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0",
       )}
-      style={{ transitionDelay: `${i * 100}ms` }}
     >
-      <span className={cn("grid size-11 place-items-center rounded-md", stat.tone)}>
-        <Icon size={21} />
-      </span>
-      <b className="mt-5 block text-[clamp(40px,4.2vw,56px)] leading-none font-extrabold tracking-[-0.04em] text-white tabular-nums">
-        {n}
-        <span className="text-sun">{stat.suffix}</span>
+      {/* light that follows the pointer */}
+      <span
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        style={{ background: "radial-gradient(220px circle at var(--mx,50%) var(--my,50%), var(--glow), transparent 70%)" }}
+      />
+      <div className="relative flex items-center justify-between">
+        <span className={cn("grid size-11 place-items-center rounded-md", stat.tone)}>
+          <Icon size={21} />
+        </span>
+        <span className="relative flex size-2.5" aria-hidden="true">
+          <span className="absolute inline-flex size-full animate-ping rounded-full bg-sun opacity-70 [animation-duration:2.2s]" />
+          <span className="relative inline-flex size-2.5 rounded-full bg-sun" />
+        </span>
+      </div>
+      <b className="relative mt-5 block text-[clamp(40px,4.2vw,58px)] leading-none font-extrabold tracking-[-0.04em] text-white">
+        <NumberFlow
+          value={n}
+          suffix={stat.suffix}
+          trend={1}
+          transformTiming={{ duration: 1300, easing: "cubic-bezier(.22,1,.36,1)" }}
+          spinTiming={{ duration: 1300, easing: "cubic-bezier(.22,1,.36,1)" }}
+          className="[&::part(suffix)]:text-sun"
+        />
       </b>
-      <span className="mt-3 block text-[16px] font-bold text-white">{stat.label}</span>
-      <span className="mt-1 block text-[13px] leading-snug text-white/60">{stat.hint}</span>
+      <span className="relative mt-3 block text-[16px] font-bold text-white">{stat.label}</span>
+      <span className="relative mt-1 block text-[13px] leading-snug text-white/60">{stat.hint}</span>
       <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-[linear-gradient(90deg,#3f6df6,#ffbe0b)] transition-transform duration-300 group-hover:scale-x-100" />
     </li>
   )
 }
 
-/** Four counting figures on a navy band. Light CSS only, nothing heavy to load. */
 export function StatsStrip() {
   const ref = useRef<HTMLElement>(null)
   const [run, setRun] = useState(false)

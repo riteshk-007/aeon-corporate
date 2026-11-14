@@ -265,3 +265,6 @@
   body:has([data-bottom-bar]) [data-floater="top"] { bottom: 136px; }
 }
 
+
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }

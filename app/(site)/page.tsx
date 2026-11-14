@@ -29,6 +29,7 @@ import {
   wrap,
 } from "@/components/site/ui"
 import { useMenuLinks } from "@/components/site/menu-links"
+import { ProcessWizard } from "@/components/site/process-wizard"
 import { StatsStrip } from "@/components/site/stats-strip"
 import { HeroBackdrop } from "@/components/ui/hero-backdrop"
 import { HandDrawnFrame } from "@/components/ui/hand-writing-text"
@@ -926,68 +927,15 @@ export default function Page() {
             </a>
           </div>
 
-          <ol className="relative mt-16 grid grid-cols-4 gap-5 max-[900px]:grid-cols-2 max-[560px]:mt-10 max-[560px]:grid-cols-1 max-[560px]:gap-4">
-            <div
-              aria-hidden="true"
-              className="absolute top-[27px] right-[27px] left-[27px] h-0.5 rounded-full bg-[#cbd9f4] max-[900px]:hidden"
-            />
-            <motion.div
-              aria-hidden="true"
-              className="absolute top-[27px] right-[27px] left-[27px] h-0.5 origin-left rounded-full bg-[linear-gradient(90deg,#3f6df6,#ffbe0b)] max-[900px]:hidden"
-              initial={reduceMotion ? false : { scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true, amount: 0.6 }}
-              transition={{ duration: 1.8, ease: "easeInOut" }}
-            />
-            {processSteps.map(([num, title, description, points], i) => {
-              const stepIcon = processIcons[i]
-              return (
-                <motion.li
-                  key={num}
-                  className="relative"
-                  initial={reduceMotion ? false : { opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  transition={{ duration: 0.6, delay: i * 0.14 }}
-                >
-                  <span
-                    className={cn(
-                      "relative z-10 grid size-16 place-items-center rounded-full border-4 bg-white shadow-[0_10px_24px_rgba(63,109,246,.22)]",
-                      i % 2 === 1 ? "border-sun" : "border-brand",
-                    )}
-                  >
-                    <ColorIcon name={stepIcon} size={42} />
-                  </span>
-                  <div className="group relative mt-5 overflow-hidden rounded-xl border border-line bg-white p-6 transition duration-300 hover:-translate-y-1.5 hover:border-brand/40 hover:shadow-[0_22px_44px_rgba(63,109,246,.12)] motion-reduce:transition-none">
-                    <span
-                      aria-hidden="true"
-                      className="absolute -top-3 right-3 text-[84px] leading-none font-black tracking-[-0.06em] text-brand/[.07] transition-colors duration-300 group-hover:text-brand/[.14]"
-                    >
-                      {num}
-                    </span>
-                    <p className="relative text-[11px] font-black tracking-[.18em] text-brand">
-                      STEP {num}
-                    </p>
-                    <h3 className="relative mt-3 text-[19px] leading-[1.2] font-bold tracking-[-0.02em]">
-                      {title}
-                    </h3>
-                    <p className="relative mt-2.5 text-[13px] leading-[1.65] text-mute">
-                      {description}
-                    </p>
-                    <ul className="ae-list relative mt-4 grid gap-1.5 text-[13px] leading-[1.5] font-semibold text-ink/85">
-                      {points.map((pt) => (
-                        <li key={pt}>{pt}</li>
-                      ))}
-                    </ul>
-                    <span
-                      aria-hidden="true"
-                      className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-[linear-gradient(90deg,#3f6df6,#ffbe0b)] transition-transform duration-300 group-hover:scale-x-100"
-                    />
-                  </div>
-                </motion.li>
-              )
-            })}
-          </ol>
+          <ProcessWizard
+            steps={processSteps.map(([num, title, description, points], i) => ({
+              num,
+              title,
+              description,
+              points,
+              icon: processIcons[i],
+            }))}
+          />
         </div>
       </section>
 
