@@ -2,25 +2,22 @@
 
 import { LoopVideo } from "@/components/site/loop-video"
 
-// Fades the picture into the hero background on every side that touches it.
-const FADE =
-  "linear-gradient(to right, transparent 0%, #000 42%), linear-gradient(to bottom, transparent 0%, #000 16%, #000 78%, transparent 100%)"
-
 /**
- * Home hero picture as the right-hand part of the hero background: the infinity-loop city
- * dissolves into the sky on the left, top and bottom, so there is no box or frame around it.
+ * Home hero picture. On wide screens it is the right-hand part of the hero background and dissolves
+ * into the sky on the left, top and bottom. On phones and tablets it sits above the text as a
+ * full-width picture that fades into the page at the bottom.
  */
 export function HeroLoop() {
   return (
     <div
-      aria-hidden={false}
-      className="pointer-events-none absolute top-[2%] -right-[4%] aspect-[4/3] h-[90%] max-[900px]:inset-x-0 max-[900px]:aspect-auto max-[900px]:w-full max-[900px]:opacity-45"
-      style={{
-        WebkitMaskImage: FADE,
-        maskImage: FADE,
-        WebkitMaskComposite: "source-in",
-        maskComposite: "intersect",
-      }}
+      className={
+        "pointer-events-none absolute top-[2%] -right-[4%] aspect-[4/3] h-[90%] " +
+        "[-webkit-mask-composite:source-in] [mask-composite:intersect] " +
+        "[-webkit-mask-image:linear-gradient(to_right,transparent_0%,#000_42%),linear-gradient(to_bottom,transparent_0%,#000_16%,#000_78%,transparent_100%)] " +
+        "[mask-image:linear-gradient(to_right,transparent_0%,#000_42%),linear-gradient(to_bottom,transparent_0%,#000_16%,#000_78%,transparent_100%)] " +
+        "max-[900px]:relative max-[900px]:top-auto max-[900px]:right-auto max-[900px]:mx-auto max-[900px]:-mb-7 max-[900px]:h-auto max-[900px]:w-[min(100%,760px)] " +
+        "max-[900px]:[-webkit-mask-image:linear-gradient(to_right,transparent_0%,#000_9%,#000_91%,transparent_100%),linear-gradient(to_bottom,transparent_0%,#000_14%,#000_62%,transparent_100%)] max-[900px]:[mask-image:linear-gradient(to_right,transparent_0%,#000_9%,#000_91%,transparent_100%),linear-gradient(to_bottom,transparent_0%,#000_14%,#000_62%,transparent_100%)]"
+      }
     >
       <LoopVideo
         src="/video/hero-infinity.mp4"

@@ -430,17 +430,17 @@ export default function Page() {
 
   return (
     <main id="top" className="overflow-hidden">
-      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#9fc8fb_0%,#d3e6fd_42%,#f6efe0_100%)] flex min-h-[calc(100svh+10px)] flex-col pt-[108px] pb-24 max-[900px]:min-h-0 max-[900px]:pt-[104px] max-[900px]:pb-24 max-[560px]:pt-[92px] max-[560px]:pb-20">
+      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#9fc8fb_0%,#d3e6fd_42%,#f6efe0_100%)] flex min-h-[calc(100svh+10px)] flex-col pt-[108px] pb-24 max-[900px]:min-h-0 max-[900px]:pt-[84px] max-[900px]:pb-20 max-[560px]:pt-[76px] max-[560px]:pb-16">
         {/* sunrise glow and soft clouds, like the brand artwork */}
         <div aria-hidden="true" className="pointer-events-none absolute -bottom-40 -left-32 size-[520px] rounded-full bg-sun/45 blur-[120px]" />
         <div aria-hidden="true" className="pointer-events-none absolute -top-32 right-[8%] size-[460px] rounded-full bg-white/70 blur-[110px]" />
         <div aria-hidden="true" className="absolute inset-0 bg-[radial-gradient(circle,rgba(255,255,255,.55)_1px,transparent_1.5px)] [background-size:26px_26px] [mask-image:linear-gradient(100deg,transparent,black_60%,transparent)] opacity-60" />
         <HeroLoop />
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(214,232,254,.92)_0%,rgba(214,232,254,.55)_34%,transparent_62%)] max-[900px]:bg-[linear-gradient(180deg,rgba(214,232,254,.85),rgba(214,232,254,.55))]" />
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(214,232,254,.92)_0%,rgba(214,232,254,.55)_34%,transparent_62%)] max-[900px]:hidden" />
         <div className={cn(wrap, "relative z-[1] my-auto")}>
           <div className="grid grid-cols-1">
-            <div className="max-w-[660px]">
-              <Eyebrow className="w-fit rounded bg-white px-3 py-1.5 text-flame shadow-[0_8px_20px_rgba(11,27,77,.12)]">
+            <div className="max-w-[660px] max-[900px]:mx-auto max-[900px]:text-center">
+              <Eyebrow className="w-fit rounded bg-white max-[900px]:mx-auto max-[900px]:justify-center px-3 py-1.5 text-flame shadow-[0_8px_20px_rgba(11,27,77,.12)]">
                 LEGAL AND FINANCIAL SERVICES, REIMAGINED
               </Eyebrow>
               <h1 className="text-[clamp(36px,3.7vw,58px)] leading-[1.05] font-black tracking-[-0.04em] text-ink max-[900px]:text-[clamp(40px,9vw,60px)] max-[560px]:text-[clamp(34px,10.5vw,48px)]">
@@ -459,14 +459,14 @@ export default function Page() {
                   <span className="text-brand">Progress.</span>
                 </HandDrawnFrame>
               </h1>
-              <p className="mt-5 max-w-[560px] text-[16.5px] leading-[1.7] text-ink/80 max-[560px]:text-[15px]">
+              <p className="mt-5 max-w-[560px] text-[16.5px] max-[900px]:mx-auto leading-[1.7] text-ink/80 max-[560px]:text-[15px]">
                 Aeon, your{" "}
                 <span className="rounded bg-brand px-1.5 font-bold text-white [box-decoration-break:clone]">
                   trusted partner for legal and financial services
                 </span>
                 . We absorb your day-to-day procedural stress and make you free to focus on strategic growth and long-term sustainability.
               </p>
-              <div className="mt-6 flex flex-wrap gap-3 max-[560px]:grid max-[560px]:grid-cols-1">
+              <div className="mt-6 flex flex-wrap gap-3 max-[900px]:justify-center max-[560px]:grid max-[560px]:grid-cols-1">
                 <a className={btnBlue} href="#contact">
                   Talk to an expert <ArrowRight size={16} />
                 </a>
