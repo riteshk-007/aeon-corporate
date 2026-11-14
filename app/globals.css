@@ -264,3 +264,4 @@
   body:has([data-bottom-bar]) [data-floater="mail"] { bottom: 84px; }
   body:has([data-bottom-bar]) [data-floater="top"] { bottom: 136px; }
 }
+

@@ -5,6 +5,7 @@ import Link from "next/link"
 import { MotionConfig, motion } from "framer-motion"
 import { ArrowRight, Clock, Cpu, Handshake, Mail, MapPin, Network, Phone, Quote, Target, UserRound } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { LoopVideo } from "@/components/site/loop-video"
 import { contactInfo } from "@/lib/site-data"
 import { Highlight, PageHero } from "@/components/site/page-hero"
 import { ColorIcon, Eyebrow, SectionHeading, btnBlue, btnYellow, wrap } from "@/components/site/ui"
@@ -108,12 +109,11 @@ export function AboutContent() {
             </div>
           </motion.div>
           <motion.div {...reveal(1)} className="relative">
-            <Image
-              src="/illustrations/about-connected.png"
-              alt="Illustration of connected teams and systems working as one"
-              width={704}
-              height={546}
-              className="relative w-full object-contain drop-shadow-[0_24px_30px_rgba(11,27,77,.15)]"
+            <LoopVideo
+              src="/video/connected-loop.mp4"
+              poster="/video/connected-loop-poster.jpg"
+              alt="Four connected teams working as one, linked by a flowing infinity loop"
+              className="relative w-full"
             />
           </motion.div>
         </section>

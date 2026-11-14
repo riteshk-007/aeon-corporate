@@ -29,6 +29,7 @@ import {
   wrap,
 } from "@/components/site/ui"
 import { useMenuLinks } from "@/components/site/menu-links"
+import { StatsStrip } from "@/components/site/stats-strip"
 import { HeroBackdrop } from "@/components/ui/hero-backdrop"
 import { HandDrawnFrame } from "@/components/ui/hand-writing-text"
 
@@ -818,6 +819,8 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      <StatsStrip />
 
       <section id="services" className="bg-sky py-28 max-[560px]:py-20">
         <div className={wrap}>
