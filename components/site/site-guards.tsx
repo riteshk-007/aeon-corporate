@@ -83,26 +83,28 @@ export function SiteGuards() {
           role="dialog"
           aria-modal="true"
           aria-labelledby="exit-title"
-          className="grid max-h-[calc(100dvh-24px)] grid-cols-[300px_1fr] overflow-y-auto overscroll-contain rounded-lg bg-white shadow-[0_30px_90px_rgba(0,0,0,.35)] max-[760px]:grid-cols-1 sm:max-h-[calc(100dvh-32px)]"
+          className="grid max-h-[calc(100dvh-24px)] grid-cols-[330px_1fr] overflow-y-auto overscroll-contain rounded-lg bg-white shadow-[0_30px_90px_rgba(0,0,0,.35)] max-[760px]:grid-cols-1 sm:max-h-[calc(100dvh-32px)]"
         >
-          <aside className="relative bg-[linear-gradient(160deg,#0b1b4d,#0b3590)] p-8 text-white max-[760px]:order-2 max-[760px]:p-5">
+          <aside className="relative border-r border-[#e8e2d4] bg-[#f7f4ec] p-8 text-ink max-[760px]:order-2 max-[760px]:border-t max-[760px]:border-r-0 max-[760px]:p-5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/aeon-logo-light.png" alt="Aeon Corporate" className="h-14 w-auto max-[760px]:h-10" />
-            <ul className="mt-8 grid gap-5 text-[15px] max-[760px]:mt-4 max-[760px]:gap-3 max-[760px]:text-[14px]">
-              <li className="flex items-start gap-3 border-b border-white/15 pb-5 max-[760px]:pb-3">
-                <Phone size={20} className="mt-0.5 shrink-0 text-sun" />
-                <a href={`tel:+${contactInfo.phone}`} className="hover:text-sun">{contactInfo.phoneDisplay}</a>
+            <span className="inline-block">
+              <img src="/brand/aeon-logo.png" alt="Aeon Corporate" className="h-[68px] w-auto max-[760px]:h-12" />
+            </span>
+            <ul className="mt-8 grid gap-5 text-[14.5px] max-[760px]:mt-4 max-[760px]:gap-3 max-[760px]:text-[14px]">
+              <li className="flex items-start gap-3 border-b border-[#e0d9c8] pb-5 max-[760px]:pb-3">
+                <Phone size={20} className="mt-0.5 shrink-0 text-brand" />
+                <a href={`tel:+${contactInfo.phone}`} className="hover:text-brand">{contactInfo.phoneDisplay}</a>
               </li>
-              <li className="flex items-start gap-3 border-b border-white/15 pb-5 max-[760px]:pb-3">
-                <Mail size={20} className="mt-0.5 shrink-0 text-sun" />
-                <a href="mailto:support@aeoncorporate.com" className="[overflow-wrap:anywhere] hover:text-sun">support@aeoncorporate.com</a>
+              <li className="flex items-start gap-3 border-b border-[#e0d9c8] pb-5 max-[760px]:pb-3">
+                <Mail size={20} className="mt-0.5 shrink-0 text-brand" />
+                <a href="mailto:support@aeoncorporate.com" className="whitespace-nowrap hover:text-brand max-[400px]:whitespace-normal max-[400px]:[overflow-wrap:anywhere]">support@aeoncorporate.com</a>
               </li>
-              <li className="flex items-start gap-3 border-b border-white/15 pb-5 max-[760px]:pb-3">
-                <MapPin size={20} className="mt-0.5 shrink-0 text-sun" />
+              <li className="flex items-start gap-3 border-b border-[#e0d9c8] pb-5 max-[760px]:pb-3">
+                <MapPin size={20} className="mt-0.5 shrink-0 text-brand" />
                 Delhi | Mumbai | Bangalore | Raipur | Dehradun
               </li>
               <li className="flex items-start gap-3">
-                <Clock size={20} className="mt-0.5 shrink-0 text-sun" />
+                <Clock size={20} className="mt-0.5 shrink-0 text-brand" />
                 Our team will get back to you within 24 hours.
               </li>
             </ul>

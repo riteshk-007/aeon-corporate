@@ -272,7 +272,7 @@ export function MenuEditor({
                     </li>
                   ))}
                 </ul>
-                {!ro && top.categories.length < 20 && (
+                {!ro && top.categories.length < 40 && (
                   <Button
                     type="button"
                     variant="outline"

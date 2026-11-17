@@ -164,7 +164,7 @@ build output, generated Prisma client and AI-tool folders (`.claude`, `.agents`,
   pages safely (edited pages and menus are left alone): `pnpm exec tsx prisma/apply-startup.ts`.
 - Set `NEXT_PUBLIC_SITE_URL` to the real https domain before going live: it is used
   for canonical links, the sitemap and structured data.
-- Limits: 8 menus, 20 categories per menu, 150 links per category.
+- Limits: 8 menus, 40 categories per menu, 150 links per category.
 
 ## Email notices (Brevo SMTP)
 

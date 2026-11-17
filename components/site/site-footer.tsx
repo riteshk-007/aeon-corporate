@@ -28,13 +28,18 @@ const footerHref: Record<string, string> = {
 
 export function SiteFooter({ menu }: { menu: MenuTop[] }) {
   // Footer columns follow the header menu that is edited in the admin panel.
-  const columns = menu.map((t) => ({
-    title: t.label,
-    links: t.categories.slice(0, 9).map((c) => ({
-      label: c.label,
-      href: c.href || c.links[0]?.href || t.href || "/contact-us",
-    })),
-  }))
+  const columns = menu
+    .filter((t) => t.categories.length > 0)
+    .map((t) => ({
+      title: t.label,
+      links:
+        t.categories.length === 1
+          ? t.categories[0].links.map((l) => ({ label: l.label, href: l.href || "/contact-us" }))
+          : t.categories.slice(0, 9).map((c) => ({
+              label: c.label,
+              href: c.href || c.links[0]?.href || t.href || "/contact-us",
+            })),
+    }))
   const [newsletterNotice, setNewsletterNotice] = useState("")
 
   return (
@@ -153,7 +158,7 @@ export function SiteFooter({ menu }: { menu: MenuTop[] }) {
             </div>
           </div>
 
-          <div className="grid grid-cols-[1.4fr_repeat(5,1fr)] gap-x-8 gap-y-12 pt-16 pb-12 max-[1100px]:grid-cols-[1.2fr_repeat(5,1fr)] max-[900px]:grid-cols-2 max-[900px]:pt-12 max-[560px]:gap-x-5 max-[560px]:pt-10">
+          <div style={{ ["--cols" as string]: columns.length }} className="grid grid-cols-[1.4fr_repeat(var(--cols),1fr)] gap-x-8 gap-y-12 pt-16 pb-12 max-[1100px]:grid-cols-[1.2fr_repeat(var(--cols),1fr)] max-[900px]:grid-cols-2 max-[900px]:pt-12 max-[560px]:gap-x-5 max-[560px]:pt-10">
             <div className="max-[900px]:col-span-2">
               <Logo light />
               <p className="mt-5 max-w-[300px] text-[14px] leading-[1.7] text-white/70">

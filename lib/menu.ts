@@ -30,7 +30,7 @@ export const menuSchema = z.object({
               links: z.array(z.object({ label, href })).max(150, "A category can have at most 150 links"),
             }),
           )
-          .max(20, "A menu can have at most 20 categories"),
+          .max(40, "A menu can have at most 40 categories"),
       }),
     )
     .max(8),

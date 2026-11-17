@@ -12,6 +12,14 @@ export const btnYellow = `${btn} bg-sun text-ink`
 export const btnWhite = `${btn} bg-white text-ink`
 export const btnOutline = `${btn} border border-[#bfcbe0] bg-white/70 text-ink`
 
+const LINE: Record<string, string> = {
+  accountant: "tax", advisory: "consulting", bag: "briefcase", bolt: "rocket", bulb: "idea", chip: "network",
+  company: "government", factory: "briefcase", form: "checklist", health: "shield", laptop: "network",
+  mail: "email", store: "briefcase", templates: "folder", "svc-approval": "approved", "svc-eligibility": "checklist",
+  "svc-registration": "license", "svc-review": "folder", "svc-support": "consulting",
+}
+
+/** Black outline icon (Magnific set in /icons/line). Old colourful names map to the closest outline. */
 export function ColorIcon({
   name,
   size = 28,
@@ -23,7 +31,7 @@ export function ColorIcon({
 }) {
   return (
     <img
-      src={`/icons/${name}.svg`}
+      src={`/icons/line/${LINE[name] ?? name}.svg`}
       alt=""
       aria-hidden="true"
       width={size}
@@ -31,7 +39,7 @@ export function ColorIcon({
       loading="lazy"
       decoding="async"
       style={{ width: size, height: size }}
-      className={cn("shrink-0 object-contain", className)}
+      className={cn("shrink-0 object-contain [filter:brightness(0)]", className)}
     />
   )
 }
@@ -57,10 +65,10 @@ export function Logo({
         className={cn(
           "w-auto object-contain transition-[height] duration-300",
           light
-            ? "h-[72px] max-[560px]:h-16"
+            ? "h-24 max-[560px]:h-[76px]"
             : compact
               ? "h-12 max-[560px]:h-[42px]"
-              : "h-14 max-[560px]:h-[46px]",
+              : "h-[62px] max-[1100px]:h-14 max-[560px]:h-[50px]",
         )}
       />
     </Link>

@@ -63,7 +63,7 @@ export function PageHero({
 }: PageHeroProps) {
   return (
     <MotionConfig reducedMotion="user">
-      <section className="pt-[124px] max-[1024px]:pt-[110px] max-[560px]:pt-[92px]">
+      <section className="pt-[124px] min-[1025px]:pt-[164px] max-[1024px]:pt-[110px] max-[560px]:pt-[92px]">
         <div
           className={cn(
             wrap,

@@ -12,7 +12,7 @@ import { JsonLd } from "@/components/site/json-ld"
 import { LeadForm, type LeadField } from "@/components/site/lead-form"
 import { SectionNav } from "@/components/site/section-nav"
 import { StepsDialog } from "@/components/site/steps-dialog"
-import { Eyebrow, btnBlue, btnYellow } from "@/components/site/ui"
+import { ColorIcon, Eyebrow, btnBlue, btnYellow } from "@/components/site/ui"
 import { RichContent } from "@/components/editor/rich-content"
 import { SITE_URL, breadcrumbLd, pageMetadata } from "@/lib/seo"
 import { autoSeoDescription, autoSeoTitle } from "@/lib/seo-auto"
@@ -143,7 +143,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
   ]
 
   return (
-    <main id="top" className="overflow-x-clip pt-[100px] pb-28 max-[1024px]:pt-[110px] max-[560px]:pt-[92px]">
+    <main id="top" className="overflow-x-clip pt-[100px] pb-28 min-[1025px]:pt-[140px] max-[1024px]:pt-[110px] max-[560px]:pt-[92px]">
       <JsonLd
         data={[
           breadcrumbLd([
@@ -208,7 +208,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 {s.highlights.slice(0, 4).map((h, i) => (
                   <li key={h} className="flex items-center gap-3 rounded-lg bg-white/85 p-2.5 pr-3 text-[13.5px] leading-[1.35] font-bold text-ink/90 shadow-[0_6px_18px_rgba(11,27,77,.05)] ring-1 ring-white">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={`/icons/${includedIcon(h, i)}.svg`} alt="" aria-hidden="true" width={40} height={40} className="size-10 shrink-0" />
+                    <ColorIcon name={includedIcon(h, i)} size={40} />
                     {h}
                   </li>
                 ))}
@@ -227,7 +227,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               <div aria-hidden="true" className="absolute -top-10 -right-10 size-32 rounded-full border border-white/20" />
               <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-white">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/icons/svc-support.svg" alt="" aria-hidden="true" width={30} height={30} className="size-[30px]" />
+                <ColorIcon name="svc-support" size={30} />
               </span>
               <div className="min-w-0">
                 <b className="block text-[17px] leading-tight tracking-[-0.02em]">Get free expert consultation</b>

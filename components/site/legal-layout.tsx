@@ -30,7 +30,7 @@ export function LegalLayout({
       : { href: "/privacy-policy", label: "Privacy Policy", icon: ShieldCheck }
 
   return (
-    <main id="top" className="overflow-hidden pt-[124px] pb-24 max-[1024px]:pt-[110px] max-[560px]:pt-[92px]">
+    <main id="top" className="overflow-hidden pt-[124px] min-[1025px]:pt-[164px] pb-24 max-[1024px]:pt-[110px] max-[560px]:pt-[92px]">
       <div className={wrap}>
         <header className="rounded-xl bg-[linear-gradient(135deg,#eaf3ff,#cfe5ff_60%,#dcebff)] px-12 py-12 max-[900px]:px-6 max-[900px]:py-9 max-[560px]:rounded-xl">
           <nav
