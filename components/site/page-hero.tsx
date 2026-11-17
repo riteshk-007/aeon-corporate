@@ -10,7 +10,7 @@ import { ColorIcon, Eyebrow, wrap } from "@/components/site/ui"
 /** Yellow marker highlight for the key words of a hero title. */
 export function Highlight({ children }: { children: React.ReactNode }) {
   return (
-    <span className="bg-[linear-gradient(transparent_64%,#FD6902_64%)] px-1">
+    <span className="text-sun">
       {children}
     </span>
   )

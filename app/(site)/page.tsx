@@ -36,7 +36,7 @@ import {
   wrap,
 } from "@/components/site/ui"
 import { useMenuLinks } from "@/components/site/menu-links"
-import { ProcessWizard } from "@/components/site/process-wizard"
+import { ProcessBoard } from "@/components/site/process-board"
 import { HeroLoop } from "@/components/site/hero-loop"
 
 const explorerServices: Record<string, { title: string; description: string }[]> = {
@@ -429,7 +429,7 @@ export default function Page() {
 
   return (
     <main id="top" className="overflow-hidden">
-      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#9fc8fb_0%,#d3e6fd_42%,#f6efe0_100%)] flex min-h-[calc(100svh+10px)] flex-col pt-[108px] pb-28 min-[1025px]:pt-[148px] max-[900px]:min-h-0 max-[900px]:pt-[96px] max-[900px]:pb-16 max-[560px]:pt-[88px] max-[560px]:pb-14">
+      <section className="relative overflow-hidden bg-[linear-gradient(180deg,#9fc8fb_0%,#d3e6fd_42%,#f6efe0_100%)] flex min-h-[calc(100svh+60px)] flex-col pt-[108px] pb-[172px] min-[1025px]:pt-[148px] max-[900px]:min-h-0 max-[900px]:pt-[96px] max-[900px]:pb-16 max-[560px]:pt-[88px] max-[560px]:pb-14">
         {/* sunrise glow and soft clouds, like the brand artwork */}
         <div aria-hidden="true" className="pointer-events-none absolute -bottom-40 -left-32 size-[520px] rounded-full bg-sun/45 blur-[120px]" />
         <div aria-hidden="true" className="pointer-events-none absolute -top-32 right-[8%] size-[460px] rounded-full bg-white/70 blur-[110px]" />
@@ -853,7 +853,7 @@ export default function Page() {
             </a>
           </div>
 
-          <ProcessWizard
+          <ProcessBoard
             steps={processSteps.map(([num, title, description, points], i) => ({
               num,
               title,

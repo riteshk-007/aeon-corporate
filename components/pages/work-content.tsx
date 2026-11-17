@@ -134,7 +134,7 @@ export function WorkContent() {
               <Eyebrow>WHY JOIN AEON?</Eyebrow>
               <h2 className="max-w-[560px] text-[clamp(30px,3.7vw,46px)] leading-[1.06] font-extrabold tracking-[-0.035em]">
                 We grow as our people{" "}
-                <span className="bg-[linear-gradient(transparent_62%,#FD6902_62%)] px-1">
+                <span className="text-sun">
                   grow.
                 </span>
               </h2>

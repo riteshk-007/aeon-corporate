@@ -12,7 +12,7 @@ import { JsonLd } from "@/components/site/json-ld"
 import { LeadForm, type LeadField } from "@/components/site/lead-form"
 import { SectionNav } from "@/components/site/section-nav"
 import { StepsDialog } from "@/components/site/steps-dialog"
-import { splitList } from "@/lib/section-items"
+import { splitGroups, splitList } from "@/lib/section-items"
 import { BarChart3, Clock, FileText, Globe2, Handshake, Landmark, Scale, Search, SlidersHorizontal, Sparkles, Users, Zap, type LucideIcon } from "lucide-react"
 import { ColorIcon, Eyebrow, btnBlue, btnYellow } from "@/components/site/ui"
 import { RichContent } from "@/components/editor/rich-content"
@@ -144,6 +144,19 @@ function Cards({ items, cols = 3 }: { items: { title: string; text: string }[]; 
           </li>
         )
       })}
+    </ul>
+  )
+}
+
+function Chips({ items }: { items: { title: string }[] }) {
+  return (
+    <ul className="mt-3 grid grid-cols-3 gap-2.5 max-[1180px]:grid-cols-2 max-[640px]:grid-cols-1">
+      {items.map((it, i) => (
+        <li key={it.title + i} className="flex items-start gap-2.5 rounded-lg border border-line bg-[#fbfdff] px-3.5 py-2.5 text-[14px] leading-snug font-semibold text-ink/90">
+          <ClipboardCheck size={17} strokeWidth={1.9} className="mt-0.5 shrink-0 text-brand" />
+          <span className="min-w-0 [overflow-wrap:anywhere]">{it.title}</span>
+        </li>
+      ))}
     </ul>
   )
 }
@@ -374,11 +387,27 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                       </div>
                     ) : (() => {
                       const sp = (sec.key === "services" || sec.key === "why-us" || sec.key === "process") ? splitList(sec.html, sec.key === "why-us" ? 2 : 3) : null
+                      const gp = sec.key === "services" && !sp ? splitGroups(sec.html) : null
+                      if (gp) {
+                        return (
+                          <>
+                            {gp.before && <RichContent html={gp.before} className="text-[15.5px]" />}
+                            {gp.groups.map((g, gi) => (
+                              <div key={g.head + gi} className="mt-6 first:mt-4">
+                                <h4 className="border-l-[3px] border-sun pl-3 text-[17px] leading-snug font-extrabold text-brand">{g.head}</h4>
+                                {g.intro && <RichContent html={g.intro} className="mt-2 text-[14.5px]" />}
+                                {g.items.every((x) => !x.text) ? <Chips items={g.items} /> : <Cards items={g.items} cols={2} />}
+                              </div>
+                            ))}
+                            {gp.after && <RichContent html={gp.after} className="mt-5 text-[15.5px]" />}
+                          </>
+                        )
+                      }
                       if (!sp) return <RichContent html={sec.html} className="text-[15.5px]" />
                       return (
                         <>
                           {sp.before && <RichContent html={sp.before} className="text-[15.5px]" />}
-                          {sec.key === "process" ? <Flow items={sp.items} /> : <Cards items={sp.items} cols={sec.key === "why-us" ? 2 : 3} />}
+                          {sec.key === "process" ? <Flow items={sp.items} /> : sp.items.every((x) => !x.text) ? <Chips items={sp.items} /> : <Cards items={sp.items} cols={sec.key === "why-us" ? 2 : 3} />}
                           {sp.after && <RichContent html={sp.after} className="mt-5 text-[15.5px]" />}
                         </>
                       )
