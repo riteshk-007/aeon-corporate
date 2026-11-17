@@ -61,7 +61,7 @@ const FONTS = [
 ]
 const SIZES = ["12px", "14px", "16px", "18px", "20px", "24px", "30px", "36px"]
 const SWATCHES = [
-  "#0b1b4d", "#3f6df6", "#0a44b8", "#16a34a", "#ca8a04", "#ea580c",
+  "#0b1b4d", "#0248A9", "#0a44b8", "#16a34a", "#ca8a04", "#ea580c",
   "#dc2626", "#9333ea", "#475569", "#000000",
 ]
 const HIGHLIGHTS = ["#ffe58a", "#bbf7d0", "#bfdbfe", "#fecdd3", "#e9d5ff", "#e2e8f0"]
@@ -198,7 +198,7 @@ export function RichTextEditor({
   }
 
   return (
-    <div className="overflow-hidden rounded-xl border border-line bg-white focus-within:border-brand focus-within:shadow-[0_0_0_4px_rgba(63,109,246,.12)]">
+    <div className="overflow-hidden rounded-xl border border-line bg-white focus-within:border-brand focus-within:shadow-[0_0_0_4px_rgba(2,72,169,.12)]">
       <Toolbar
         editor={editor}
         canUpload={!!upload}

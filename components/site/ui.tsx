@@ -6,8 +6,8 @@ export const wrap =
   "mx-auto w-[min(1160px,calc(100%_-_48px))] max-[560px]:w-[min(calc(100%_-_32px),500px)]"
 export const btn =
   "inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-[14px] font-bold transition duration-200 hover:-translate-y-0.5 motion-reduce:transition-none"
-export const btnBlueFlat = `${btn} bg-brand text-white hover:bg-[#2c55d6]`
-export const btnBlue = `${btnBlueFlat} shadow-[0_10px_23px_rgba(63,109,246,.22)]`
+export const btnBlueFlat = `${btn} bg-brand text-white hover:bg-[#01398a]`
+export const btnBlue = `${btnBlueFlat} shadow-[0_10px_23px_rgba(2,72,169,.22)]`
 export const btnYellow = `${btn} bg-sun text-ink`
 export const btnWhite = `${btn} bg-white text-ink`
 export const btnOutline = `${btn} border border-[#bfcbe0] bg-white/70 text-ink`
@@ -110,10 +110,18 @@ export function SectionHeading({
       <h2
         className={cn(
           "max-w-[680px] text-[clamp(34px,4.5vw,58px)] leading-none font-bold tracking-[-0.04em] max-[560px]:text-[37px]",
-          light && "text-white",
         )}
       >
-        {title}
+        {(() => {
+          const w = title.split(" ")
+          const n = w.length > 3 ? 2 : 1
+          return (
+            <>
+              <span className={light ? "text-white" : "text-brand"}>{w.slice(0, -n).join(" ")} </span>
+              <span className="text-sun">{w.slice(-n).join(" ")}</span>
+            </>
+          )
+        })()}
       </h2>
       {description && (
         <p
@@ -139,4 +147,4 @@ export const reveal = (i = 0) => ({
 
 /** Decorative dot grid. */
 export const dots =
-  "bg-[radial-gradient(circle,rgba(63,109,246,.4)_1.6px,transparent_2.2px)] [background-size:16px_16px]"
+  "bg-[radial-gradient(circle,rgba(2,72,169,.4)_1.6px,transparent_2.2px)] [background-size:16px_16px]"

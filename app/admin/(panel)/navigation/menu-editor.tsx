@@ -264,7 +264,7 @@ export function MenuEditor({
                         type="button"
                         onClick={() => setCi(i)}
                         aria-pressed={i === catIdx}
-                        className={cn("flex w-full items-center justify-between gap-2 rounded-xl px-3.5 py-2.5 text-left text-[14px] font-semibold transition", i === catIdx ? "bg-brand text-white shadow-[0_8px_18px_rgba(63,109,246,.25)]" : "text-ink hover:bg-pale")}
+                        className={cn("flex w-full items-center justify-between gap-2 rounded-xl px-3.5 py-2.5 text-left text-[14px] font-semibold transition", i === catIdx ? "bg-brand text-white shadow-[0_8px_18px_rgba(2,72,169,.25)]" : "text-ink hover:bg-pale")}
                       >
                         <span className="truncate">{c.label || "Untitled"}</span>
                         <ChevronRight size={15} className="shrink-0 opacity-70" />

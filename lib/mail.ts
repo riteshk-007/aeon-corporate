@@ -37,8 +37,8 @@ const C = {
   mute: "#4a5a7a",
   line: "#d6e2f5",
   tint: "#f3f8ff",
-  brand: "#3f6df6",
-  sun: "#ffbe0b",
+  brand: "#0248A9",
+  sun: "#FD6902",
 }
 
 function layout(opts: { title: string; intro: string; rows: [string, string][]; fileNote?: string; ctaUrl?: string }) {

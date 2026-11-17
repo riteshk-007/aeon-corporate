@@ -258,7 +258,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
                             className={cn(
                               "group relative flex w-full items-center justify-between gap-2 rounded-lg px-3.5 py-2.5 text-left text-[14px] font-bold transition-all",
                               catIdx === i
-                                ? "bg-white text-brand shadow-[0_8px_20px_rgba(63,109,246,.16)] ring-1 ring-brand/15"
+                                ? "bg-white text-brand shadow-[0_8px_20px_rgba(2,72,169,.16)] ring-1 ring-brand/15"
                                 : "text-ink/80 hover:bg-white/70 hover:text-ink",
                             )}
                           >
@@ -277,7 +277,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
                             <div className="mb-4 flex items-center justify-between gap-4 border-b border-line pb-3">
                               <h3 className="text-[20px] font-extrabold tracking-[-0.02em] text-ink">{cat.label}</h3>
                               {cat.href ? (
-                                <Link href={cat.href} onClick={closeNow} className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-brand px-3.5 py-2 text-[13px] font-bold text-white transition hover:bg-[#2c55d6]">
+                                <Link href={cat.href} onClick={closeNow} className="inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-brand px-3.5 py-2 text-[13px] font-bold text-white transition hover:bg-[#01398a]">
                                   View overview <ArrowRight size={14} />
                                 </Link>
                               ) : (
@@ -294,7 +294,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
                                       href={l.href || "/contact-us"}
                                       onClick={closeNow}
                                       className={cn(
-                                        "group flex h-full items-center justify-between gap-2 rounded-lg border border-transparent bg-[#f6faff] px-3.5 py-3 text-[13.5px] leading-snug font-semibold text-ink/90 transition-all hover:-translate-y-0.5 hover:border-brand/30 hover:bg-white hover:text-brand hover:shadow-[0_10px_24px_rgba(63,109,246,.14)]",
+                                        "group flex h-full items-center justify-between gap-2 rounded-lg border border-transparent bg-[#f6faff] px-3.5 py-3 text-[13.5px] leading-snug font-semibold text-ink/90 transition-all hover:-translate-y-0.5 hover:border-brand/30 hover:bg-white hover:text-brand hover:shadow-[0_10px_24px_rgba(2,72,169,.14)]",
                                         l.href === pathname && "border-brand/30 bg-white text-brand",
                                       )}
                                     >
@@ -324,7 +324,7 @@ export function SiteHeader({ menu }: { menu: MenuTop[] }) {
             aria-hidden="true"
             style={{ scaleX: scrollProgress }}
             className={cn(
-              "absolute inset-x-0 bottom-[-1px] h-[3px] origin-left bg-[linear-gradient(90deg,#3f6df6,#ffbe0b)] transition-opacity duration-300",
+              "absolute inset-x-0 bottom-[-1px] h-[3px] origin-left bg-[linear-gradient(90deg,#0248A9,#FD6902)] transition-opacity duration-300",
               scrolled ? "opacity-100" : "opacity-0",
             )}
           />

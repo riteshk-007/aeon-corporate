@@ -10,7 +10,7 @@ type Stat = { value: number; suffix: string; label: string; hint: string; icon: 
 
 // Figures from the client's brief and the site's own content.
 const stats: Stat[] = [
-  { value: 40, suffix: "+", label: "Professional experts", hint: "In-house team and partner network", icon: Users, tone: "bg-brand text-white", glow: "rgba(63,109,246,.35)" },
+  { value: 40, suffix: "+", label: "Professional experts", hint: "In-house team and partner network", icon: Users, tone: "bg-brand text-white", glow: "rgba(2,72,169,.35)" },
   { value: 15, suffix: "+", label: "Cities and towns", hint: "Independent professionals across India", icon: MapPin, tone: "bg-sun text-ink", glow: "rgba(255,190,11,.3)" },
   { value: 550, suffix: "+", label: "Services covered", hint: "Registrations, licences, compliance, advisory", icon: Layers, tone: "bg-flame text-white", glow: "rgba(249,87,1,.3)" },
   { value: 24, suffix: " hrs", label: "To hear back", hint: "Our team replies promptly", icon: Clock, tone: "bg-white text-brand", glow: "rgba(255,255,255,.25)" },
@@ -76,7 +76,7 @@ function Card({ stat, run, i }: { stat: Stat; run: boolean; i: number }) {
       </b>
       <span className="relative mt-3 block text-[16px] font-bold text-white">{stat.label}</span>
       <span className="relative mt-1 block text-[13px] leading-snug text-white/60">{stat.hint}</span>
-      <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-[linear-gradient(90deg,#3f6df6,#ffbe0b)] transition-transform duration-300 group-hover:scale-x-100" />
+      <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-[linear-gradient(90deg,#0248A9,#FD6902)] transition-transform duration-300 group-hover:scale-x-100" />
     </li>
   )
 }

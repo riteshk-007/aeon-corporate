@@ -38,7 +38,6 @@ import {
 import { useMenuLinks } from "@/components/site/menu-links"
 import { ProcessWizard } from "@/components/site/process-wizard"
 import { HeroLoop } from "@/components/site/hero-loop"
-import { StatsStrip } from "@/components/site/stats-strip"
 
 const explorerServices: Record<string, { title: string; description: string }[]> = {
   "Start Your Business": [
@@ -295,7 +294,7 @@ const circlePath =
 const floatCard =
   "absolute animate-float motion-reduce:animate-none flex items-center gap-2.5 rounded-lg border border-[rgba(220,229,245,.9)] bg-white/90 px-[15px] py-[13px] shadow-[0_15px_35px_rgba(11,27,77,.14)] backdrop-blur-[12px] max-[560px]:p-[9px]"
 const scrollbarThin =
-  "[scrollbar-width:thin] [scrollbar-color:rgba(63,109,246,.5)_transparent]"
+  "[scrollbar-width:thin] [scrollbar-color:rgba(2,72,169,.5)_transparent]"
 const index = "text-[13px] font-black text-brand"
 
 export default function Page() {
@@ -472,12 +471,12 @@ export default function Page() {
 
       <section className="relative z-[2] -mt-[60px] bg-[linear-gradient(to_bottom,transparent_60px,#cfe5ff_60px)] pb-[100px] max-[560px]:-mt-[40px] max-[560px]:bg-[linear-gradient(to_bottom,transparent_40px,#cfe5ff_40px)] max-[560px]:pb-[70px]">
         <div className="mx-auto w-[min(1080px,calc(100%_-_48px))] rounded-xl border border-line bg-white p-8 shadow-[0_30px_80px_rgba(11,27,77,.12)] max-[560px]:w-[calc(100%_-_32px)] max-[560px]:rounded-lg max-[560px]:p-5">
-          <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-[linear-gradient(90deg,#3f6df6,#00b4ff,#ffbe0b)]" />
+          <span aria-hidden="true" className="absolute inset-x-0 top-0 h-1.5 bg-[linear-gradient(90deg,#0248A9,#00b4ff,#FD6902)]" />
           <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
             <div>
               <Eyebrow className="mb-2.5">FIND YOUR NEXT STEP</Eyebrow>
-              <h2 className="text-[clamp(24px,3vw,32px)] leading-tight font-bold tracking-[-0.03em]">
-                What can we help you with?
+              <h2 className="text-brand text-[clamp(24px,3vw,32px)] leading-tight font-bold tracking-[-0.03em]">
+                What can we help you <span className="text-sun">with?</span>
               </h2>
             </div>
             <p className="max-w-[300px] text-[13px] leading-relaxed text-mute">
@@ -485,7 +484,7 @@ export default function Page() {
             </p>
           </div>
 
-          <div className="mt-6 flex items-center gap-2 rounded-lg border border-line bg-[#f2f8ff] p-2 transition focus-within:border-brand focus-within:bg-white focus-within:shadow-[0_0_0_4px_rgba(63,109,246,.12)] max-[560px]:flex-col max-[560px]:items-stretch">
+          <div className="mt-6 flex items-center gap-2 rounded-lg border border-line bg-[#f2f8ff] p-2 transition focus-within:border-brand focus-within:bg-white focus-within:shadow-[0_0_0_4px_rgba(2,72,169,.12)] max-[560px]:flex-col max-[560px]:items-stretch">
             <div className="flex h-12 flex-1 items-center gap-3 px-3.5 text-mute">
               <Search size={20} className="shrink-0" />
               <div className="relative min-w-0 flex-1">
@@ -635,7 +634,7 @@ export default function Page() {
         <div className="relative mx-auto min-h-[600px] w-full max-w-[600px] max-[900px]:min-h-[480px] max-[560px]:min-h-[380px]">
           <div
             aria-hidden="true"
-            className="absolute -top-5 -left-5 size-44 bg-[radial-gradient(circle,rgba(63,109,246,.45)_1.6px,transparent_2.2px)] [background-size:16px_16px] max-[560px]:size-28"
+            className="absolute -top-5 -left-5 size-44 bg-[radial-gradient(circle,rgba(2,72,169,.45)_1.6px,transparent_2.2px)] [background-size:16px_16px] max-[560px]:size-28"
           />
           <div
             aria-hidden="true"
@@ -643,9 +642,9 @@ export default function Page() {
           />
           <div className="absolute inset-0 overflow-hidden rounded-xl shadow-[0_30px_70px_rgba(11,27,77,.18)]">
             <Image
-              src="/photos/legal-expert.jpg"
-              alt="An Aeon advisor explaining a document to a client"
-              className="size-full object-cover object-[35%_50%]"
+              src="/photos/office-1.jpg"
+              alt="A bright Aeon advisory office with reports on the desk"
+              className="size-full object-cover object-center"
               width={1400}
               height={933}
               sizes="(max-width: 900px) 100vw, 640px"
@@ -676,9 +675,9 @@ export default function Page() {
 
         <div>
           <Eyebrow>ABOUT AEON CORPORATE</Eyebrow>
-          <h2 className="max-w-[560px] text-[clamp(30px,3.7vw,48px)] leading-[1.06] font-extrabold tracking-[-0.035em]">
+          <h2 className="text-brand max-w-[560px] text-[clamp(30px,3.7vw,48px)] leading-[1.06] font-extrabold tracking-[-0.035em]">
             Proactive Advice. Dedicated{" "}
-            <span className="bg-[linear-gradient(transparent_62%,#ffbe0b_62%)] px-1">
+            <span className="text-sun">
               Handholding.
             </span>
           </h2>
@@ -715,7 +714,7 @@ export default function Page() {
               return (
                 <div
                   key={title as string}
-                  className="group flex items-center gap-4 rounded-lg border border-line bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_14px_30px_rgba(63,109,246,.1)] motion-reduce:transition-none"
+                  className="group flex items-center gap-4 rounded-lg border border-line bg-white p-4 transition duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_14px_30px_rgba(2,72,169,.1)] motion-reduce:transition-none"
                 >
                   <span className="grid size-14 shrink-0 place-items-center rounded-lg bg-[#eaf3ff] transition-transform duration-200 group-hover:scale-105">
                     <ColorIcon name={Icon as string} size={44} />
@@ -749,7 +748,6 @@ export default function Page() {
         </div>
       </section>
 
-      <StatsStrip />
 
       <section id="services" className="bg-sky py-28 max-[560px]:py-20">
         <div className={wrap}>
@@ -766,7 +764,7 @@ export default function Page() {
                   <article
                     key={title}
                     className={cn(
-                      "group relative flex min-h-[200px] flex-col justify-between overflow-hidden rounded-lg border border-line p-[26px] transition duration-[250ms] hover:-translate-y-[5px] hover:shadow-[0_18px_35px_rgba(63,109,246,.12)] motion-reduce:transition-none max-[560px]:min-h-[185px]",
+                      "group relative flex min-h-[200px] flex-col justify-between overflow-hidden rounded-lg border border-line p-[26px] transition duration-[250ms] hover:-translate-y-[5px] hover:shadow-[0_18px_35px_rgba(2,72,169,.12)] motion-reduce:transition-none max-[560px]:min-h-[185px]",
                       tones[tone].card,
                       className,
                     )}
@@ -841,7 +839,7 @@ export default function Page() {
       >
         <div
           aria-hidden="true"
-          className="absolute -top-10 -right-10 size-80 bg-[radial-gradient(circle,rgba(63,109,246,.3)_1.6px,transparent_2.2px)] [background-size:18px_18px] [mask-image:radial-gradient(circle,black,transparent_70%)]"
+          className="absolute -top-10 -right-10 size-80 bg-[radial-gradient(circle,rgba(2,72,169,.3)_1.6px,transparent_2.2px)] [background-size:18px_18px] [mask-image:radial-gradient(circle,black,transparent_70%)]"
         />
         <div className={cn(wrap, "relative")}>
           <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-6">
@@ -870,7 +868,7 @@ export default function Page() {
       <section
         id="explorer"
         ref={explorerRef}
-        className="relative overflow-hidden bg-ink [background:radial-gradient(circle_at_80%_20%,rgba(63,109,246,.3),transparent_32%),radial-gradient(circle_at_8%_90%,rgba(255,190,11,.08),transparent_30%),#0b1b4d] py-[110px] text-white max-[560px]:py-16"
+        className="relative overflow-hidden bg-ink [background:radial-gradient(circle_at_80%_20%,rgba(2,72,169,.3),transparent_32%),radial-gradient(circle_at_8%_90%,rgba(255,190,11,.08),transparent_30%),#0b1b4d] py-[110px] text-white max-[560px]:py-16"
       >
         <div
           aria-hidden="true"
@@ -925,7 +923,7 @@ export default function Page() {
                     {active && (
                       <motion.span
                         layoutId="explorer-active"
-                        className="absolute inset-0 rounded-[inherit] bg-brand shadow-[0_14px_30px_rgba(63,109,246,.4)]"
+                        className="absolute inset-0 rounded-[inherit] bg-brand shadow-[0_14px_30px_rgba(2,72,169,.4)]"
                         transition={{
                           type: "spring",
                           stiffness: 340,
@@ -1018,7 +1016,7 @@ export default function Page() {
                           duration: 0.4,
                           ease: [0.22, 1, 0.36, 1],
                         }}
-                        className="group relative flex min-h-[150px] flex-col justify-between overflow-hidden rounded-lg border border-white/[.12] bg-white/[.06] p-5 transition duration-300 hover:-translate-y-1 hover:border-brand hover:bg-white/10 hover:shadow-[0_20px_40px_rgba(63,109,246,.25)] motion-reduce:transition-none max-[560px]:min-h-0 max-[560px]:gap-3"
+                        className="group relative flex min-h-[150px] flex-col justify-between overflow-hidden rounded-lg border border-white/[.12] bg-white/[.06] p-5 transition duration-300 hover:-translate-y-1 hover:border-brand hover:bg-white/10 hover:shadow-[0_20px_40px_rgba(2,72,169,.25)] motion-reduce:transition-none max-[560px]:min-h-0 max-[560px]:gap-3"
                       >
                         <div className="flex items-start justify-between gap-3">
                           <span className="grid size-10 place-items-center rounded-lg bg-brand text-[13px] font-extrabold text-white">
@@ -1072,8 +1070,8 @@ export default function Page() {
           </article>
           <article id="outsourcing" className="relative scroll-mt-28 overflow-hidden rounded-lg border border-line bg-white p-9 max-[560px]:p-6">
             <Eyebrow>OUTSOURCING TO INDIA</Eyebrow>
-            <h2 className="text-[clamp(26px,3vw,38px)] leading-[1.1] font-extrabold tracking-[-0.03em]">
-              Operating outside India? Work with us.
+            <h2 className="text-[clamp(26px,3vw,38px)] leading-[1.1] font-extrabold tracking-[-0.03em] text-brand">
+              Operating outside India? <span className="text-sun">Work with us.</span>
             </h2>
             <p className="mt-4 text-[15px] leading-[1.75] text-mute">
               If you are operating out of India and would like to assign or outsource any project or work to Aeon Corporate, share your details and brief requirements and our team will get in touch with you immediately. Even if you are not yet ready to outsource, you are always welcome to talk to us and find out more about outsourcing to India. Concerned about moving your project? Ask us about our transition management process.
@@ -1094,9 +1092,9 @@ export default function Page() {
       >
         <div className="max-[900px]:order-2">
           <Eyebrow>ONLINE EASE, LOCAL REACH</Eyebrow>
-          <h2 className="text-[clamp(30px,3.9vw,50px)] leading-[1.06] font-extrabold tracking-[-0.035em]">
+          <h2 className="text-brand text-[clamp(30px,3.9vw,50px)] leading-[1.06] font-extrabold tracking-[-0.035em]">
             Technology with a{" "}
-            <span className="bg-[linear-gradient(transparent_62%,#ffbe0b_62%)] px-1">
+            <span className="text-sun">
               Personal
             </span>{" "}
             Touch.
@@ -1151,7 +1149,7 @@ export default function Page() {
         <div className="relative max-[900px]:order-1">
           <div
             aria-hidden="true"
-            className="absolute -top-5 -right-5 size-40 bg-[radial-gradient(circle,rgba(63,109,246,.45)_1.6px,transparent_2.2px)] [background-size:16px_16px] max-[560px]:size-24"
+            className="absolute -top-5 -right-5 size-40 bg-[radial-gradient(circle,rgba(2,72,169,.45)_1.6px,transparent_2.2px)] [background-size:16px_16px] max-[560px]:size-24"
           />
           <div
             aria-hidden="true"
@@ -1198,9 +1196,9 @@ export default function Page() {
       >
         <div className="self-start min-[901px]:sticky min-[901px]:top-28">
           <Eyebrow>THE AEON DIFFERENCE</Eyebrow>
-          <h2 className="text-[clamp(30px,3.7vw,48px)] leading-[1.06] font-extrabold tracking-[-0.035em]">
+          <h2 className="text-brand text-[clamp(30px,3.7vw,48px)] leading-[1.06] font-extrabold tracking-[-0.035em]">
             Beyond Advice.{" "}
-            <span className="bg-[linear-gradient(transparent_62%,#ffbe0b_62%)] px-1">
+            <span className="text-sun">
               Building Business Confidence.
             </span>
           </h2>
@@ -1274,15 +1272,15 @@ export default function Page() {
       <section className="relative overflow-hidden border-y border-line bg-[linear-gradient(180deg,#f2f8ff,#ffffff_55%,#f2f8ff)] py-16 max-[560px]:py-12">
         <div
           aria-hidden="true"
-          className="absolute top-0 left-1/2 h-px w-2/3 -translate-x-1/2 bg-[linear-gradient(90deg,transparent,#3f6df6,transparent)] opacity-40"
+          className="absolute top-0 left-1/2 h-px w-2/3 -translate-x-1/2 bg-[linear-gradient(90deg,transparent,#0248A9,transparent)] opacity-40"
         />
         <div className={cn(wrap, "text-center")}>
           <Eyebrow className="mb-3 justify-center">
             BUILT FOR AMBITIOUS TEAMS
           </Eyebrow>
-          <h2 className="mx-auto max-w-[620px] text-[clamp(24px,3vw,34px)] leading-[1.15] font-extrabold tracking-[-0.03em]">
+          <h2 className="text-brand mx-auto max-w-[620px] text-[clamp(24px,3vw,34px)] leading-[1.15] font-extrabold tracking-[-0.03em]">
             Support for businesses across a{" "}
-            <span className="bg-[linear-gradient(transparent_62%,#ffbe0b_62%)] px-1">
+            <span className="text-sun">
               range of industries
             </span>
             .
@@ -1304,7 +1302,7 @@ export default function Page() {
                       <span
                         key={`${copy}-${label}`}
                         aria-hidden={copy === 1}
-                        className="inline-flex shrink-0 items-center gap-3 rounded-full border border-line bg-white py-2.5 pr-6 pl-2.5 text-[15px] font-bold whitespace-nowrap text-ink shadow-[0_8px_20px_rgba(11,27,77,.05)] transition duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_12px_26px_rgba(63,109,246,.14)] max-[560px]:text-[13px]"
+                        className="inline-flex shrink-0 items-center gap-3 rounded-full border border-line bg-white py-2.5 pr-6 pl-2.5 text-[15px] font-bold whitespace-nowrap text-ink shadow-[0_8px_20px_rgba(11,27,77,.05)] transition duration-200 hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_12px_26px_rgba(2,72,169,.14)] max-[560px]:text-[13px]"
                       >
                         <span className="grid size-11 place-items-center rounded-full bg-[#eaf3ff] max-[560px]:size-9">
                           <ColorIcon name={IndustryIcon} size={34} />
@@ -1430,7 +1428,7 @@ export default function Page() {
                   className={cn(
                     "relative overflow-hidden rounded-lg border p-5 text-left transition duration-300 motion-reduce:transition-none",
                     active
-                      ? "border-brand bg-white shadow-[0_18px_40px_rgba(63,109,246,.14)]"
+                      ? "border-brand bg-white shadow-[0_18px_40px_rgba(2,72,169,.14)]"
                       : "border-line bg-white/60 hover:border-brand/40 hover:bg-white",
                   )}
                 >
@@ -1466,7 +1464,7 @@ export default function Page() {
                             ? "paused"
                             : "running",
                       }}
-                      className="absolute inset-x-0 bottom-0 h-1 origin-left animate-progress bg-[linear-gradient(90deg,#3f6df6,#ffbe0b)] motion-reduce:animate-none"
+                      className="absolute inset-x-0 bottom-0 h-1 origin-left animate-progress bg-[linear-gradient(90deg,#0248A9,#FD6902)] motion-reduce:animate-none"
                     />
                   )}
                 </button>
@@ -1476,115 +1474,10 @@ export default function Page() {
         </div>
       </section>
 
-      <section id="insights" className="bg-sky py-[110px] max-[560px]:py-20">
-        <div className={wrap}>
-          <div className="flex flex-wrap items-end justify-between gap-x-10 gap-y-5">
-            <SectionHeading
-              eyebrow="MEDIA & PUBLICATIONS"
-              title="Insights for Businesses Moving Forward."
-              description="Practical ideas for teams building with more structure, clarity, and confidence."
-            />
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 rounded-lg border border-line bg-white px-5 py-3 text-[14px] font-bold text-ink transition hover:border-brand hover:text-brand"
-            >
-              Ask us a question <ArrowUpRight size={16} />
-            </a>
-          </div>
-
-          <div className="mt-12 grid grid-cols-[1.2fr_1fr] gap-5 max-[900px]:grid-cols-1 max-[560px]:mt-8 max-[560px]:gap-4">
-            {articles.map((article, i) => {
-              const featured = i === 0
-              return (
-                <motion.a
-                  key={article.title}
-                  href="/contact-us"
-                  className={cn(
-                    "group relative overflow-hidden rounded-xl transition duration-300 hover:-translate-y-1.5 hover:shadow-[0_26px_54px_rgba(11,27,77,.16)] motion-reduce:transition-none max-[560px]:rounded-lg",
-                    featured
-                      ? "row-span-2 flex min-h-[520px] flex-col justify-end max-[900px]:row-span-1 max-[900px]:min-h-[440px]"
-                      : "flex min-h-[250px] border border-line bg-white max-[560px]:flex-col",
-                  )}
-                  initial={reduceMotion ? false : { opacity: 0, y: 28 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.55, delay: i * 0.12 }}
-                >
-                  {featured ? (
-                    <>
-                      <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(160deg,#eaf3ff,#cfe5ff)]" />
-                      <Image
-                        src={article.image}
-                        alt={article.title}
-
-                        className="absolute inset-0 size-full object-contain p-8 pb-64 transition-transform duration-500 group-hover:scale-105 motion-reduce:transition-none max-[560px]:pb-56"
-                        width={1000}
-                        height={650}
-                        sizes="(max-width: 900px) 100vw, 640px"
-                      />
-                      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(11,27,77,.05)_30%,rgba(11,27,77,.88)_100%)]" />
-                      <div className="relative p-8 text-white max-[560px]:p-5">
-                        <span className="inline-block rounded-full bg-sun px-3 py-1.5 text-[11px] font-black tracking-[.12em] text-ink">
-                          {article.category}
-                        </span>
-                        <h3 className="mt-4 max-w-[520px] text-[clamp(24px,2.6vw,32px)] leading-[1.15] font-bold tracking-[-0.02em]">
-                          {article.title}
-                        </h3>
-                        <p className="mt-3 max-w-[460px] text-[14px] leading-[1.65] text-white/75">
-                          {article.description}
-                        </p>
-                        <span className="mt-6 inline-flex items-center gap-3 text-[14px] font-bold">
-                          Read article
-                          <span className="grid size-10 place-items-center rounded-full bg-white text-brand transition group-hover:bg-sun group-hover:text-ink">
-                            <ArrowUpRight size={18} />
-                          </span>
-                        </span>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="relative w-[42%] shrink-0 overflow-hidden bg-[linear-gradient(160deg,#eaf3ff,#cfe5ff)] max-[560px]:h-[190px] max-[560px]:w-full">
-                        <Image
-                          src={article.image}
-                          alt={article.title}
-
-                          className="absolute inset-0 size-full object-contain p-3 transition-transform duration-500 group-hover:scale-110 motion-reduce:transition-none"
-                          width={1000}
-                          height={650}
-                          sizes="(max-width: 900px) 100vw, 640px"
-                        />
-                      </div>
-                      <div className="flex flex-1 flex-col justify-between p-6 max-[560px]:p-5">
-                        <div>
-                          <span className="inline-block rounded-full bg-[#dcebff] px-3 py-1.5 text-[11px] font-black tracking-[.1em] text-brand">
-                            {article.category}
-                          </span>
-                          <h3 className="mt-3.5 text-[18px] leading-[1.25] font-bold tracking-[-0.02em]">
-                            {article.title}
-                          </h3>
-                          <p className="mt-2 text-[13px] leading-[1.6] text-mute">
-                            {article.description}
-                          </p>
-                        </div>
-                        <span className="mt-5 inline-flex items-center gap-2.5 text-[13px] font-bold text-brand">
-                          Read article
-                          <span className="grid size-8 place-items-center rounded-full bg-[#dcebff] transition group-hover:bg-brand group-hover:text-white">
-                            <ArrowUpRight size={15} />
-                          </span>
-                        </span>
-                      </div>
-                    </>
-                  )}
-                </motion.a>
-              )
-            })}
-          </div>
-        </div>
-      </section>
 
       <section
         id="contact"
-        className="relative overflow-hidden bg-[linear-gradient(135deg,#3f6df6,#0a44b8)] py-[87px] text-white"
+        className="relative overflow-hidden bg-[linear-gradient(135deg,#0248A9,#0a44b8)] py-[87px] text-white"
       >
         <div className="absolute inset-0 bg-[radial-gradient(circle,white_1px,transparent_1.5px)] [background-size:21px_21px] opacity-[.33] [mask-image:linear-gradient(90deg,transparent,black,transparent)]" />
         <div
@@ -1629,7 +1522,7 @@ export default function Page() {
             >
               <X />
             </button>
-            <div className="relative mx-auto mb-[25px] grid size-[68px] place-items-center rounded-full bg-white text-brand shadow-[0_0_0_11px_rgba(63,109,246,.12)]">
+            <div className="relative mx-auto mb-[25px] grid size-[68px] place-items-center rounded-full bg-white text-brand shadow-[0_0_0_11px_rgba(2,72,169,.12)]">
               <Play fill="currentColor" size={19} />
             </div>
             <Eyebrow className="justify-center">THE AEON APPROACH</Eyebrow>

@@ -43,7 +43,7 @@ export function SectionNav({ tabs }: { tabs: Tab[] }) {
               aria-current={active === t.id ? "true" : undefined}
               className={cn(
                 "flex items-center gap-2.5 rounded-lg px-4 py-2.5 text-[13px] font-bold whitespace-nowrap transition min-[1025px]:py-2.5",
-                active === t.id ? "bg-brand text-white shadow-[0_6px_16px_rgba(63,109,246,.25)]" : "text-ink/75 hover:bg-pale hover:text-brand",
+                active === t.id ? "bg-brand text-white shadow-[0_6px_16px_rgba(2,72,169,.25)]" : "text-ink/75 hover:bg-pale hover:text-brand",
               )}
             >
               <span className={cn("hidden size-5 shrink-0 place-items-center rounded-full text-[10px] font-black min-[1025px]:grid", active === t.id ? "bg-white/20" : "bg-pale text-brand")}>{i + 1}</span>

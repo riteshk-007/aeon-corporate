@@ -39,7 +39,7 @@ export function ConsentCheckbox({
           required={false}
           aria-invalid={!!error}
           aria-describedby={error ? `${id}-err` : undefined}
-          className="mt-0.5 size-[18px] shrink-0 cursor-pointer accent-[#3f6df6]"
+          className="mt-0.5 size-[18px] shrink-0 cursor-pointer accent-[#0248A9]"
         />
         <label
           htmlFor={id}

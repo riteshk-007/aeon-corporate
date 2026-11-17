@@ -133,7 +133,7 @@ export function ProcessWizard({ steps }: { steps: ProcessStep[] }) {
                   <span aria-hidden="true" className="relative mx-1 h-1 flex-1 overflow-hidden rounded-full bg-[#dbe6fb]">
                     <motion.span
                       key={`${i}-${at}-${running}`}
-                      className="absolute inset-0 origin-left rounded-full bg-[linear-gradient(90deg,#3f6df6,#ffbe0b)]"
+                      className="absolute inset-0 origin-left rounded-full bg-[linear-gradient(90deg,#0248A9,#FD6902)]"
                       initial={{ scaleX: done ? 1 : 0 }}
                       animate={{ scaleX: done ? 1 : here && running ? 1 : 0 }}
                       transition={here && running ? { duration: AUTO_MS / 1000, ease: "linear" } : { duration: 0.4, ease: EASE }}
@@ -161,7 +161,7 @@ export function ProcessWizard({ steps }: { steps: ProcessStep[] }) {
         aria-label={`Step ${step.num} of ${String(total).padStart(2, "0")}: ${step.title}`}
         className="relative mt-6 overflow-hidden rounded-xl border border-line bg-white shadow-[0_24px_60px_rgba(11,27,77,.1)]"
       >
-        <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-[linear-gradient(to_bottom,#3f6df6,#ffbe0b)]" />
+        <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-[linear-gradient(to_bottom,#0248A9,#FD6902)]" />
         <div aria-hidden="true" className="absolute -top-24 -right-16 size-64 rounded-full bg-brand/10 blur-3xl" />
         <div className="relative grid min-h-[330px] max-[760px]:min-h-[420px]">
           <AnimatePresence initial={false} custom={dir} mode="popLayout">
@@ -183,7 +183,7 @@ export function ProcessWizard({ steps }: { steps: ProcessStep[] }) {
                   initial={reduced ? false : { scale: 0.6, rotate: -8 }}
                   animate={{ scale: 1, rotate: 0 }}
                   transition={{ type: "spring", stiffness: 260, damping: 18, delay: 0.1 }}
-                  className="relative grid size-36 place-items-center rounded-xl bg-[linear-gradient(145deg,#eaf3ff,#cfe0ff)] ring-1 ring-white shadow-[0_18px_40px_rgba(63,109,246,.22)] max-[900px]:size-20"
+                  className="relative grid size-36 place-items-center rounded-xl bg-[linear-gradient(145deg,#eaf3ff,#cfe0ff)] ring-1 ring-white shadow-[0_18px_40px_rgba(2,72,169,.22)] max-[900px]:size-20"
                 >
                   <ColorIcon name={step.icon} size={84} />
                 </motion.span>
@@ -239,7 +239,7 @@ export function ProcessWizard({ steps }: { steps: ProcessStep[] }) {
           <button
             type="button"
             onClick={() => (at === total - 1 ? go(0) : go(at + 1))}
-            className="inline-flex h-10 items-center gap-2 rounded-lg bg-brand px-5 text-[13.5px] font-bold text-white shadow-[0_10px_22px_rgba(63,109,246,.28)] transition hover:bg-[#2c55d6]"
+            className="inline-flex h-10 items-center gap-2 rounded-lg bg-brand px-5 text-[13.5px] font-bold text-white shadow-[0_10px_22px_rgba(2,72,169,.28)] transition hover:bg-[#01398a]"
           >
             {at === total - 1 ? "Start over" : "Next"} <ArrowRight size={16} />
           </button>

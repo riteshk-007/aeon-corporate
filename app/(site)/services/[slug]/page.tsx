@@ -223,7 +223,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           </div>
 
           <aside id="enquire" className="relative scroll-mt-28 overflow-hidden rounded-xl border border-white bg-white shadow-[0_22px_54px_rgba(11,27,77,.16)]">
-            <div className="relative flex items-center gap-3 bg-[linear-gradient(135deg,#3f6df6,#0a44b8)] px-5 py-3.5 text-white">
+            <div className="relative flex items-center gap-3 bg-[linear-gradient(135deg,#0248A9,#0a44b8)] px-5 py-3.5 text-white">
               <div aria-hidden="true" className="absolute -top-10 -right-10 size-32 rounded-full border border-white/20" />
               <span className="grid size-11 shrink-0 place-items-center rounded-lg bg-white">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -276,7 +276,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 const Icon = iconFor(look.icon)
                 return (
                   <section key={sec.key} id={sec.key} className="relative scroll-mt-40 overflow-hidden rounded-xl border border-line bg-white p-7 pl-8 shadow-[0_10px_30px_rgba(11,27,77,.05)] max-[560px]:rounded-lg max-[560px]:p-5 max-[560px]:pl-6">
-                    <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-[linear-gradient(to_bottom,#3f6df6,#ffbe0b)]" />
+                    <span aria-hidden="true" className="absolute inset-y-0 left-0 w-1.5 bg-[linear-gradient(to_bottom,#0248A9,#FD6902)]" />
                     <span aria-hidden="true" className="pointer-events-none absolute -top-3 right-5 text-[84px] leading-none font-black text-brand/[.06] select-none">{String(i + 1).padStart(2, "0")}</span>
                     <div className="relative mb-5 flex flex-wrap items-center gap-3 border-b border-line pb-4">
                       <span className="grid size-12 shrink-0 place-items-center rounded-lg bg-[linear-gradient(135deg,#eaf3ff,#cfe5ff)] text-brand ring-1 ring-white"><Icon size={24} /></span>

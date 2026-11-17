@@ -69,10 +69,10 @@ export function AboutContent() {
           description="An AI and tech-enabled corporate and business advisory platform, offering curated services and solutions tailored to the unique needs of each client across industries and sectors."
           chips={focusAreas}
           image={{
-            src: "/photos/consulting.jpg",
-            alt: "An Aeon advisor going through a document with a client",
-            width: 1400,
-            height: 933,
+            src: "/photos/office-2.jpg",
+            alt: "A modern Aeon advisory office with a meeting room",
+            width: 1200,
+            height: 1500,
             position: "object-center",
             photo: true,
           }}
@@ -119,7 +119,7 @@ export function AboutContent() {
         </section>
 
         {/* Mission */}
-        <section className="relative overflow-hidden bg-[linear-gradient(135deg,#3f6df6,#0a44b8)] py-16 text-white max-[560px]:py-12">
+        <section className="relative overflow-hidden bg-[linear-gradient(135deg,#0248A9,#0a44b8)] py-16 text-white max-[560px]:py-12">
           <div aria-hidden="true" className="absolute -right-24 -bottom-24 size-80 rounded-full bg-sun/25 blur-3xl" />
           <div className={cn(wrap, "relative grid grid-cols-[auto_1fr] items-center gap-8 max-[700px]:grid-cols-1")}>
             <span className="grid size-20 place-items-center rounded-lg bg-white/15">
@@ -182,7 +182,7 @@ export function AboutContent() {
               <motion.li
                 key={e}
                 {...reveal(i % 6)}
-                className="flex items-center gap-3 rounded-lg border border-line bg-white px-4 py-4 text-[15px] font-bold transition hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_14px_30px_rgba(63,109,246,.1)]"
+                className="flex items-center gap-3 rounded-lg border border-line bg-white px-4 py-4 text-[15px] font-bold transition hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-[0_14px_30px_rgba(2,72,169,.1)]"
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/brand/aeon-bullet.png" alt="" aria-hidden="true" className="size-7 shrink-0" />
