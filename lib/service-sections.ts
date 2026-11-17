@@ -1,13 +1,16 @@
 /** The fixed sections of a service page, in order (same idea as the reference site's tabs). */
 export const SECTION_DEFS = [
+  { key: "hero", title: "Headline", icon: "sparkles", hint: "Top of the page: first line is the headline, then a short tagline." },
   { key: "overview", title: "Overview", icon: "book-open", hint: "What the service is, in plain words." },
+  { key: "services", title: "Services Offered", icon: "clipboard-list", hint: "What we do for you. A bullet list works well." },
   { key: "advantages", title: "Advantages", icon: "thumbs-up", hint: "Why it is useful. Use a bullet list." },
   { key: "eligibility", title: "Eligibility Criteria", icon: "clipboard-check", hint: "Who can apply and what is required." },
   { key: "documents", title: "Documents Required", icon: "file-text", hint: "Checklist of documents." },
-  { key: "process", title: "Process", icon: "list-ordered", hint: "Step-by-step (use a numbered list)." },
+  { key: "process", title: "How It Works", icon: "list-ordered", hint: "Step-by-step (use a numbered list)." },
   { key: "features", title: "Features", icon: "sparkles", hint: "Key features and compliance after registration." },
   { key: "types", title: "Types", icon: "table", hint: "Compare options. A table works well here." },
-  { key: "why-us", title: "Why Us", icon: "shield-check", hint: "How Aeon helps. Only claims you can stand behind." },
+  { key: "why-us", title: "Why Aeon", icon: "shield-check", hint: "How Aeon helps. Only claims you can stand behind." },
+  { key: "cta", title: "Get Started", icon: "heart-handshake", hint: "Closing message shown as a banner at the end." },
 ] as const
 
 export type SectionKey = (typeof SECTION_DEFS)[number]["key"]

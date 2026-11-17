@@ -220,6 +220,8 @@
 .rich-content h1 { font-size: 1.7em; font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; color: var(--color-ink); }
 .rich-content h2 { font-size: 1.4em; font-weight: 800; line-height: 1.25; letter-spacing: -0.02em; color: var(--color-ink); }
 .rich-content h3 { font-size: 1.15em; font-weight: 700; color: var(--color-ink); }
+.rich-content h3 { color: var(--color-brand); margin-top: 1.2em; }
+.rich-content h4 { font-size: 1.05em; font-weight: 800; color: var(--color-brand); margin-top: 1.3em; padding-left: .6em; border-left: 3px solid var(--color-sun); }
 .rich-content ul { list-style: none; padding-left: 0; }
 /* Brand bullet: the round "ae" mark from the logo. */
 .rich-content ul > li,

@@ -12,7 +12,7 @@ import { buildContent } from "../lib/startup-content"
 import { ADVISORY_CATEGORY_ICON } from "../lib/advisory-content"
 import { REGULATORY_CATEGORY_ICON } from "../lib/regulatory-data"
 
-type Group = { label: string; category: string; page?: string; items: string[] }
+type Group = { label: string; category: string; page?: string; items: string[]; map?: Record<string, string> }
 type Top = { label: string; href: string; groups: Group[] }
 
 const SS = "Startup Support"
@@ -32,9 +32,9 @@ const tops: Top[] = [
       { label: "SEBI", category: "SEBI", items: ["Alternative Investment Fund Registration", "Portfolio Manager Registration With SEBI", "Stock Broker License & Registration Services", "Reverse Merger in India", "Asset Management Company Registration", "Investment Advisors Registration with SEBI", "Depository Participant SEBI Registration", "Alternative Asset Advisory & Structuring", "AIF Compliance Test Report"] },
       { label: "IRDAI", category: "IRDA", items: ["Insurer License in India: Advisory and Facilitation Support", "Insurance Broker License: Advisory and Facilitation Support", "Insurance Web Aggregator License", "Corporate Agency License", "Insurance Marketing Firm Licence", "Third Party Administrator (TPA) Licence", "IRDA Compliance for Insurance Company", "Insurance Broker Compliances", "Insurance Web Aggregator Compliances"] },
       { label: "AIF Registration", category: AIF, page: "AIF Registration", items: ["Fund Structuring & Strategic Advisory", "AIF Documentation & Legal Framework", "AIF Application & SEBI Registration Support"] },
-      { label: "AIF Investment Support", category: AIF, items: ["Investment Due Diligence for Investors", "Investment Transaction Agreements & Documentation", "Investment Transaction Advisory"] },
-      { label: "AIF Lifecycle & Compliance Support", category: AIF, items: ["Fund Operations & Vendor Management", "Tax & Regulatory Compliances and Advisory", "Governance & Legal Support"] },
-      { label: "AIF Exit Support", category: AIF, items: ["Exit Due Diligence", "Exit Transaction Agreements", "Exit Transaction Advisory"] },
+      { label: "AIF Investment Support", category: AIF, page: "AIF Investment Support", items: ["Investment Due Diligence for Investors", "Investment Transaction Agreements & Documentation", "Investment Transaction Advisory"] },
+      { label: "AIF Lifecycle & Compliance Support", category: AIF, page: "AIF Lifecycle & Compliance Support", items: ["Fund Operations & Vendor Management", "Tax & Regulatory Compliances and Advisory", "Governance & Legal Support"] },
+      { label: "AIF Exit Support", category: AIF, page: "AIF Exit Support", items: ["Exit Due Diligence", "Exit Transaction Agreements", "Exit Transaction Advisory"] },
       { label: "Setting Up of Foreign Business", category: XB, items: ["Foreign Entity Incorporation and Local Setup", "Parent-Subsidiary Structuring and Transfer Pricing"] },
       { label: "India Entry Services", category: XB, page: "India Entry Services", items: ["Entity Incorporation and Setup in India", "Indian Subsidiary Company Incorporation", "Legal, Accounting and Tax Advisory in India", "Ongoing Compliance and Regulatory Support in India"] },
       { label: "GIFT City IFSC Setup", category: XB, items: ["GIFT IFSC Setup Assistance", "GIFT City Regulatory & Tax Advisory", "GIFT City Legal & Compliance Support"] },
@@ -45,7 +45,7 @@ const tops: Top[] = [
     href: "",
     groups: [
       { label: "Start Your Business", category: SS, page: "Start Your Business", items: ["Start Your Business: Planning, Structuring and Incorporation", "Indian Subsidiary Company Registration", "Startup India Registration", "MSME Registration"] },
-      { label: "Virtual CFO Support", category: SS, page: "Virtual CFO Support", items: ["Financial Modelling", "Financial Process Outsourcing", "Business Plan", "ISO Certifications"] },
+      { label: "Virtual CFO Support", category: SS, page: "Virtual CFO Support", map: { "Financial Modelling": "Financial Modelling for Startups", "Financial Process Outsourcing": "Financial Process Outsourcing for Startups", "Business Plan": "Business Plan for Startups" }, items: ["Financial Modelling", "Financial Process Outsourcing", "Business Plan", "ISO Certifications"] },
       { label: "Startup Legal Support", category: SS, page: "Startup Legal Support", items: ["Trademark Registration", "Cap Table Management", "Secretarial and Compliances: Monthly/Annual Retainership", "Related Party Transaction Structuring and Agreements", "Legal Retainership: Monthly/Annual", "Due Diligence Management and Advisory"] },
       { label: "Tax and Regulatory", category: SS, items: ["Tax Structuring", "Regulatory Advisory", "ESOP & Advisor Equity", "Securities Valuation Support"] },
     ],
@@ -67,7 +67,6 @@ const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim()
 const ICON: Record<string, string> = { ...ADVISORY_CATEGORY_ICON, ...REGULATORY_CATEGORY_ICON }
 /** Old titles the existing pages carry, so the new link reuses them. */
 const ALIAS: Record<string, string> = {
-  "Intellectual Property Rights": "Trademark Registration",
   "Incorporation & Registration": "Company Registration",
   "ISO Certifications": "ISO Registration",
   "Event Based Compliances": "Event Based Compliances in a Company",
@@ -130,7 +129,7 @@ async function main() {
     const categories = []
     for (const g of t.groups) {
       const links = []
-      for (const item of g.items) links.push({ label: item, href: await pageFor(item, g.category) })
+      for (const item of g.items) links.push({ label: item, href: await pageFor(g.map?.[item] ?? item, g.category) })
       const href = g.page ? await pageFor(g.page, g.category) : ""
       categories.push({ label: g.label, href, links })
     }

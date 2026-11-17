@@ -12,6 +12,8 @@ import { JsonLd } from "@/components/site/json-ld"
 import { LeadForm, type LeadField } from "@/components/site/lead-form"
 import { SectionNav } from "@/components/site/section-nav"
 import { StepsDialog } from "@/components/site/steps-dialog"
+import { splitList } from "@/lib/section-items"
+import { BarChart3, Clock, FileText, Globe2, Handshake, Landmark, Scale, Search, SlidersHorizontal, Sparkles, Users, Zap, type LucideIcon } from "lucide-react"
 import { ColorIcon, Eyebrow, btnBlue, btnYellow } from "@/components/site/ui"
 import { RichContent } from "@/components/editor/rich-content"
 import { SITE_URL, breadcrumbLd, pageMetadata } from "@/lib/seo"
@@ -90,6 +92,77 @@ const how = [
 ]
 
 
+const CARD_ICONS: [RegExp, LucideIcon][] = [
+  [/legal|law|precis|rights|court|dispute|regulat/i, Scale],
+  [/digital|technolog|speed|online|convenien/i, Zap],
+  [/end-to-end|support|assist|partner|guidance|hand/i, Handshake],
+  [/custom|tailor|personal|bespoke/i, SlidersHorizontal],
+  [/secur|protect|safeguard|risk|complian/i, ShieldCheck],
+  [/document|draft|agreement|deed|memorand|policy/i, FileText],
+  [/review|diligence|assess|audit|examin|evaluat/i, Search],
+  [/regist|authority|registrar|licen|filing|sebi|irdai|incorporat/i, Landmark],
+  [/financ|account|tax|valuation|fund|capital|loan|invest|budget/i, BarChart3],
+  [/global|cross|foreign|international|india entry|ifsc/i, Globe2],
+  [/team|people|employee|shareholder|investor|member/i, Users],
+  [/time|timeline|clarity|tomorrow|today|lifecycle/i, Clock],
+]
+const FALLBACK_ICONS: LucideIcon[] = [ClipboardCheck, FileText, ShieldCheck, Scale, Landmark, BarChart3, Handshake, Search, Sparkles, Users, Globe2, Clock, Zap, SlidersHorizontal]
+/** A fitting icon per card; one icon is never used twice in the same list. */
+function pickIcons(titles: string[]): LucideIcon[] {
+  const used = new Set<LucideIcon>()
+  return titles.map((t, i) => {
+    const hit = CARD_ICONS.map(([re, ic]) => (re.test(t) ? ic : null)).filter((x): x is LucideIcon => !!x).find((x) => !used.has(x))
+    const pick = hit ?? FALLBACK_ICONS.find((x, k) => !used.has(x) && k >= i % 4) ?? FALLBACK_ICONS.find((x) => !used.has(x)) ?? FALLBACK_ICONS[i % FALLBACK_ICONS.length]
+    used.add(pick)
+    return pick
+  })
+}
+
+function VISUAL(group: string, top: string, category: string) {
+  const g = `${group} ${top} ${category}`
+  if (/aif|fund/i.test(g)) return "aif"
+  if (/sebi|irda/i.test(g)) return "regulatory"
+  if (/foreign|india entry|gift|cross/i.test(g)) return "global"
+  if (/finance advisory/i.test(g)) return "advisory"
+  if (/startup/i.test(top) || /startup/i.test(g)) return "startup"
+  if (/corporate laws|secretarial/i.test(g)) return "corporate"
+  if (/finance|account|cfo|tax/i.test(g)) return "finance"
+  return "legal"
+}
+
+function Cards({ items, cols = 3 }: { items: { title: string; text: string }[]; cols?: 2 | 3 }) {
+  const icons = pickIcons(items.map((x) => x.title))
+  return (
+    <ul className={`mt-5 grid gap-3.5 max-[640px]:grid-cols-1 ${cols === 2 ? "grid-cols-2" : "grid-cols-3 max-[1180px]:grid-cols-2"}`}>
+      {items.map((it, i) => {
+        const Icon = icons[i]
+        return (
+          <li key={it.title + i} className="group rounded-xl border border-line bg-[#fbfdff] p-4 transition hover:-translate-y-0.5 hover:border-brand/30 hover:bg-white hover:shadow-[0_14px_30px_rgba(2,72,169,.1)]">
+            <span className="grid size-10 place-items-center rounded-lg bg-[#eaf2ff] text-brand transition group-hover:bg-brand group-hover:text-white"><Icon size={20} strokeWidth={1.8} /></span>
+            <b className="mt-3 block text-[15px] leading-snug text-ink [overflow-wrap:anywhere]">{it.title}</b>
+            {it.text && <p className="mt-1.5 text-[13.5px] leading-[1.65] text-mute">{it.text}</p>}
+          </li>
+        )
+      })}
+    </ul>
+  )
+}
+
+function Flow({ items }: { items: { title: string; text: string }[] }) {
+  return (
+    <ol className="mt-6 grid gap-4 max-[1024px]:grid-cols-2 max-[640px]:grid-cols-1 min-[1025px]:[grid-template-columns:repeat(var(--n),minmax(0,1fr))]" style={{ "--n": Math.min(items.length, 5) } as React.CSSProperties}>
+      {items.map((it, i) => (
+        <li key={it.title + i} className="relative rounded-xl border border-line bg-white p-4 pt-6 shadow-[0_8px_22px_rgba(11,27,77,.05)]">
+          <span className="absolute -top-3.5 left-4 grid size-8 place-items-center rounded-full bg-[linear-gradient(135deg,#0248A9,#FD6902)] text-[13px] font-black text-white shadow-[0_6px_14px_rgba(2,72,169,.3)]">{i + 1}</span>
+          {i < items.length - 1 && <span aria-hidden="true" className="absolute top-0 -right-[17px] z-10 hidden h-px w-[17px] translate-y-0 bg-transparent min-[1025px]:block" />}
+          <b className="block text-[14.5px] leading-snug text-ink [overflow-wrap:anywhere]">{it.title}</b>
+          {it.text && <p className="mt-1.5 text-[13px] leading-[1.6] text-mute">{it.text}</p>}
+        </li>
+      ))}
+    </ol>
+  )
+}
+
 function Cta({ title }: { title: string }) {
   return (
     <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-lg bg-[linear-gradient(135deg,#0b1b4d,#16327f)] px-6 py-6 text-white max-[560px]:px-5">
@@ -107,10 +180,17 @@ function Cta({ title }: { title: string }) {
 export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const s = await load((await params).slug)
   if (!s) notFound()
-  const sections = readSections(s.sections).filter((x) => x.html.trim() !== "")
+  const all = readSections(s.sections).filter((x) => x.html.trim() !== "")
+  const heroHtml = all.find((x) => x.key === "hero")?.html ?? ""
+  const ctaHtml = all.find((x) => x.key === "cta")?.html ?? ""
+  const sections = all.filter((x) => x.key !== "hero" && x.key !== "cta")
+  const heroLines = [...heroHtml.matchAll(/<p>([\s\S]*?)<\/p>/g)].map((m) => m[1])
   const faqs = readFaqs(s.faqs)
   const processHtml = sections.find((x) => x.key === "process")?.html ?? ""
   const url = `${SITE_URL}/services/${s.slug}`
+  const heroBtns = (all.find((x) => x.key === "hero")?.title ?? "").split("|").map((x) => x.trim()).filter(Boolean)
+  const ctaBtns = (all.find((x) => x.key === "cta")?.title ?? "").split("|").map((x) => x.trim()).filter(Boolean)
+  const sectionsHaveCards = sections.some((x) => x.key === "services")
 
   // Path shown above the title: Home > menu > category > service (from the admin-edited menu).
   const menu = await getMenu()
@@ -126,6 +206,8 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
       break
     }
   }
+
+  const visual = VISUAL(trail[1]?.label ?? "", trail[0]?.label ?? "", s.category)
 
   let similar: { slug: string; title: string }[] = []
   try {
@@ -201,8 +283,9 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               )}
               {s.category && <Eyebrow className="mb-0">{s.category.toUpperCase()}</Eyebrow>}
             </div>
-            <h1 className="mt-3 text-[clamp(26px,3.2vw,40px)] leading-[1.08] font-extrabold tracking-[-0.04em] [overflow-wrap:anywhere]">{s.title}</h1>
-            {s.summary && <p className="mt-3 line-clamp-2 text-[15px] leading-[1.65] text-mute">{s.summary}</p>}
+            <h1 className="mt-3 text-[clamp(26px,3.2vw,40px)] leading-[1.08] font-extrabold tracking-[-0.04em] [overflow-wrap:anywhere] text-brand">{s.title}</h1>
+            {heroLines[0] && <p className="mt-3 text-[clamp(17px,1.7vw,21px)] leading-snug font-extrabold tracking-[-0.02em] text-sun [overflow-wrap:anywhere]" dangerouslySetInnerHTML={{ __html: heroLines[0] }} />}
+            {s.summary && <p className="mt-3 line-clamp-4 text-[15px] leading-[1.65] text-mute max-[560px]:line-clamp-6">{s.summary}</p>}
             {s.highlights.length > 0 && (
               <ul className="mt-5 grid grid-cols-2 gap-2.5 max-[640px]:grid-cols-1">
                 {s.highlights.slice(0, 4).map((h, i) => (
@@ -216,7 +299,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
             )}
             <div className="mt-5 flex flex-wrap gap-3 max-[560px]:grid max-[560px]:grid-cols-1">
               <Link href="#enquire" className={`${btnBlue} max-[560px]:w-full`}>
-                Schedule a call <ArrowRight size={16} />
+                {heroBtns[0] ?? "Schedule a call"} <ArrowRight size={16} />
               </Link>
               {processHtml && <StepsDialog title={s.title} html={processHtml} className="max-[560px]:w-full" />}
             </div>
@@ -281,17 +364,25 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                     <div className="relative mb-5 flex flex-wrap items-center gap-3 border-b border-line pb-4">
                       <span className="grid size-12 shrink-0 place-items-center rounded-lg bg-[linear-gradient(135deg,#eaf3ff,#cfe5ff)] text-brand ring-1 ring-white"><Icon size={24} /></span>
                       <h2 className="min-w-0 flex-1 text-[22px] font-extrabold tracking-[-0.03em] max-[560px]:text-[20px]">{look.title}</h2>
-                      {sec.key === "process" && <StepsDialog title={s.title} html={sec.html} className="h-10 px-4">Open as pop-up</StepsDialog>}
+                      {sec.key === "process" && <StepsDialog title={s.title} html={sec.html} className="h-10 px-4 max-[560px]:order-last max-[560px]:w-full">Open as pop-up</StepsDialog>}
                     </div>
-                    {sec.key === "overview" && s.heroImageUrl ? (
-                      <div className="grid grid-cols-[1fr_280px] items-start gap-6 max-[900px]:grid-cols-1">
+                    {sec.key === "overview" && (s.heroImageUrl || sectionsHaveCards) ? (
+                      <div className="grid grid-cols-[1fr_300px] items-start gap-6 max-[900px]:grid-cols-1">
                         <RichContent html={sec.html} className="text-[15.5px]" />
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={s.heroImageUrl} alt="" className="w-full rounded-lg border border-line object-cover" />
+                        <img src={s.heroImageUrl || `/photos/svc/${visual}.jpg`} alt="" loading="lazy" className="w-full rounded-lg border border-line object-cover" />
                       </div>
-                    ) : (
-                      <RichContent html={sec.html} className="text-[15.5px]" />
-                    )}
+                    ) : (() => {
+                      const sp = (sec.key === "services" || sec.key === "why-us" || sec.key === "process") ? splitList(sec.html, sec.key === "why-us" ? 2 : 3) : null
+                      if (!sp) return <RichContent html={sec.html} className="text-[15.5px]" />
+                      return (
+                        <>
+                          {sp.before && <RichContent html={sp.before} className="text-[15.5px]" />}
+                          {sec.key === "process" ? <Flow items={sp.items} /> : <Cards items={sp.items} cols={sec.key === "why-us" ? 2 : 3} />}
+                          {sp.after && <RichContent html={sp.after} className="mt-5 text-[15.5px]" />}
+                        </>
+                      )
+                    })()}
                     {(sec.key === "advantages" || sec.key === "documents") && i < sections.length - 1 && (
                       <Cta title={`Start ${s.title} with Aeon`} />
                     )}
@@ -320,6 +411,16 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               )}
             </div>
 
+            {ctaHtml && (
+              <section className="mt-5 overflow-hidden rounded-xl bg-[linear-gradient(135deg,#0b1b4d,#0248A9)] p-7 text-white max-[560px]:p-5">
+                <RichContent html={ctaHtml} className="text-[15px] text-white/85 [&_h1]:text-white [&_h2]:text-white [&_h3]:mt-0 [&_h3]:text-[clamp(22px,2.4vw,30px)] [&_h3]:leading-tight [&_h3]:!text-white [&_h4]:!text-white [&_p:nth-of-type(1)]:text-[18px] [&_p:nth-of-type(1)]:font-bold [&_p:nth-of-type(1)]:!text-sun [&_strong]:!text-white [&_p]:text-white/85" />
+                <div className="mt-5 flex flex-wrap gap-3 max-[560px]:grid">
+                  <Link href="#enquire" className={btnYellow}>{ctaBtns[0] ?? "Request a call back"} <ArrowRight size={15} /></Link>
+                  <Link href="#enquire" className="inline-flex h-12 items-center justify-center gap-2 rounded-lg border border-white/40 px-5 text-[14px] font-bold hover:bg-white/10">{ctaBtns[1] ?? "Talk to our experts"}</Link>
+                </div>
+              </section>
+            )}
+
             {similar.length > 0 && (
               <section className="mt-10" aria-labelledby="similar">
                 <h2 id="similar" className="text-[20px] font-extrabold tracking-[-0.02em]">Other services in {s.category}</h2>
@@ -336,6 +437,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
               </section>
             )}
 
+            {!ctaHtml && (
             <div className="mt-10 grid grid-cols-[1fr_auto] items-center gap-4 rounded-lg bg-[linear-gradient(135deg,#0b1b4d,#16327f)] p-6 text-white max-[700px]:grid-cols-1">
               <div>
                 <b className="block text-[19px] tracking-[-0.02em]">Still have questions about {s.title}?</b>
@@ -346,9 +448,10 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 <Link href="mailto:support@aeoncorporate.com" className="inline-flex h-12 items-center gap-2 rounded-lg border border-white/30 px-5 text-[14px] font-bold hover:bg-white/10"><Mail size={16} /> Email us</Link>
               </div>
             </div>
+            )}
 
             <p className="mt-6 rounded-lg bg-pale p-4 text-[12px] leading-[1.7] text-mute">
-              Aeon Corporate is a private advisory and facilitation service and is not affiliated with any government body. This page is general information, not legal advice. Fees, timelines and outcomes depend on the case and on the relevant authorities.
+              Aeon Corporate is a private advisory and facilitation service and is not affiliated with any government body or regulator.{/^(SEBI|IRDA|AIF)/i.test(s.category) ? " We provide registration and compliance assistance and are not a SEBI-registered Investment Adviser or an IRDAI-registered intermediary." : ""} This page is general information, not legal advice. Fees, timelines and outcomes depend on the case and on the relevant authorities.
             </p>
           </div>
         </div>
